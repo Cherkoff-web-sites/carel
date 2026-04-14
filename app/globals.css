@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+html {
+  background-color: #fdfbf6;
+}
+
+* {
+  max-width: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fdfbf6;
+  color: #232326;
+}
+
+h1 {
+  font-family: var(--font-pt-sans-caption), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
