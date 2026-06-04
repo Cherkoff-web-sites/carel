@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { lockInternalNavOnHome } from '@/lib/siteFlags'
+import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
+import HeaderCartButton from '@/components/Header/HeaderCartButton'
 import Navigation from './Navigation'
 import MobileMenu from './MobileMenu'
 
@@ -34,7 +36,9 @@ export default function Header() {
             <Navigation />
 
             {/* Правая часть - Контакты и бургер */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <HeaderCartButton className="shrink-0" />
+
               <div className="hidden lg:flex flex-col items-end gap-2 text-xs text-white/95">
                 <a href="tel:+79295385634" className="inline-flex items-center gap-2 hover:text-white">
                   <Image src="/images/header/icon-phone.svg" alt="" width={16} height={16} />
@@ -54,18 +58,9 @@ export default function Header() {
                       <span>Контакты</span>
                     </Link>
                   )}
-                  {navLocked ? (
-                    <span className="inline-flex cursor-default items-center rounded-xl bg-white px-7 py-2.5 text-[13px] font-semibold text-[#E62614] opacity-90">
-                      Перезвоните мне
-                    </span>
-                  ) : (
-                    <a
-                      href="/contact"
-                      className="inline-flex items-center rounded-xl bg-white px-7 py-2.5 text-[13px] font-semibold text-[#E62614] hover:bg-white/90"
-                    >
-                      Перезвоните мне
-                    </a>
-                  )}
+                  <ContactModalTrigger className="inline-flex items-center rounded-[5px] bg-white px-7 py-2.5 text-[13px] font-semibold text-[#E62614] transition-colors hover:bg-white/90">
+                    Перезвоните мне
+                  </ContactModalTrigger>
                 </div>
               </div>
 
@@ -73,7 +68,8 @@ export default function Header() {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden flex items-center justify-center w-10 h-10 text-white hover:text-white/80 transition-colors"
-                aria-label="Открыть меню"
+                aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+                aria-expanded={isMobileMenuOpen}
               >
                 <svg
                   width="48"

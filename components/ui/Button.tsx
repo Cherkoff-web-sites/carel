@@ -13,7 +13,7 @@ export default function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-medium rounded-lg transition-colors focus:outline-none'
+  const baseStyles = 'font-medium rounded-[5px] transition-colors focus:outline-none'
   
   const variants = {
     primary: 'bg-[#E62614] text-white hover:bg-[#E62614]/90',

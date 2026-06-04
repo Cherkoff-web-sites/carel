@@ -19,7 +19,7 @@ export default async function ContactPage() {
       {/* Секция "КОНТАКТЫ" */}
       <section className="py-8 sm:py-12 lg:py-16">
         <div className="container">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-[#E62614]">
+          <h1 className="mb-8 text-3xl text-[#E62614] sm:mb-12 sm:text-4xl lg:text-5xl">
             КОНТАКТЫ
           </h1>
 

@@ -30,12 +30,137 @@ body {
   color: #232326;
 }
 
-h1 {
+h1,
+h2 {
   font-family: var(--font-pt-sans-caption), sans-serif;
+  font-weight: 400;
+}
+
+/* Линии у заголовков: до 140px, сжимаются при нехватке места */
+.heading-line {
+  height: 1px;
+  flex: 1 1 0%;
+  min-width: 2rem;
+  max-width: 140px;
+  background-color: #e62614;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Фон сайдбара услуг: от левого края экрана до колонки навбара, на всю высоту блока */
+.services-sidebar::before,
+.catalog-sidebar::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: calc(50% - 50vw);
+  background-color: rgb(232 230 225 / 0.6);
+}
+
+/* Каталог: Swiper с миниатюрами */
+.catalog-image-slider__main .swiper-slide {
+  height: auto;
+}
+
+.catalog-image-slider__thumbs .swiper-slide-thumb-active .catalog-image-slider__thumb {
+  border-color: #e62614;
+  opacity: 1;
+}
+
+.catalog-image-slider__thumbs .catalog-image-slider__thumb {
+  opacity: 0.7;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+@keyframes cart-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart-toast-enter {
+  animation: cart-toast-in 0.25s ease-out;
+}
+
+.catalog-image-slider__thumbs .swiper-slide-thumb-active .catalog-image-slider__thumb,
+.catalog-image-slider__thumbs .catalog-image-slider__thumb:hover {
+  opacity: 1;
+}
+
+.catalog-image-slider__nav {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  border: 1px solid rgb(35 35 38 / 0.15);
+  border-radius: 5px;
+  background: #fdfbf6;
+  color: rgb(35 35 38 / 0.6);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.catalog-image-slider__nav::after {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.catalog-image-slider__nav:hover {
+  border-color: rgb(35 35 38 / 0.3);
+  color: #232326;
+}
+
+.catalog-image-slider__nav.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Слайдер комплектующих в карточке товара */
+.components-slider__nav {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  z-index: 2;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0;
+  border: 1px solid rgb(35 35 38 / 0.15);
+  border-radius: 9999px;
+  background: #fdfbf6;
+  color: rgb(35 35 38 / 0.6);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.components-slider__nav::after {
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.components-slider__nav:hover {
+  border-color: rgb(35 35 38 / 0.3);
+  color: #232326;
+}
+
+.components-slider__nav.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 

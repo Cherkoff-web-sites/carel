@@ -26,7 +26,7 @@ export default async function AboutPage() {
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#E62614]/20 to-transparent pointer-events-none"></div>
         
         <div className="container relative z-10">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-[#E62614]">
+          <h1 className="mb-8 text-3xl text-[#E62614] sm:mb-12 sm:text-4xl lg:text-5xl">
             О КОМПАНИИ
           </h1>
 

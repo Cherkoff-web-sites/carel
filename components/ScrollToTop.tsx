@@ -4,7 +4,7 @@ export default function ScrollToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-6 right-6 w-12 h-12 bg-[#E62614] rounded-full flex items-center justify-center text-white hover:bg-[#E62614]/90 transition-colors shadow-lg z-50"
+      className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-[5px] bg-[#E62614] text-white shadow-lg transition-colors hover:bg-[#E62614]/90"
       aria-label="Наверх"
     >
       <svg

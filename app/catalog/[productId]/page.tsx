@@ -65,7 +65,7 @@ export default async function ProductPage({ params }: { params: { productId: str
           </nav>
 
           {/* Заголовок */}
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#E62614]">
+          <h1 className="text-3xl text-[#E62614] sm:text-4xl lg:text-5xl">
             {product.name}
           </h1>
         </div>

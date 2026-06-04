@@ -136,7 +136,7 @@ export default function AdminPage() {
     <div className="min-h-screen bg-[#3B363C] text-white">
       <div className="container py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-[#E62614]">Административная панель</h1>
+          <h1 className="text-3xl text-[#E62614]">Административная панель</h1>
           <Link href="/">
             <Button variant="outline" className="border-white text-white hover:bg-white/10">
               ← На главную
@@ -191,7 +191,7 @@ export default function AdminPage() {
           <div className="space-y-8">
             {/* О компании */}
             <div className="bg-[#2A2529] rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-4 text-[#E62614]">О компании</h2>
+              <h2 className="mb-4 text-2xl text-[#E62614]">О компании</h2>
               {content.about?.paragraphs.map((paragraph, index) => (
                 <div key={index} className="mb-4">
                   <label className="block text-sm text-white/80 mb-2">
@@ -216,7 +216,7 @@ export default function AdminPage() {
 
             {/* Контакты */}
             <div className="bg-[#2A2529] rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-4 text-[#E62614]">Контакты</h2>
+              <h2 className="mb-4 text-2xl text-[#E62614]">Контакты</h2>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm text-white/80 mb-2">Адрес:</label>
@@ -273,7 +273,7 @@ export default function AdminPage() {
         {activeTab === 'products' && (
           <div className="space-y-6">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-[#E62614]">Товары каталога</h2>
+              <h2 className="text-2xl text-[#E62614]">Товары каталога</h2>
               <Button onClick={() => {
                 const newProduct: Product = {
                   id: `new-${Date.now()}`,

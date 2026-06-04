@@ -3,6 +3,8 @@ import { PT_Sans, PT_Sans_Caption } from 'next/font/google'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import { CartProvider } from '@/contexts/CartContext'
+import CartToast from '@/components/cart/CartToast'
+import { ContactModalProvider } from '@/contexts/ContactModalContext'
 import './globals.css'
 
 const ptSans = PT_Sans({
@@ -32,11 +34,14 @@ export default function RootLayout({
     <html lang="ru" className={ptSansCaption.variable}>
       <body className={ptSans.className}>
         <CartProvider>
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
+          <ContactModalProvider>
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex flex-grow flex-col">{children}</main>
+              <Footer />
+            </div>
+            <CartToast />
+          </ContactModalProvider>
         </CartProvider>
       </body>
     </html>

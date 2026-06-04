@@ -1,152 +1,200 @@
 'use client'
 
-import { useCart } from '@/contexts/CartContext'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Button from '@/components/ui/Button'
+import { useCart } from '@/contexts/CartContext'
+import { HUMISTEAM_PRODUCT_IMAGE } from '@/lib/humisteamData'
 
-export default function CartPage() {
-  const { items, removeItem, updateQuantity, getTotalPrice, getTotalItems } = useCart()
+function QuantityControl({
+  quantity,
+  onIncrease,
+  onDecrease,
+}: {
+  quantity: number
+  onIncrease: () => void
+  onDecrease: () => void
+}) {
+  return (
+    <div className="inline-flex items-center rounded-full border border-[#232326]/15 bg-[#e8e6e1]/80 px-1 py-0.5">
+      <button
+        type="button"
+        onClick={onIncrease}
+        className="flex h-8 w-8 items-center justify-center text-lg text-[#232326]/70 transition-colors hover:text-[#232326]"
+        aria-label="Увеличить количество"
+      >
+        +
+      </button>
+      <span className="min-w-[1.5rem] text-center text-base font-medium text-[#232326]">
+        {quantity}
+      </span>
+      <button
+        type="button"
+        onClick={onDecrease}
+        className="flex h-8 w-8 items-center justify-center text-lg text-[#232326]/70 transition-colors hover:text-[#232326]"
+        aria-label="Уменьшить количество"
+      >
+        −
+      </button>
+    </div>
+  )
+}
 
-  const totalPrice = getTotalPrice()
-  const totalItems = getTotalItems()
+function CartLineItem({
+  image,
+  name,
+  cylinderType,
+  dimensions,
+  performance,
+  quantity,
+  onIncrease,
+  onDecrease,
+}: {
+  image: string
+  name: string
+  cylinderType?: string
+  dimensions?: string
+  performance?: string
+  quantity: number
+  onIncrease: () => void
+  onDecrease: () => void
+}) {
+  return (
+    <article className="relative rounded-[5px] border border-[#232326]/12 bg-white p-5 sm:p-6">
+      <div className="absolute right-5 top-5 sm:right-6 sm:top-6">
+        <QuantityControl
+          quantity={quantity}
+          onIncrease={onIncrease}
+          onDecrease={onDecrease}
+        />
+      </div>
+
+      <div className="flex gap-5 pr-28 sm:gap-6 sm:pr-32">
+        <div className="relative h-[140px] w-[100px] shrink-0 sm:h-[160px] sm:w-[110px]">
+          <Image
+            src={image || HUMISTEAM_PRODUCT_IMAGE}
+            alt=""
+            fill
+            className="object-contain object-left"
+            sizes="110px"
+          />
+        </div>
+
+        <div className="min-w-0 flex-1 pt-1">
+          <h2 className="text-lg font-bold leading-snug text-[#232326] sm:text-xl">{name}</h2>
+          <ul className="mt-3 space-y-1.5 text-sm text-[#232326]/65 sm:text-base">
+            {cylinderType ? (
+              <li>
+                <span className="text-[#232326]/50">Тип цилиндра:</span> {cylinderType}
+              </li>
+            ) : null}
+            {dimensions ? (
+              <li>
+                <span className="text-[#232326]/50">Размеры (ВхШхГ):</span> {dimensions}
+              </li>
+            ) : null}
+            {performance ? (
+              <li>
+                <span className="text-[#232326]/50">Производительность:</span> {performance}
+              </li>
+            ) : null}
+          </ul>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function CartSummary({ disabled }: { disabled: boolean }) {
+  const [phone, setPhone] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    if (!phone.trim()) return
+    setSubmitted(true)
+  }
 
   return (
-    <div className="min-h-screen">
-      {/* Секция "ВАША КОРЗИНА" */}
-      <section className="py-8 sm:py-12 lg:py-16">
-        <div className="container">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 text-[#E62614]">
-            ВАША КОРЗИНА
-          </h1>
+    <aside className="rounded-[5px] border border-[#232326]/12 bg-white p-6 lg:sticky lg:top-[106px]">
+      <p className="text-lg font-bold text-[#232326] sm:text-xl">Цена: по запросу</p>
 
-          {items.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-[#232326]/75 text-lg mb-6">Ваша корзина пуста</p>
-              <Link href="/catalog">
-                <Button>Перейти в каталог</Button>
-              </Link>
+      {submitted ? (
+        <p className="mt-6 text-sm leading-relaxed text-[#232326]/75 sm:text-base">
+          Спасибо! Мы свяжемся с вами в ближайшее время.
+        </p>
+      ) : (
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <input
+            type="tel"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Телефон"
+            disabled={disabled}
+            required
+            className="w-full rounded-[5px] border-0 bg-[#e8e6e1] px-4 py-3.5 text-base text-[#232326] placeholder:text-[#232326]/45 focus:outline-none focus:ring-2 focus:ring-[#E62614]/30 disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={disabled}
+            className="w-full rounded-[5px] bg-[#E62614] px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Отправить запрос
+          </button>
+        </form>
+      )}
+    </aside>
+  )
+}
+
+export default function CartPage() {
+  const { items, updateQuantity } = useCart()
+  const hasItems = items.length > 0
+
+  return (
+    <div className="min-h-screen bg-[#fdfbf6] pt-[82px]">
+      <div className="container py-8 sm:py-10 lg:py-12">
+        <Link
+          href="/catalog"
+          className="inline-flex items-center gap-1 text-sm text-[#232326]/55 transition-colors hover:text-[#232326] sm:text-base"
+        >
+          <span aria-hidden>‹</span> Вернуться к покупкам
+        </Link>
+
+        <h1 className="mt-4 text-3xl font-bold text-[#232326] sm:mt-5 sm:text-4xl lg:text-[42px]">
+          Корзина
+        </h1>
+
+        {!hasItems ? (
+          <p className="mt-10 text-base text-[#232326]/60 sm:text-lg">
+            Корзина пуста.{' '}
+            <Link href="/catalog" className="text-[#E62614] hover:underline">
+              Перейти в каталог
+            </Link>
+          </p>
+        ) : (
+          <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] lg:gap-10 xl:gap-14">
+            <div className="space-y-4 sm:space-y-5">
+              {items.map((item) => (
+                <CartLineItem
+                  key={item.id}
+                  image={item.image}
+                  name={item.name}
+                  cylinderType={item.cylinderType}
+                  dimensions={item.dimensions}
+                  performance={item.performance}
+                  quantity={item.quantity}
+                  onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
+                  onDecrease={() => updateQuantity(item.id, item.quantity - 1)}
+                />
+              ))}
             </div>
-          ) : (
-            <>
-              {/* Сводка */}
-              <div className="mb-6 sm:mb-8">
-                <p className="text-[#232326] text-base sm:text-lg">
-                  В вашей корзине {totalItems} {totalItems === 1 ? 'товар' : totalItems < 5 ? 'товара' : 'товаров'} на сумму{' '}
-                  <span className="text-[#E62614] font-semibold">
-                    {totalPrice.toLocaleString('ru-RU')} руб.
-                  </span>
-                </p>
-              </div>
 
-              {/* Список товаров */}
-              <div className="space-y-4 sm:space-y-6">
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="bg-[#2A2529] border-2 border-[#E62614] rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center"
-                  >
-                    {/* Изображение товара */}
-                    <Link href={item.href} className="flex-shrink-0">
-                      <div className="relative w-24 h-24 sm:w-32 sm:h-32 bg-[#3B363C] rounded-lg overflow-hidden">
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          fill
-                          className="object-contain p-2"
-                          sizes="(max-width: 640px) 96px, 128px"
-                        />
-                      </div>
-                    </Link>
-
-                    {/* Информация о товаре */}
-                    <div className="flex-1 min-w-0">
-                      <Link href={item.href}>
-                        <h3 className="text-white font-semibold text-base sm:text-lg mb-2 hover:text-[#E62614] transition-colors">
-                          {item.name} {item.model}
-                        </h3>
-                      </Link>
-
-                      {/* Количество */}
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-white/80 text-sm sm:text-base">Количество:</span>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-8 h-8 rounded-full bg-[#E62614] text-white flex items-center justify-center hover:bg-[#E62614]/90 transition-colors"
-                            aria-label="Уменьшить количество"
-                          >
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path d="M4 8h8" />
-                            </svg>
-                          </button>
-                          <span className="text-white font-semibold w-8 text-center">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-8 h-8 rounded-full bg-[#E62614] text-white flex items-center justify-center hover:bg-[#E62614]/90 transition-colors"
-                            aria-label="Увеличить количество"
-                          >
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path d="M8 4v8M4 8h8" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Сумма */}
-                      <div className="flex items-center gap-2">
-                        <span className="text-white/80 text-sm sm:text-base">Сумма:</span>
-                        <span className="text-white font-semibold text-base sm:text-lg">
-                          {(item.price * item.quantity).toLocaleString('ru-RU')} руб.
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Кнопка удаления */}
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="flex-shrink-0 text-white/70 hover:text-[#E62614] transition-colors p-2"
-                      aria-label="Удалить товар"
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                        <line x1="10" y1="11" x2="10" y2="17" />
-                        <line x1="14" y1="11" x2="14" y2="17" />
-                      </svg>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      </section>
-
+            <CartSummary disabled={!hasItems} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

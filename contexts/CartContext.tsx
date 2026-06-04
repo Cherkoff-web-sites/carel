@@ -1,11 +1,18 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react'
+
+const CART_TOAST_MESSAGE = 'Товар добавлен в корзину'
+const CART_TOAST_DURATION_MS = 2800
 
 export interface CartItem {
   id: string
   name: string
-  model: string
+  model?: string
+  sku?: string
+  cylinderType?: string
+  dimensions?: string
+  performance?: string
   price: number
   quantity: number
   image: string
@@ -14,7 +21,8 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[]
-  addItem: (item: Omit<CartItem, 'quantity'>) => void
+  toastMessage: string | null
+  addItem: (item: Omit<CartItem, 'quantity'>, options?: { silent?: boolean }) => void
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
@@ -26,6 +34,27 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [toastMessage, setToastMessage] = useState<string | null>(null)
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const showCartToast = () => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current)
+    }
+    setToastMessage(CART_TOAST_MESSAGE)
+    toastTimerRef.current = setTimeout(() => {
+      setToastMessage(null)
+      toastTimerRef.current = null
+    }, CART_TOAST_DURATION_MS)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current)
+      }
+    }
+  }, [])
 
   // Загружаем корзину из localStorage при монтировании
   useEffect(() => {
@@ -44,7 +73,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('cart', JSON.stringify(items))
   }, [items])
 
-  const addItem = (item: Omit<CartItem, 'quantity'>) => {
+  const addItem = (item: Omit<CartItem, 'quantity'>, options?: { silent?: boolean }) => {
     setItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id)
       if (existingItem) {
@@ -54,6 +83,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prevItems, { ...item, quantity: 1 }]
     })
+    if (!options?.silent) {
+      showCartToast()
+    }
   }
 
   const removeItem = (id: string) => {
@@ -86,6 +118,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     <CartContext.Provider
       value={{
         items,
+        toastMessage,
         addItem,
         removeItem,
         updateQuantity,

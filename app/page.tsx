@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-// import Link from 'next/link' // временно: ссылки с главной отключены
+import Link from 'next/link'
 import Image from 'next/image'
-import Button from '@/components/ui/Button'
-import RealizedProjectsSlider from '@/components/home/RealizedProjectsSlider'
+import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
+import { HOME_SERVICES } from '@/lib/servicesData'
 
 // SSG - статическая генерация для SEO
 export const metadata: Metadata = {
@@ -22,25 +22,29 @@ export default function HomePage() {
   } as const
 
   const container1100 = 'mx-auto w-full max-w-[1100px] px-4'
+  const customerChoiceBgImage = '/images/customer-choice/bg.png'
 
   const customerChoiceProducts = [
     {
-      id: 'heatrsteam',
+      id: 'heatersteam',
       title: 'heatrSteam',
       subtitle: 'увлажнители с электронагревателем',
       image: '/images/customer-choice/heatrsteam.png',
+      href: '/catalog?id=heatersteam',
     },
     {
       id: 'humidisk',
       title: 'humiDisk',
       subtitle: 'дисковые увлажнители',
       image: '/images/customer-choice/humidisk.png',
+      href: '/catalog?id=humidisk',
     },
     {
       id: 'humisteam',
       title: 'humiSteam',
       subtitle: 'увлажнители с погружными электродами',
       image: '/images/customer-choice/humisteam.png',
+      href: '/catalog?id=humisteam',
     },
   ] as const
 
@@ -49,33 +53,13 @@ export default function HomePage() {
       id: 'components',
       title: 'Комплектующие',
       image: '/images/parts-accessories/components.png',
+      href: '/components',
     },
     {
       id: 'spare-parts',
       title: 'Запчасти',
       image: '/images/parts-accessories/spare-parts.png',
-    },
-  ] as const
-
-  const realizedProjects = [
-    {
-      id: 'skolkovo',
-      title: 'Школа управления Сколково',
-      subtitle: 'Монтаж увлажнителя humiSteam на 65кг/ч',
-      image: '/images/realized-projects/skolkovo.png',
-    },
-    {
-      id: 'khilkov',
-      title: 'Квартира на Хилков переулке',
-      subtitle: 'Монтаж 2× UR006',
-      image: '/images/realized-projects/khilkov.png',
-    },
-    {
-      id: 'ooo-art-courier',
-      title: 'ООО АРТ - Курьер Склад хранения произведений искусства',
-      subtitle:
-        'Монтаж 4-х увлажнителей humiSteam X-plus на 8кг/ч с вентиляторными парораспределителями',
-      image: '/images/realized-projects/ooo-art-courier.png',
+      href: '/components',
     },
   ] as const
 
@@ -106,34 +90,21 @@ export default function HomePage() {
       >
         <div className="container">
           <div className="max-w-[770px] relative z-10">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold mb-6 leading-[1.08] uppercase tracking-[0.01em]">
+            <h1 className="mb-6 text-4xl uppercase leading-[1.08] tracking-[0.01em] sm:text-5xl lg:text-6xl">
               <span className="text-white">Профессиональный</span>
               <br />
               <span className="text-white">сервис увлажнителей</span>
               <br />
               <span className="text-[#E62614]">Carel</span>
             </h1>
-            <p className="text-base text-white/85 mb-8 leading-relaxed">
+            <p className="mb-8 max-w-[645px] text-base leading-relaxed text-white/85">
               Наши специалисты не просто монтируют и обслуживают системы - они создают
               атмосферу, в которой ваше оборудование, люди и процессы работают в идеальной гармонии.
             </p>
             <div className="flex">
-              {/* временно: переходы с главной отключены
-              <a href="/contact">
-                <Button
-                  size="md"
-                  className="bg-[#E62614] text-white rounded-sm px-8 py-3 hover:bg-[#E62614]/90"
-                >
-                  Бесплатная консультация
-                </Button>
-              </a>
-              */}
-              <Button
-                size="md"
-                className="bg-[#E62614] text-white rounded-sm px-8 py-3 hover:bg-[#E62614]/90"
-              >
+              <ContactModalTrigger className="rounded-[5px] bg-[#E62614] px-8 py-3 text-base font-medium text-white transition-colors hover:bg-[#E62614]/90">
                 Бесплатная консультация
-              </Button>
+              </ContactModalTrigger>
             </div>
           </div>
 
@@ -182,7 +153,9 @@ export default function HomePage() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-base font-bold text-white sm:text-lg">{item.title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-white/85 sm:text-base">{item.text}</p>
+                  <p className="mt-1 max-w-[230px] text-sm leading-relaxed text-white/85 sm:text-base">
+                    {item.text}
+                  </p>
                 </div>
               </li>
             ))}
@@ -193,157 +166,144 @@ export default function HomePage() {
       {/* Наши услуги — картинки: public/images/home-services/ (см. массив homeServicesBlock) */}
       <section className="bg-[#fdfbf6] py-12 sm:py-16 lg:py-20">
         <div className="container">
-          <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-            <div className="flex min-w-0 flex-1 items-center gap-4 lg:justify-center">
-              <span className="h-px min-w-[2rem] flex-1 bg-[#E62614] sm:min-w-[3rem]" aria-hidden />
-              <h2 className="shrink-0 text-center text-2xl font-bold text-[#232326] sm:text-3xl lg:text-4xl">
+          <div className="relative mb-10 flex w-full items-center sm:mb-12">
+            <span
+              className="invisible shrink-0 rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold"
+              aria-hidden
+            >
+              Смотреть все
+            </span>
+            <div className="pointer-events-none absolute inset-x-0 flex items-center justify-center gap-4">
+              <span className="heading-line" aria-hidden />
+              <h2 className="shrink-0 text-center text-2xl text-[#232326] sm:text-3xl lg:text-4xl">
                 Наши услуги
               </h2>
-              <span className="h-px min-w-[2rem] flex-1 bg-[#E62614] sm:min-w-[3rem]" aria-hidden />
+              <span className="heading-line" aria-hidden />
             </div>
-            {/* временно: переходы с главной отключены
             <Link
-              href="/services"
-              className="shrink-0 self-center rounded-md border border-[#232326] bg-white px-5 py-2.5 text-sm font-medium text-[#232326] transition-colors hover:bg-[#232326]/5 lg:self-auto"
+              href="/services/maintenance"
+              className="relative z-10 ml-auto shrink-0 rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5"
             >
               Смотреть все
             </Link>
-            */}
           </div>
 
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-            {[
-              {
-                id: 'diagnostics',
-                title: 'Диагностика системы увлажнения',
-                image: '/images/home-services/diagnostics.png',
-              },
-              {
-                id: 'installation',
-                title: 'Монтаж',
-                image: '/images/home-services/installation.png',
-              },
-              {
-                id: 'pnr',
-                title: 'ПНР',
-                image: '/images/home-services/pnr.png',
-              },
-              {
-                id: 'maintenance',
-                title: 'Техническое обслуживание',
-                image: '/images/home-services/maintenance.png',
-              },
-            ].map((service) => (
+            {(
+              [
+                { slug: 'diagnostics', image: '/images/home-services/diagnostics.png' },
+                { slug: 'installation', image: '/images/home-services/installation.png' },
+                { slug: 'pnr', image: '/images/home-services/pnr.png' },
+                { slug: 'maintenance', image: '/images/home-services/maintenance.png' },
+              ] as const
+            ).map((card) => {
+              const service = HOME_SERVICES.find((s) => s.slug === card.slug)!
+              return (
               <li
-                key={service.id}
+                key={card.slug}
                 className="group flex flex-col overflow-hidden rounded-lg border border-[#232326]/15 bg-white shadow-sm transition-shadow hover:shadow-md"
               >
-                <div className="relative aspect-[4/3] w-full bg-[#e8e6e1]">
+                <Link
+                  href={`/services/${card.slug}`}
+                  className="relative aspect-[375/211] w-full bg-[#e8e6e1]"
+                >
                   <Image
-                    src={service.image}
-                    alt=""
+                    src={card.image}
+                    alt={service.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
-                </div>
-                <div className="flex min-h-[200px] flex-1 flex-col justify-between gap-6 bg-[#232326] p-6 transition-colors duration-300 group-hover:bg-[#E62614] sm:min-h-[220px]">
-                  <h3 className="text-lg font-bold uppercase leading-snug tracking-wide text-white sm:text-xl">
-                    {service.title}
-                  </h3>
-                  <button
-                    type="button"
-                    className="w-full rounded-md border border-transparent bg-[#E62614] py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-[#E62614]/90 group-hover:border-[#232326] group-hover:bg-white group-hover:text-[#232326] group-hover:hover:bg-[#fdfbf6]"
-                  >
+                </Link>
+                <div className="flex min-h-[180px] flex-1 flex-col items-center justify-between gap-6 bg-[#232326] p-6 text-center transition-colors duration-300 group-hover:bg-[#E62614]">
+                  <Link href={`/services/${card.slug}`}>
+                    <h3 className="text-lg font-bold uppercase leading-snug tracking-wide text-white sm:text-xl">
+                      {service.title}
+                    </h3>
+                  </Link>
+                  <ContactModalTrigger className="w-fit rounded-[5px] border border-transparent bg-[#E62614] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#E62614]/90 group-hover:border-[#232326] group-hover:bg-white group-hover:text-[#232326] group-hover:hover:bg-[#fdfbf6]">
                     Заказать услугу
-                  </button>
+                  </ContactModalTrigger>
                 </div>
               </li>
-            ))}
+              )
+            })}
           </ul>
 
-          <div className="mx-auto mt-12 max-w-3xl sm:mt-14 lg:mt-16">
-            <div className="flex items-start gap-4 sm:gap-5">
-              <span
-                className="mt-1 h-14 w-px shrink-0 bg-[#232326]/20 sm:h-16"
-                aria-hidden
-              />
-              <p className="min-w-0 flex-1 text-left text-base leading-relaxed text-[#232326] sm:text-lg">
-                Требуется экспертная помощь по увлажнению? Позвоните или оставьте заявку — мы предложим
-                лучшее решение для вашего объекта
-              </p>
-            </div>
+          <div className="mx-auto mt-12 max-w-4xl sm:mt-14 lg:mt-16">
+            <p className="border-l-4 border-[#232326] px-[22px] py-[8px] text-left text-[20px] leading-relaxed text-[#232326] lg:text-[25px]">
+              Требуется экспертная помощь по увлажнению? Позвоните или оставьте заявку — мы предложим
+              лучшее решение для вашего объекта
+            </p>
             <div className="mt-8 flex justify-center sm:mt-10">
-              {/* временно: переходы с главной отключены
-              <a
-                href="/contact"
-                className="inline-flex w-full max-w-md items-center justify-center rounded-lg bg-[#E62614] px-8 py-4 text-center text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90 sm:text-lg"
-              >
+              <ContactModalTrigger className="inline-flex w-fit items-center justify-center rounded-[5px] bg-[#E62614] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90">
                 Связаться с инженером
-              </a>
-              */}
-              <span className="inline-flex w-full max-w-md cursor-default items-center justify-center rounded-lg bg-[#E62614] px-8 py-4 text-center text-base font-semibold text-white sm:text-lg">
-                Связаться с инженером
-              </span>
+              </ContactModalTrigger>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="overflow-hidden">
-        <div className="bg-[#fdfbf6] pb-8 pt-12 sm:pb-10 sm:pt-16 lg:pb-12 lg:pt-20">
+      <section>
+        <div className="bg-[#fdfbf6] pt-12 sm:pt-16 lg:pt-20">
           <div className={container1100}>
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-              <div className="flex min-w-0 flex-1 items-center gap-4 lg:justify-center">
-                <span className="h-px min-w-[2rem] flex-1 bg-[#E62614] sm:min-w-[3rem]" aria-hidden />
-                <h2 className="shrink-0 text-center text-2xl font-bold text-[#232326] sm:text-3xl lg:text-4xl">
-                  Выбор клиентов
-                </h2>
-                <span className="h-px min-w-[2rem] flex-1 bg-[#E62614] sm:min-w-[3rem]" aria-hidden />
-              </div>
-              {/* временно: переходы с главной отключены
-              <Link href="/catalog" className="shrink-0 self-center rounded-md border border-[#232326] bg-white px-5 py-2.5 text-sm font-medium text-[#232326] transition-colors hover:bg-[#232326]/5 lg:self-auto">
-                Смотреть все
-              </Link>
-              */}
-              <span className="shrink-0 cursor-default self-center rounded-md border border-[#232326] bg-white px-5 py-2.5 text-sm font-medium text-[#232326] lg:self-auto">
+            <div className="relative mb-10 flex w-full items-center sm:mb-12">
+              <span
+                className="invisible shrink-0 rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold"
+                aria-hidden
+              >
                 Смотреть все
               </span>
+              <div className="pointer-events-none absolute inset-x-0 flex items-center justify-center gap-4">
+                <span className="heading-line" aria-hidden />
+                <h2 className="shrink-0 text-center text-2xl text-[#232326] sm:text-3xl lg:text-4xl">
+                  Каталог
+                </h2>
+                <span className="heading-line" aria-hidden />
+              </div>
+              <Link
+                href="/catalog"
+                className="relative z-10 ml-auto shrink-0 rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5"
+              >
+                Смотреть все
+              </Link>
             </div>
           </div>
         </div>
 
         <div
-          className="relative py-12 sm:py-16 lg:py-20"
-          style={{
-            background:
-              'radial-gradient(ellipse 130% 90% at 50% -20%, #3a383c 0%, #2a282b 35%, #232326 60%, #18181a 100%)',
-          }}
+          className="relative bg-cover bg-center bg-no-repeat py-[40px]"
+          style={{ backgroundImage: `url('${customerChoiceBgImage}')` }}
         >
           <div className={container1100}>
-            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+            <ul className="-mx-4 flex gap-5 overflow-x-auto px-4 pb-1 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-3 lg:items-stretch lg:gap-6 lg:overflow-visible lg:px-0 lg:pb-0">
               {customerChoiceProducts.map((product) => (
-                <li key={product.id}>
-                  <article className="group flex cursor-pointer flex-col overflow-hidden rounded-lg shadow-lg shadow-black/25 transition-shadow hover:shadow-xl hover:shadow-black/30">
-                    <div className="flex min-h-[220px] items-center justify-center bg-white px-6 py-10 sm:min-h-[260px] sm:px-8 sm:py-12">
+                <li
+                  key={product.id}
+                  className="flex h-full w-[min(300px,calc(100vw-2rem))] shrink-0 snap-center lg:w-auto"
+                >
+                  <Link
+                    href={product.href}
+                    className="group flex h-full w-full flex-col overflow-hidden rounded-none transition-[filter] hover:[filter:drop-shadow(1px_1px_21.6px_rgba(255,255,255,0.27))] active:[filter:drop-shadow(1px_1px_21.6px_rgba(255,255,255,0.27))]"
+                  >
+                    <div className="relative aspect-square bg-white">
                       <Image
                         src={product.image}
                         alt={product.title}
-                        width={280}
-                        height={280}
-                        className="h-auto max-h-[220px] w-full max-w-[240px] object-contain sm:max-h-[260px] sm:max-w-[280px]"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        fill
+                        className="object-contain p-6 sm:p-8"
+                        sizes="(max-width: 1024px) 85vw, 33vw"
                       />
                     </div>
-                    <div className="flex flex-col items-center justify-center bg-[#e8e6e1] px-5 py-8 text-center transition-colors duration-300 group-hover:bg-[#E62614] sm:px-6 sm:py-10">
-                      <h3 className="text-lg font-bold text-[#232326] transition-colors duration-300 group-hover:text-white sm:text-xl">
+                    <div className="flex min-h-[125px] flex-1 flex-col items-center justify-start bg-[#e8e6e1] px-5 py-[15px] text-center transition-colors duration-300 group-hover:bg-[#E62614] group-active:bg-[#E62614] sm:px-6">
+                      <h3 className="shrink-0 text-[25px] font-normal leading-tight text-[#232326] transition-colors duration-300 group-hover:text-white group-active:text-white lg:text-[30px]">
                         {product.title}
                       </h3>
-                      <p className="mt-2 max-w-[18rem] text-sm leading-snug text-[#232326]/85 transition-colors duration-300 group-hover:text-white/95 sm:text-base">
+                      <p className="mt-2 max-w-[18rem] shrink-0 text-sm font-normal leading-snug text-[#232326]/85 transition-colors duration-300 group-hover:text-white/95 group-active:text-white/95 sm:text-base">
                         {product.subtitle}
                       </p>
                     </div>
-                  </article>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -351,20 +311,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#fdfbf6] py-12 sm:py-16 lg:py-20">
+      <section
+        id="parts-accessories"
+        className="bg-[#fdfbf6] py-12 scroll-mt-[82px] sm:py-16 lg:py-20"
+      >
         <div className={container1100}>
-          <div className="mb-10 flex items-center gap-4 sm:mb-12 lg:mb-14">
-            <span className="h-px min-w-[2rem] flex-1 bg-[#E62614] sm:min-w-[3rem]" aria-hidden />
-            <h2 className="shrink-0 text-center text-2xl font-bold text-[#232326] sm:text-3xl lg:text-4xl">
+          <div className="mb-10 flex items-center justify-center gap-4 sm:mb-12 lg:mb-14">
+            <span className="heading-line" aria-hidden />
+            <h2 className="shrink-0 text-center text-2xl text-[#232326] sm:text-3xl lg:text-4xl">
               Комплектующие и запчасти
             </h2>
-            <span className="h-px min-w-[2rem] flex-1 bg-[#E62614] sm:min-w-[3rem]" aria-hidden />
+            <span className="heading-line" aria-hidden />
           </div>
 
           <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
             {partsAccessoriesCategories.map((item) => (
               <li key={item.id}>
-                <article className="group relative aspect-square w-full cursor-pointer overflow-hidden rounded-lg border border-[#232326]/10 bg-[#e8e6e1] shadow-md transition-shadow duration-300 hover:shadow-xl">
+                <Link
+                  href={item.href}
+                  className="group relative block aspect-square w-full overflow-hidden bg-[#e8e6e1]"
+                >
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -376,17 +342,15 @@ export default function HomePage() {
                     className="absolute inset-0 flex items-center justify-center bg-[#232326]/0 transition-colors duration-300 group-hover:bg-[#232326]/70"
                     aria-hidden
                   />
-                  <p className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center text-lg font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:text-xl">
+                  <p className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center text-[25px] font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:text-[40px]">
                     {item.title}
                   </p>
-                </article>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
-
-      <RealizedProjectsSlider projects={realizedProjects} containerClassName={container1100} />
 
     </div>
   )
