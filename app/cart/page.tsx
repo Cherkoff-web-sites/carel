@@ -5,6 +5,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
 import { HUMISTEAM_PRODUCT_IMAGE } from '@/lib/humisteamData'
+import { isComponentCartItemId, PARTS_AND_COMPONENTS_IMAGE } from '@/lib/partsImage'
+
+function resolveCartLineImage(image: string, cartItemId: string): string {
+  if (image) {
+    return image
+  }
+  if (isComponentCartItemId(cartItemId)) {
+    return PARTS_AND_COMPONENTS_IMAGE
+  }
+  return HUMISTEAM_PRODUCT_IMAGE
+}
 
 function QuantityControl({
   quantity,
@@ -41,6 +52,7 @@ function QuantityControl({
 }
 
 function CartLineItem({
+  cartItemId,
   image,
   name,
   cylinderType,
@@ -50,6 +62,7 @@ function CartLineItem({
   onIncrease,
   onDecrease,
 }: {
+  cartItemId: string
   image: string
   name: string
   cylinderType?: string
@@ -72,7 +85,7 @@ function CartLineItem({
       <div className="flex gap-5 pr-28 sm:gap-6 sm:pr-32">
         <div className="relative h-[140px] w-[100px] shrink-0 sm:h-[160px] sm:w-[110px]">
           <Image
-            src={image || HUMISTEAM_PRODUCT_IMAGE}
+            src={resolveCartLineImage(image, cartItemId)}
             alt=""
             fill
             className="object-contain object-left"
@@ -179,6 +192,7 @@ export default function CartPage() {
               {items.map((item) => (
                 <CartLineItem
                   key={item.id}
+                  cartItemId={item.id}
                   image={item.image}
                   name={item.name}
                   cylinderType={item.cylinderType}

@@ -4,6 +4,10 @@ import {
   getCatalogLeafIds,
 } from '@/lib/catalogData'
 import { COMPONENTS_CATALOG_TREE } from '@/lib/componentsCatalogTree'
+import {
+  PARTS_AND_COMPONENTS_GALLERY,
+  PARTS_AND_COMPONENTS_IMAGE,
+} from '@/lib/partsImage'
 
 /** Карточка каталога комплектующих */
 export type ComponentCatalogItem = {
@@ -26,11 +30,12 @@ function cylinderFullDescription(sku: string, short: string): string {
   return `${sku} ${short}, 3x400В, тип С, для средней электропроводности воды (350–750 мкС/см).`
 }
 
-function withGallery(image: string): readonly string[] {
-  return [image]
+function componentMedia() {
+  return {
+    image: PARTS_AND_COMPONENTS_IMAGE,
+    galleryImages: PARTS_AND_COMPONENTS_GALLERY,
+  }
 }
-
-const COMPONENTS_IMAGE = '/images/catalog/components'
 
 export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
   {
@@ -42,8 +47,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
       'BLOT2C00H2',
       'Неразборный цилиндр CAREL 5–8 кг/ч, тип С'
     ),
-    image: `${COMPONENTS_IMAGE}/cylinder-basic.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/cylinder-basic.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-cylinders',
     relatedContexts: ['basic-uey', 'xplus-uex'],
@@ -57,8 +61,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
       'BLOT4C00H2',
       'Неразборный цилиндр CAREL 9–15 кг/ч, тип С'
     ),
-    image: `${COMPONENTS_IMAGE}/cylinder-basic.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/cylinder-basic.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-cylinders',
     relatedContexts: ['basic-uey', 'xplus-uex'],
@@ -72,8 +75,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
       'BLOT8C00H2',
       'Неразборный цилиндр CAREL 18–25 кг/ч, тип С'
     ),
-    image: `${COMPONENTS_IMAGE}/cylinder-basic.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/cylinder-basic.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-cylinders',
     relatedContexts: ['xplus-uex', 'wellness-uew'],
@@ -87,8 +89,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
       'BLOT16C00H2',
       'Неразборный цилиндр CAREL 35–45 кг/ч, тип С'
     ),
-    image: `${COMPONENTS_IMAGE}/cylinder-basic.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/cylinder-basic.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-cylinders',
     relatedContexts: ['xplus-uex'],
@@ -102,8 +103,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
       'BLOT32C00H2',
       'Неразборный цилиндр CAREL 65–90 кг/ч, тип С'
     ),
-    image: `${COMPONENTS_IMAGE}/cylinder-basic.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/cylinder-basic.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-cylinders',
     relatedContexts: ['xplus-uex'],
@@ -117,8 +117,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
       'BLOT64C00H2',
       'Неразборный цилиндр CAREL 90–130 кг/ч, тип С'
     ),
-    image: `${COMPONENTS_IMAGE}/cylinder-basic.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/cylinder-basic.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-cylinders',
     relatedContexts: ['xplus-uex'],
@@ -130,8 +129,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
     description: 'Комплект парораспределителей для равномерной подачи пара',
     fullDescription:
       'DIST-KIT-01 Комплект парораспределителей для равномерной подачи пара в воздуховод.',
-    image: `${COMPONENTS_IMAGE}/distribution-kit.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/distribution-kit.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-distributors',
     relatedContexts: ['xplus-uex', 'wellness-uew', 'heatersteam-process'],
@@ -143,8 +141,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
     description: 'Трубка для подачи питающей воды, комплект поставки Carel',
     fullDescription:
       'FW-TUBE-12 Трубка для подачи питающей воды Carel, комплект поставки для подключения увлажнителя.',
-    image: `${COMPONENTS_IMAGE}/feed-water-tube.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/feed-water-tube.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'air-water-lines',
     relatedContexts: ['heatersteam-process', 'heatersteam-titanium', 'basic-uey', 'xplus-uex'],
@@ -156,8 +153,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
     description: 'Модуль связи Modbus для интеграции в систему автоматики',
     fullDescription:
       'MODBUS-PCO Модуль связи Modbus для интеграции увлажнителя в систему диспетчеризации.',
-    image: `${COMPONENTS_IMAGE}/modbus-module.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/modbus-module.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'controllers',
     relatedContexts: ['xplus-uex', 'heatersteam-titanium'],
@@ -169,8 +165,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
     description: 'Датчик температуры и влажности для контроля микроклимата',
     fullDescription:
       'SENSOR-TH-01 Датчик температуры и влажности Carel для контроля микроклимата в помещении.',
-    image: `${COMPONENTS_IMAGE}/sensor-th.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/sensor-th.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'th-sensors',
     relatedContexts: ['basic-uey', 'xplus-uex', 'wellness-uew'],
@@ -182,8 +177,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
     description: 'Фильтр подготовки воды для увлажнительных систем',
     fullDescription:
       'FILTER-WTS Фильтр подготовки воды для увлажнительных и климатических систем CAREL.',
-    image: `${COMPONENTS_IMAGE}/water-filter.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/water-filter.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'filters',
     relatedContexts: [
@@ -201,8 +195,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
     description: 'Гибкий паропровод для подключения humiSteam',
     fullDescription:
       'HOSE-STEAM-1 Паропровод гибкий для подключения увлажнителей серии humiSteam.',
-    image: `${COMPONENTS_IMAGE}/steam-hose.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/steam-hose.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'tubes',
     relatedContexts: ['basic-uey', 'xplus-uex'],
@@ -214,8 +207,7 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
     description: 'Сменный цилиндр для линейки humiSteam Basic (UE*Y)',
     fullDescription:
       'CYL-BASIC-UEY Сменный цилиндр для линейки humiSteam Basic (UE*Y), подбор по производительности.',
-    image: `${COMPONENTS_IMAGE}/cylinder-basic.png`,
-    galleryImages: withGallery(`${COMPONENTS_IMAGE}/cylinder-basic.png`),
+    ...componentMedia(),
     price: 0,
     sectionId: 'steam-cylinders',
     relatedContexts: ['basic-uey'],
@@ -273,7 +265,7 @@ export function componentToCartItem(item: ComponentCatalogItem): Omit<CartItem, 
     model: item.sku,
     sku: item.sku,
     price: item.price > 0 ? item.price : 1,
-    image: item.image,
+    image: PARTS_AND_COMPONENTS_IMAGE,
     href: `/components?id=${item.id}`,
   }
 }

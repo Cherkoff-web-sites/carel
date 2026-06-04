@@ -1,17 +1,7 @@
 # Комплектующие (каталог)
 
-Папка: `public/images/catalog/components/`
+Для всех карточек комплектующих и запчастей используется одно изображение:
 
-Файлы для слайдера «С этим товаром покупают» в карточке humiSteam (вкладка «Описание серии»):
+`public/images/parts.png` → константа `PARTS_AND_COMPONENTS_IMAGE` в `lib/partsImage.ts`.
 
-| Файл | Карточка |
-|------|----------|
-| `sensor-th.png` | Датчик температуры и влажности Carel |
-| `feed-water-tube.png` | Трубка для подачи питающей воды Carel |
-| `steam-hose.png` | Паропровод гибкий для humiSteam |
-| `water-filter.png` | Фильтр подготовки воды |
-| `distribution-kit.png` | Комплект парораспределителей |
-| `cylinder-basic.png` | Сменный цилиндр (Basic) |
-| `modbus-module.png` | Модуль связи Modbus |
-
-Данные карточек: `lib/componentsCatalogData.ts`. Каталог: страница `/components` (дерево — `lib/componentsCatalogTree.ts`).
+Данные карточек: `lib/componentsCatalogData.ts`. Каталог: `/components`.
