@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
-import { PARTS_AND_COMPONENTS_IMAGE } from '@/lib/partsImage'
 import { HOME_SERVICES } from '@/lib/servicesData'
 
 // SSG - статическая генерация для SEO
@@ -53,13 +52,13 @@ export default function HomePage() {
     {
       id: 'components',
       title: 'Комплектующие',
-      image: PARTS_AND_COMPONENTS_IMAGE,
+      image: '/images/parts-accessories/components.png',
       href: '/components',
     },
     {
       id: 'spare-parts',
       title: 'Запчасти',
-      image: PARTS_AND_COMPONENTS_IMAGE,
+      image: '/images/parts-accessories/spare-parts.png',
       href: '/components',
     },
   ] as const
