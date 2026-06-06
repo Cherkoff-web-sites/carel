@@ -86,12 +86,12 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Первый блок — фон через CSS background-image (без img в разметке) */}
       <section
-        className="relative bg-cover bg-center bg-no-repeat pt-[170px] pb-[120px] sm:pt-[250px] sm:pb-[250px]"
+        className="relative bg-cover bg-center bg-no-repeat pt-[170px] pb-[120px] md:pt-[250px] md:pb-[250px]"
         style={{ backgroundImage: `url('${heroBgImage}')` }}
       >
         <div className="container">
           <div className="max-w-[770px] relative z-10">
-            <h1 className="mb-6 text-[25px] uppercase leading-[1.08] tracking-[0.01em] sm:text-5xl lg:text-6xl">
+            <h1 className="mb-6 text-[25px] uppercase leading-[1.08] tracking-[0.01em] md:text-5xl lg:text-6xl">
               <span className="text-white">Профессиональный</span>
               <br />
               <span className="text-white">сервис увлажнителей</span>
@@ -109,7 +109,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-12 flex justify-center lg:hidden">
+          <div className="mt-12 flex justify-center md:hidden">
             <Image
               src={heroMainImage}
               alt="Промышленный увлажнитель"
@@ -119,6 +119,20 @@ export default function HomePage() {
               priority
             />
           </div>
+        </div>
+
+        <div
+          className="pointer-events-none absolute bottom-0 right-0 z-0 hidden w-1/2 max-w-[50vw] md:block lg:hidden"
+          aria-hidden
+        >
+          <Image
+            src={heroMainImage}
+            alt=""
+            width={1035}
+            height={680}
+            className="h-auto w-full object-contain object-bottom"
+            priority
+          />
         </div>
 
         <div
@@ -140,7 +154,7 @@ export default function HomePage() {
       {/* Преимущества — без зазора под hero */}
       <section className="mt-0 bg-[#232326] py-10 sm:py-12">
         <div className="container">
-          <ul className="grid grid-cols-1 gap-10 md:gap-12 lg:grid-cols-3 lg:gap-8">
+          <ul className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-6 lg:gap-8">
             {homeFeatures.map((item) => (
               <li key={item.title} className="flex gap-4 sm:gap-5">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center sm:h-16 sm:w-16">
@@ -195,7 +209,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <ul className="grid grid-cols-1 gap-[10px] lg:grid-cols-4 lg:gap-5">
+          <ul className="grid grid-cols-1 gap-[10px] md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
             {(
               [
                 { slug: 'diagnostics', image: '/images/home-services/diagnostics.png' },
@@ -208,7 +222,7 @@ export default function HomePage() {
               return (
               <li
                 key={card.slug}
-                className="group flex flex-col overflow-hidden rounded-lg border border-[#232326]/15 bg-white shadow-sm transition-shadow hover:shadow-md"
+                className="group flex flex-col overflow-hidden border border-[#232326]/15 bg-white shadow-sm transition-shadow hover:shadow-md"
               >
                 <Link
                   href={`/services/${card.slug}`}
@@ -219,7 +233,7 @@ export default function HomePage() {
                     alt={service.title}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 25vw"
+                    sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw"
                   />
                 </Link>
                 <div className="flex flex-1 flex-col items-center justify-between gap-5 bg-[#232326] px-[10px] py-5 text-center transition-colors duration-300 group-hover:bg-[#E62614] lg:min-h-[180px] lg:gap-6 lg:p-6">
@@ -314,18 +328,18 @@ export default function HomePage() {
 
       <section
         id="parts-accessories"
-        className="bg-[#fdfbf6] py-12 scroll-mt-[114px] sm:py-16 lg:py-20"
+        className="bg-[#fdfbf6] py-12 scroll-mt-[114px] md:py-20"
       >
         <div className={container1100}>
-          <div className="mb-10 flex items-center justify-center gap-4 sm:mb-12 lg:mb-14">
+          <div className="mb-10 flex items-center justify-center gap-4 md:mb-14">
             <span className="heading-line" aria-hidden />
-            <h2 className="shrink-0 text-center text-2xl text-[#232326] sm:text-3xl lg:text-4xl">
+            <h2 className="shrink-0 text-center text-2xl text-[#232326] md:text-4xl">
               Комплектующие и запчасти
             </h2>
             <span className="heading-line" aria-hidden />
           </div>
 
-          <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
             {partsAccessoriesCategories.map((item) => (
               <li key={item.id}>
                 <Link
@@ -337,13 +351,13 @@ export default function HomePage() {
                     alt={item.title}
                     fill
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="(max-width: 767px) 100vw, 50vw"
                   />
                   <div
                     className="absolute inset-0 flex items-center justify-center bg-[#232326]/0 transition-colors duration-300 group-hover:bg-[#232326]/70"
                     aria-hidden
                   />
-                  <p className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center text-[25px] font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:text-[40px]">
+                  <p className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center text-[25px] font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:text-[40px]">
                     {item.title}
                   </p>
                 </Link>

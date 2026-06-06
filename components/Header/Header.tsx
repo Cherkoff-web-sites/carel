@@ -70,10 +70,10 @@ export default function Header() {
             <Navigation />
 
             {/* Правая часть - Контакты и бургер */}
-            <div className="flex items-center gap-2 sm:gap-3 lg:gap-6">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6">
               <HeaderCartButton className="shrink-0" />
 
-              <div className="hidden lg:flex items-center gap-6 text-xs text-white/95">
+              <div className="hidden items-center gap-4 text-xs text-white/95 md:flex lg:gap-6">
                 {navLocked ? (
                   <span className="inline-flex cursor-default items-center gap-2.5 text-white/85">
                     <Image

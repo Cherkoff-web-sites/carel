@@ -28,7 +28,7 @@ function CustomerChoiceCard({ product }: { product: CustomerChoiceProduct }) {
           alt={product.title}
           fill
           className="object-contain p-6 sm:p-8"
-          sizes="(max-width: 1024px) 100vw, 33vw"
+          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 375px, 33vw"
         />
       </div>
       <div className="home-catalog-card__caption flex min-h-[125px] flex-1 flex-col items-center justify-start bg-[#e8e6e1] px-5 py-[15px] text-center transition-colors duration-300 group-hover:bg-[#E62614] group-active:bg-[#E62614] sm:px-6">
@@ -50,11 +50,11 @@ type HomeCatalogSliderProps = {
 export default function HomeCatalogSlider({ products }: HomeCatalogSliderProps) {
   return (
     <>
-      <div className="lg:hidden">
+      <div className="lg:hidden md:mx-auto md:max-w-[375px]">
         <Swiper
           modules={[Pagination]}
           slidesPerView={1}
-          spaceBetween={0}
+          spaceBetween={10}
           pagination={{ clickable: true }}
           className="home-catalog-slider"
         >
