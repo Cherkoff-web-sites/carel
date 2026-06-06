@@ -4,6 +4,7 @@ import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import { CartProvider } from '@/contexts/CartContext'
 import CartToast from '@/components/cart/CartToast'
+import ChatWidget from '@/components/ChatWidget/ChatWidget'
 import { ContactModalProvider } from '@/contexts/ContactModalContext'
 import './globals.css'
 
@@ -40,6 +41,7 @@ export default function RootLayout({
               <main className="flex flex-grow flex-col">{children}</main>
               <Footer />
             </div>
+            <ChatWidget />
             <CartToast />
           </ContactModalProvider>
         </CartProvider>

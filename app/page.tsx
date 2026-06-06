@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
+import HomeCatalogSlider from '@/components/home/HomeCatalogSlider'
 import { HOME_SERVICES } from '@/lib/servicesData'
 
 // SSG - статическая генерация для SEO
@@ -85,17 +86,17 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Первый блок — фон через CSS background-image (без img в разметке) */}
       <section
-        className="relative bg-cover bg-center bg-no-repeat pt-[250px] pb-[250px]"
+        className="relative bg-cover bg-center bg-no-repeat pt-[170px] pb-[120px] sm:pt-[250px] sm:pb-[250px]"
         style={{ backgroundImage: `url('${heroBgImage}')` }}
       >
         <div className="container">
           <div className="max-w-[770px] relative z-10">
-            <h1 className="mb-6 text-4xl uppercase leading-[1.08] tracking-[0.01em] sm:text-5xl lg:text-6xl">
+            <h1 className="mb-6 text-[25px] uppercase leading-[1.08] tracking-[0.01em] sm:text-5xl lg:text-6xl">
               <span className="text-white">Профессиональный</span>
               <br />
               <span className="text-white">сервис увлажнителей</span>
               <br />
-              <span className="text-[#E62614]">Carel</span>
+              <span className="font-bold text-[#E62614]">Carel</span>
             </h1>
             <p className="mb-8 max-w-[645px] text-base leading-relaxed text-white/85">
               Наши специалисты не просто монтируют и обслуживают системы - они создают
@@ -168,7 +169,7 @@ export default function HomePage() {
         <div className="container">
           <div className="relative mb-10 flex w-full items-center sm:mb-12">
             <span
-              className="invisible shrink-0 rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold"
+              className="invisible inline-flex shrink-0 items-center rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold"
               aria-hidden
             >
               Смотреть все
@@ -180,15 +181,21 @@ export default function HomePage() {
               </h2>
               <span className="heading-line" aria-hidden />
             </div>
+            <span
+              className="invisible ml-auto inline-flex shrink-0 items-center rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold lg:hidden"
+              aria-hidden
+            >
+              Смотреть все
+            </span>
             <Link
               href="/services/maintenance"
-              className="relative z-10 ml-auto shrink-0 rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5"
+              className="relative z-10 ml-auto hidden shrink-0 rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5 lg:inline-flex"
             >
               Смотреть все
             </Link>
           </div>
 
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          <ul className="grid grid-cols-1 gap-[10px] lg:grid-cols-4 lg:gap-5">
             {(
               [
                 { slug: 'diagnostics', image: '/images/home-services/diagnostics.png' },
@@ -205,19 +212,19 @@ export default function HomePage() {
               >
                 <Link
                   href={`/services/${card.slug}`}
-                  className="relative aspect-[375/211] w-full bg-[#e8e6e1]"
+                  className="relative aspect-[194/109] w-full bg-[#e8e6e1] lg:aspect-[375/211]"
                 >
                   <Image
                     src={card.image}
                     alt={service.title}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    sizes="(max-width: 1024px) 100vw, 25vw"
                   />
                 </Link>
-                <div className="flex min-h-[180px] flex-1 flex-col items-center justify-between gap-6 bg-[#232326] p-6 text-center transition-colors duration-300 group-hover:bg-[#E62614]">
+                <div className="flex flex-1 flex-col items-center justify-between gap-5 bg-[#232326] px-[10px] py-5 text-center transition-colors duration-300 group-hover:bg-[#E62614] lg:min-h-[180px] lg:gap-6 lg:p-6">
                   <Link href={`/services/${card.slug}`}>
-                    <h3 className="text-lg font-bold uppercase leading-snug tracking-wide text-white sm:text-xl">
+                    <h3 className="text-[15px] font-bold uppercase leading-snug tracking-wide text-white lg:text-xl">
                       {service.title}
                     </h3>
                   </Link>
@@ -230,8 +237,17 @@ export default function HomePage() {
             })}
           </ul>
 
+          <div className="mt-8 flex justify-center lg:hidden">
+            <Link
+              href="/services/maintenance"
+              className="rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5"
+            >
+              Смотреть все
+            </Link>
+          </div>
+
           <div className="mx-auto mt-12 max-w-4xl sm:mt-14 lg:mt-16">
-            <p className="border-l-4 border-[#232326] px-[22px] py-[8px] text-left text-[20px] leading-relaxed text-[#232326] lg:text-[25px]">
+            <p className="border-l-4 border-[#232326] px-[22px] py-[8px] text-center text-[20px] leading-snug text-[#232326] lg:text-left lg:text-[25px] lg:leading-relaxed">
               Требуется экспертная помощь по увлажнению? Позвоните или оставьте заявку — мы предложим
               лучшее решение для вашего объекта
             </p>
@@ -249,7 +265,7 @@ export default function HomePage() {
           <div className={container1100}>
             <div className="relative mb-10 flex w-full items-center sm:mb-12">
               <span
-                className="invisible shrink-0 rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold"
+                className="invisible inline-flex shrink-0 items-center rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold"
                 aria-hidden
               >
                 Смотреть все
@@ -261,9 +277,15 @@ export default function HomePage() {
                 </h2>
                 <span className="heading-line" aria-hidden />
               </div>
+              <span
+                className="invisible ml-auto inline-flex shrink-0 items-center rounded-[5px] border border-transparent px-5 py-2.5 text-sm font-bold lg:hidden"
+                aria-hidden
+              >
+                Смотреть все
+              </span>
               <Link
                 href="/catalog"
-                className="relative z-10 ml-auto shrink-0 rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5"
+                className="relative z-10 ml-auto hidden shrink-0 rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5 lg:inline-flex"
               >
                 Смотреть все
               </Link>
@@ -276,44 +298,23 @@ export default function HomePage() {
           style={{ backgroundImage: `url('${customerChoiceBgImage}')` }}
         >
           <div className={container1100}>
-            <ul className="-mx-4 flex gap-5 overflow-x-auto px-4 pb-1 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-3 lg:items-stretch lg:gap-6 lg:overflow-visible lg:px-0 lg:pb-0">
-              {customerChoiceProducts.map((product) => (
-                <li
-                  key={product.id}
-                  className="flex h-full w-[min(300px,calc(100vw-2rem))] shrink-0 snap-center lg:w-auto"
-                >
-                  <Link
-                    href={product.href}
-                    className="group flex h-full w-full flex-col overflow-hidden rounded-none transition-[filter] hover:[filter:drop-shadow(1px_1px_21.6px_rgba(255,255,255,0.27))] active:[filter:drop-shadow(1px_1px_21.6px_rgba(255,255,255,0.27))]"
-                  >
-                    <div className="relative aspect-square bg-white">
-                      <Image
-                        src={product.image}
-                        alt={product.title}
-                        fill
-                        className="object-contain p-6 sm:p-8"
-                        sizes="(max-width: 1024px) 85vw, 33vw"
-                      />
-                    </div>
-                    <div className="flex min-h-[125px] flex-1 flex-col items-center justify-start bg-[#e8e6e1] px-5 py-[15px] text-center transition-colors duration-300 group-hover:bg-[#E62614] group-active:bg-[#E62614] sm:px-6">
-                      <h3 className="shrink-0 text-[25px] font-normal leading-tight text-[#232326] transition-colors duration-300 group-hover:text-white group-active:text-white lg:text-[30px]">
-                        {product.title}
-                      </h3>
-                      <p className="mt-2 max-w-[18rem] shrink-0 text-sm font-normal leading-snug text-[#232326]/85 transition-colors duration-300 group-hover:text-white/95 group-active:text-white/95 sm:text-base">
-                        {product.subtitle}
-                      </p>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <HomeCatalogSlider products={customerChoiceProducts} />
+
+            <div className="mt-8 flex justify-center lg:hidden">
+              <Link
+                href="/catalog"
+                className="rounded-[5px] border border-[#232326] bg-white px-5 py-2.5 text-sm font-bold text-[#232326] transition-colors hover:bg-[#232326]/5"
+              >
+                Смотреть все
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       <section
         id="parts-accessories"
-        className="bg-[#fdfbf6] py-12 scroll-mt-[82px] sm:py-16 lg:py-20"
+        className="bg-[#fdfbf6] py-12 scroll-mt-[114px] sm:py-16 lg:py-20"
       >
         <div className={container1100}>
           <div className="mb-10 flex items-center justify-center gap-4 sm:mb-12 lg:mb-14">

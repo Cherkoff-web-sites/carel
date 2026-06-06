@@ -129,7 +129,7 @@ function CartSummary({ disabled }: { disabled: boolean }) {
   }
 
   return (
-    <aside className="rounded-[5px] border border-[#232326]/12 bg-white p-6 lg:sticky lg:top-[106px]">
+    <aside className="rounded-[5px] border border-[#232326]/12 bg-white p-6 lg:sticky lg:top-[138px]">
       <p className="text-lg font-bold text-[#232326] sm:text-xl">Цена: по запросу</p>
 
       {submitted ? (
@@ -166,7 +166,7 @@ export default function CartPage() {
   const hasItems = items.length > 0
 
   return (
-    <div className="min-h-screen bg-[#fdfbf6] pt-[82px]">
+    <div className="min-h-screen bg-[#fdfbf6] pt-[114px]">
       <div className="container py-8 sm:py-10 lg:py-12">
         <Link
           href="/catalog"

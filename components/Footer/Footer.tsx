@@ -34,7 +34,7 @@ const contactItems = [
   {
     id: 'address',
     href: null as string | null,
-    label: 'ул. Касимовская вл. 26, пом. 406 115404, г. Москва',
+    label: ['ул. Касимовская вл. 26, пом. 406', '115404, г. Москва'],
     icon: (
       <svg className="h-[26px] w-[26px] shrink-0" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
         <path
@@ -59,20 +59,45 @@ export default function Footer() {
             <span className="heading-line" aria-hidden />
           </div>
 
-          <ul className="flex flex-col items-center gap-8 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-6 lg:gap-x-14">
-            {contactItems.map((item) => (
-              <li key={item.id} className="flex max-w-md items-start gap-3 text-center sm:max-w-none sm:text-left">
-                <span className="mt-0.5 flex shrink-0 justify-center sm:justify-start">{item.icon}</span>
-                {item.href ? (
-                  <a href={item.href} className="text-sm leading-relaxed text-white/95 hover:text-[#E62614] transition-colors sm:text-base">
-                    {item.label}
-                  </a>
-                ) : (
-                  <span className="text-sm leading-relaxed text-white/95 sm:text-base">{item.label}</span>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div className="mx-auto w-max max-w-full sm:w-full">
+            <ul className="flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-6 lg:gap-x-14">
+              {contactItems.map((item) => {
+                const content =
+                  typeof item.label === 'string' ? (
+                    item.label
+                  ) : (
+                    <>
+                      {item.label.map((line, index) => (
+                        <span key={line} className={index > 0 ? 'block' : undefined}>
+                          {line}
+                        </span>
+                      ))}
+                    </>
+                  )
+
+                return (
+                  <li
+                    key={item.id}
+                    className="flex w-full items-start gap-3 text-left sm:w-auto sm:max-w-none"
+                  >
+                    <span className="mt-0.5 flex shrink-0">{item.icon}</span>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="min-w-0 flex-1 text-sm leading-relaxed text-white/95 transition-colors hover:text-[#E62614] sm:flex-none sm:text-base"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <span className="min-w-0 flex-1 text-sm leading-relaxed text-white/95 sm:flex-none sm:text-base">
+                        {content}
+                      </span>
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
       </div>
 

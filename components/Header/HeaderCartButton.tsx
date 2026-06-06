@@ -44,12 +44,12 @@ export default function HeaderCartButton({
     >
       <span className="relative inline-flex h-10 w-10 items-center justify-center">
         <svg
-          width="24"
-          height="24"
+          width="40"
+          height="40"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
+          className="h-10 w-10 lg:h-6 lg:w-6"
           aria-hidden
         >
           <path

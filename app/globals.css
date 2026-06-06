@@ -164,3 +164,36 @@ a {
   cursor: default;
 }
 
+/* Главная: слайдер каталога (мобильная версия) */
+.home-catalog-slider .swiper-pagination {
+  position: relative;
+  bottom: auto;
+  margin-top: 1.25rem;
+  line-height: 1;
+}
+
+.home-catalog-slider .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  margin: 0 5px;
+  background: rgb(255 255 255 / 0.35);
+  opacity: 1;
+  transition: background-color 0.2s;
+}
+
+.home-catalog-slider .swiper-pagination-bullet-active {
+  background: #fff;
+}
+
+.home-catalog-slider .swiper-slide-active .home-catalog-card__caption {
+  background-color: #e62614;
+}
+
+.home-catalog-slider .swiper-slide-active .home-catalog-card__title {
+  color: #fff;
+}
+
+.home-catalog-slider .swiper-slide-active .home-catalog-card__subtitle {
+  color: rgb(255 255 255 / 0.95);
+}
+

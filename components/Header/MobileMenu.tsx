@@ -42,7 +42,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       />
 
       <div className="fixed inset-0 z-[60] flex flex-col bg-[#232326] lg:hidden">
-        <div className="container flex h-[82px] shrink-0 items-center justify-between border-b border-white/10">
+        <div className="container flex shrink-0 items-center justify-between border-b border-white/10 py-4">
           <Link href="/" onClick={onClose} className="flex shrink-0 items-center">
             <Image
               src="/images/header/logo-carel-works.svg"
