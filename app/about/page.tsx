@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
 import { getContent } from '@/lib/api/contentApi'
+import { HEADER_OFFSET_CLASS } from '@/lib/constants'
 
 // SSG страница - генерируется статически для SEO
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export default async function AboutPage() {
     ],
   }
   return (
-    <div className="min-h-screen">
+    <div className={`min-h-screen ${HEADER_OFFSET_CLASS}`}>
       {/* Секция "О КОМПАНИИ" */}
       <section className="py-8 sm:py-12 lg:py-16 relative overflow-hidden">
         {/* Фоновый градиент */}

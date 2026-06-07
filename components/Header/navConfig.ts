@@ -1,6 +1,6 @@
 export const HEADER_NAV_ITEMS = [
   { href: '/catalog', label: 'Увлажнители' },
-  { href: '/components', label: 'Комплектующие' },
+  { href: '/components', label: 'Запчасти' },
   { href: '/services', label: 'Услуги' },
 ] as const
 

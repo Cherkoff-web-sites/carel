@@ -1,6 +1,6 @@
 import type { SectionSubNavItem } from '@/components/Layout/SectionSubNav'
 
-/** Общая поднавигация над контентом на страницах «Услуги» и «Каталог» */
+/** Общая поднавигация на страницах «Услуги», «Каталог» и «Комплектующие» */
 export const SECTION_SUB_NAV: readonly SectionSubNavItem[] = [
   { href: '/', label: 'Главная', matchRule: { type: 'exact' } },
   {
@@ -15,7 +15,7 @@ export const SECTION_SUB_NAV: readonly SectionSubNavItem[] = [
   },
   {
     href: '/components',
-    label: 'Комплектующие',
+    label: 'Комплектующие и запчасти',
     matchRule: { type: 'prefix', prefix: '/components' },
   },
 ] as const

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
 import { HUMISTEAM_PRODUCT_IMAGE } from '@/lib/humisteamData'
 import { isComponentCartItemId, PARTS_AND_COMPONENTS_IMAGE } from '@/lib/partsImage'
+import { HEADER_OFFSET_CLASS } from '@/lib/constants'
 
 function resolveCartLineImage(image: string, cartItemId: string): string {
   if (image) {
@@ -166,7 +167,7 @@ export default function CartPage() {
   const hasItems = items.length > 0
 
   return (
-    <div className="min-h-screen bg-[#fdfbf6] pt-[114px]">
+    <div className={`min-h-screen bg-[#fdfbf6] ${HEADER_OFFSET_CLASS}`}>
       <div className="container py-8 sm:py-10 lg:py-12">
         <Link
           href="/catalog"

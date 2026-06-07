@@ -37,9 +37,12 @@ export default function SectionSubNav({
   const pathname = usePathname()
 
   return (
-    <nav className="border-b border-[#232326]/10 bg-white" aria-label={ariaLabel}>
+    <nav
+      className="bg-transparent pt-[50px] pb-[40px] lg:pt-[80px]"
+      aria-label={ariaLabel}
+    >
       <div className="container">
-        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 py-4 text-sm sm:gap-x-10 sm:text-base">
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm sm:gap-x-10 sm:text-base">
           {items.map((item) => {
             const isActive = isItemActive(pathname, item)
             return (

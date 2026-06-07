@@ -8,6 +8,16 @@ const nextConfig = {
   
   // Для SSG статических страниц
   output: 'standalone',
+
+  async redirects() {
+    return [
+      {
+        source: '/contact',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
   
   // Оптимизация изображений
   images: {

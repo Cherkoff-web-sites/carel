@@ -1,4 +1,8 @@
 import Image from 'next/image'
+import {
+  CONTACTS_ANCHOR_ID,
+  HEADER_SCROLL_MARGIN_CLASS,
+} from '@/lib/constants'
 
 const contactItems = [
   {
@@ -49,7 +53,10 @@ const contactItems = [
 export default function Footer() {
   return (
     <footer className="mt-auto">
-      <div className="bg-[#232326] py-[55px] text-white">
+      <div
+        id={CONTACTS_ANCHOR_ID}
+        className={`bg-[#232326] py-[55px] text-white ${HEADER_SCROLL_MARGIN_CLASS}`}
+      >
         <div className="container">
           <div className="mb-10 flex items-center justify-center gap-4 sm:mb-12">
             <span className="heading-line" aria-hidden />

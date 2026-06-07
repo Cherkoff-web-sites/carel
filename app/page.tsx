@@ -4,6 +4,7 @@ import Image from 'next/image'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
 import HomeCatalogSlider from '@/components/home/HomeCatalogSlider'
 import { HOME_SERVICES } from '@/lib/servicesData'
+import { HEADER_SCROLL_MARGIN_CLASS } from '@/lib/constants'
 
 // SSG - статическая генерация для SEO
 export const metadata: Metadata = {
@@ -86,7 +87,7 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Первый блок — фон через CSS background-image (без img в разметке) */}
       <section
-        className="relative bg-cover bg-center bg-no-repeat pt-[170px] pb-[120px] md:pt-[250px] md:pb-[250px]"
+        className="relative bg-cover bg-center bg-no-repeat pt-[165px] pb-[120px] md:pt-[238px] md:pb-[250px] lg:pt-[239px]"
         style={{ backgroundImage: `url('${heroBgImage}')` }}
       >
         <div className="container">
@@ -328,7 +329,7 @@ export default function HomePage() {
 
       <section
         id="parts-accessories"
-        className="bg-[#fdfbf6] py-12 scroll-mt-[114px] md:py-20"
+        className={`bg-[#fdfbf6] py-12 md:py-20 ${HEADER_SCROLL_MARGIN_CLASS}`}
       >
         <div className={container1100}>
           <div className="mb-10 flex items-center justify-center gap-4 md:mb-14">

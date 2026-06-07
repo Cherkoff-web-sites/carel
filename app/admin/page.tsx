@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import type { ProductData } from '@/lib/api/productsData'
+import { HEADER_OFFSET_CLASS } from '@/lib/constants'
 
 interface ContentData {
   about?: {
@@ -126,14 +127,14 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#3B363C] flex items-center justify-center">
+      <div className={`min-h-screen bg-[#3B363C] flex items-center justify-center ${HEADER_OFFSET_CLASS}`}>
         <p className="text-white text-lg">Загрузка...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#3B363C] text-white">
+    <div className={`min-h-screen bg-[#3B363C] text-white ${HEADER_OFFSET_CLASS}`}>
       <div className="container py-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl text-[#E62614]">Административная панель</h1>

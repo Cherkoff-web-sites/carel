@@ -1,55 +1,49 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
-import { lockInternalNavOnHome } from '@/lib/siteFlags'
+import { CONTACTS_HREF } from '@/lib/constants'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
 import HeaderCartButton from '@/components/Header/HeaderCartButton'
 import Navigation from './Navigation'
 import MobileMenu from './MobileMenu'
 
-const HEADER_HEIGHT_PX = 114
+const SCROLL_THRESHOLD = 12
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isHidden, setIsHidden] = useState(false)
-  const lastScrollY = useRef(0)
-  const pathname = usePathname()
-  const navLocked = lockInternalNavOnHome && pathname === '/'
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileHeaderActive, setIsMobileHeaderActive] = useState(false)
 
   useEffect(() => {
-    lastScrollY.current = window.scrollY
-
     const onScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (currentScrollY <= 0) {
-        setIsHidden(false)
-      } else if (currentScrollY < lastScrollY.current) {
-        setIsHidden(false)
-      } else if (
-        currentScrollY > lastScrollY.current &&
-        currentScrollY > HEADER_HEIGHT_PX
-      ) {
-        setIsHidden(true)
-      }
-
-      lastScrollY.current = currentScrollY
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD)
+      setIsMobileHeaderActive(false)
     }
 
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const isTranslucent =
+    isScrolled && !isMobileMenuOpen && !isMobileHeaderActive
+
+  const handleHeaderClick = () => {
+    if (window.matchMedia('(max-width: 1023px)').matches && isScrolled) {
+      setIsMobileHeaderActive(true)
+    }
+  }
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 bg-[#232326] border-b border-white/10 will-change-transform ${
-          isHidden
-            ? '-translate-y-full transition-transform duration-300 ease-in-out'
-            : 'translate-y-0 transition-transform duration-150 ease-out'
+        onClick={handleHeaderClick}
+        className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color] duration-300 ${
+          isTranslucent
+            ? 'border-white/5 bg-[#232326]/80 lg:hover:border-white/10 lg:hover:bg-[#232326]'
+            : 'border-white/10 bg-[#232326]'
         }`}
       >
         <div className="container">
@@ -61,7 +55,7 @@ export default function Header() {
                 alt="CAREL Works"
                 width={146}
                 height={52}
-                className="h-10 w-auto md:h-12"
+                className="h-8 w-auto md:h-12"
                 priority
               />
             </Link>
@@ -70,50 +64,30 @@ export default function Header() {
             <Navigation />
 
             {/* Правая часть - Контакты и бургер */}
-            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6">
+            <div className="flex items-center gap-2 md:gap-4 lg:gap-6">
               <HeaderCartButton className="shrink-0" />
 
               <div className="hidden items-center gap-4 text-xs text-white/95 md:flex lg:gap-6">
-                {navLocked ? (
-                  <span className="inline-flex cursor-default items-center gap-2.5 text-white/85">
-                    <Image
-                      src="/images/header/icon-thermometer.svg"
-                      alt=""
-                      width={26}
-                      height={26}
-                      className="h-auto w-[26px]"
-                    />
-                    <Image
-                      src="/images/header/icon-drop.svg"
-                      alt=""
-                      width={26}
-                      height={26}
-                      className="h-auto w-[26px]"
-                    />
-                    <span>Контакты</span>
-                  </span>
-                ) : (
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2.5 hover:text-white"
-                  >
-                    <Image
-                      src="/images/header/icon-thermometer.svg"
-                      alt=""
-                      width={26}
-                      height={26}
-                      className="h-auto w-[26px]"
-                    />
-                    <Image
-                      src="/images/header/icon-drop.svg"
-                      alt=""
-                      width={26}
-                      height={26}
-                      className="h-auto w-[26px]"
-                    />
-                    <span>Контакты</span>
-                  </Link>
-                )}
+                <a
+                  href={CONTACTS_HREF}
+                  className="inline-flex items-center gap-2.5 hover:text-white"
+                >
+                  <Image
+                    src="/images/header/icon-thermometer.svg"
+                    alt=""
+                    width={26}
+                    height={26}
+                    className="h-auto w-[26px]"
+                  />
+                  <Image
+                    src="/images/header/icon-drop.svg"
+                    alt=""
+                    width={26}
+                    height={26}
+                    className="h-auto w-[26px]"
+                  />
+                  <span>Контакты</span>
+                </a>
 
                 <div className="flex flex-col items-end gap-2">
                   <a
@@ -138,13 +112,13 @@ export default function Header() {
               {/* Бургер меню (только на мобильных) */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden flex h-[45px] w-[45px] items-center justify-center text-white transition-colors hover:text-white/80"
+                className="lg:hidden flex h-10 w-10 items-center justify-center text-white transition-colors hover:text-white/80"
                 aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
                 aria-expanded={isMobileMenuOpen}
               >
                 <svg
-                  width={45}
-                  height={45}
+                  width={24}
+                  height={24}
                   viewBox="0 0 45 45"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

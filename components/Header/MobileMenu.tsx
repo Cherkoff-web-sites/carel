@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { lockInternalNavOnHome } from '@/lib/siteFlags'
+import { CONTACTS_HREF } from '@/lib/constants'
+import { scrollToContacts } from '@/lib/scrollToContacts'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
 import HeaderCartButton from '@/components/Header/HeaderCartButton'
 import { HEADER_NAV_ITEMS, isHeaderNavItemActive } from './navConfig'
@@ -49,10 +51,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               alt="CAREL Works"
               width={146}
               height={52}
-              className="h-10 w-auto"
+              className="h-8 w-auto"
             />
           </Link>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <HeaderCartButton onNavigate={onClose} />
             <button
               type="button"
@@ -124,37 +126,28 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               <span className="text-base font-medium">8 (929) 538-56-34</span>
             </a>
 
-            {navLocked ? (
-              <span className="flex cursor-default items-center gap-3 rounded-[5px] px-4 py-3 text-white/70">
-                <span className="flex items-center gap-2.5">
-                  <Image
-                    src="/images/header/icon-thermometer.svg"
-                    alt=""
-                    width={20}
-                    height={20}
-                  />
-                  <Image src="/images/header/icon-drop.svg" alt="" width={20} height={20} />
-                </span>
-                <span className="text-base font-medium">Контакты</span>
+            <a
+              href={CONTACTS_HREF}
+              onClick={(event) => {
+                event.preventDefault()
+                onClose()
+                requestAnimationFrame(() => {
+                  setTimeout(() => scrollToContacts(), 50)
+                })
+              }}
+              className="flex items-center gap-3 rounded-[5px] px-4 py-3 text-white/95 transition-colors hover:bg-white/5 hover:text-white"
+            >
+              <span className="flex items-center gap-2.5">
+                <Image
+                  src="/images/header/icon-thermometer.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+                <Image src="/images/header/icon-drop.svg" alt="" width={20} height={20} />
               </span>
-            ) : (
-              <Link
-                href="/contact"
-                onClick={onClose}
-                className="flex items-center gap-3 rounded-[5px] px-4 py-3 text-white/95 transition-colors hover:bg-white/5 hover:text-white"
-              >
-                <span className="flex items-center gap-2.5">
-                  <Image
-                    src="/images/header/icon-thermometer.svg"
-                    alt=""
-                    width={20}
-                    height={20}
-                  />
-                  <Image src="/images/header/icon-drop.svg" alt="" width={20} height={20} />
-                </span>
-                <span className="text-base font-medium">Контакты</span>
-              </Link>
-            )}
+              <span className="text-base font-medium">Контакты</span>
+            </a>
 
             <ContactModalTrigger
               onClick={onClose}

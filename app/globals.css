@@ -16,7 +16,7 @@ body {
 }
 
 html {
-  background-color: #fdfbf6;
+  background-color: #fffefa;
 }
 
 * {
@@ -26,7 +26,7 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fdfbf6;
+  background-color: #fffefa;
   color: #232326;
 }
 
@@ -50,8 +50,7 @@ a {
   text-decoration: none;
 }
 
-/* Фон сайдбара услуг: от левого края экрана до колонки навбара, на всю высоту блока */
-.services-sidebar::before,
+/* Фон сайдбара каталога: без изменений */
 .catalog-sidebar::before {
   content: '';
   position: absolute;
@@ -61,6 +60,25 @@ a {
   right: 0;
   left: calc(50% - 50vw);
   background-color: rgb(232 230 225 / 0.6);
+}
+
+/* Фон сайдбара услуг: от левого края экрана до колонки навбара, на всю высоту блока */
+.services-sidebar::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: calc(50% - 50vw);
+  background-color: #f2f2f2;
+}
+
+/* На ПК фон услуг доходит до подвала: компенсируем lg:pb-12 контейнера (48px) */
+@media (min-width: 1024px) {
+  .services-sidebar::before {
+    bottom: -3rem;
+  }
 }
 
 /* Каталог: Swiper с миниатюрами */
