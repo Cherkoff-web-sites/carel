@@ -28,10 +28,3 @@ export const ENGINEER_CALL_CTA_LABEL = 'Позвонить инженеру'
 
 export type ContactModalView = 'form' | 'call'
 
-export const NAVIGATION_ITEMS = [
-  { href: '/', label: 'Главная' },
-  { href: '/about', label: 'О компании' },
-  { href: CONTACTS_HREF, label: 'Контакты' },
-  { href: '/catalog', label: 'Каталог' },
-] as const
-
