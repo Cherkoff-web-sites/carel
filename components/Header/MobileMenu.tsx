@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { lockInternalNavOnHome } from '@/lib/siteFlags'
 import { CONTACTS_HREF } from '@/lib/constants'
 import { scrollToContacts } from '@/lib/scrollToContacts'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
@@ -18,7 +17,6 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname()
-  const navLocked = lockInternalNavOnHome && pathname === '/'
 
   useEffect(() => {
     if (!isOpen) {
@@ -90,16 +88,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   ? 'bg-[#E62614] text-white'
                   : 'text-white/90 hover:bg-white/5 hover:text-white'
               }`
-
-              if (navLocked) {
-                return (
-                  <li key={item.href}>
-                    <span className={`${className} cursor-default opacity-70`}>
-                      {item.label}
-                    </span>
-                  </li>
-                )
-              }
 
               return (
                 <li key={item.href}>

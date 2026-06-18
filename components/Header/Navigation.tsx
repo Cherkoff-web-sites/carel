@@ -2,12 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { lockInternalNavOnHome } from '@/lib/siteFlags'
 import { HEADER_NAV_ITEMS, isHeaderNavItemActive } from './navConfig'
 
 export default function Navigation() {
   const pathname = usePathname()
-  const navLocked = lockInternalNavOnHome && pathname === '/'
 
   return (
     <nav className="hidden items-center gap-7 lg:flex">
@@ -16,14 +14,6 @@ export default function Navigation() {
         const className = `text-sm font-medium transition-colors ${
           isActive ? 'text-[#E62614]' : 'text-white/85 hover:text-white'
         }`
-
-        if (navLocked) {
-          return (
-            <span key={item.href} className={`${className} cursor-default opacity-70`}>
-              {item.label}
-            </span>
-          )
-        }
 
         return (
           <Link key={item.href} href={item.href} className={className}>
