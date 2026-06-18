@@ -8,6 +8,7 @@ import CatalogPerformanceGrid from '@/components/catalog/CatalogPerformanceGrid'
 import CatalogImageSlider from '@/components/catalog/CatalogImageSlider'
 import CatalogProductRow from '@/components/catalog/CatalogProductRow'
 import { humisteamToCartItem } from '@/lib/cartFromProduct'
+import { scrollToPageTop } from '@/lib/scrollToPageTop'
 import HumiSteamProductDetail from '@/components/catalog/HumiSteamProductDetail'
 import {
   catalogIdToModelId,
@@ -72,9 +73,6 @@ export default function HumiSteamCatalogView({
       setSelectedProductId(product.id)
       updateProductUrl(product)
       onCatalogSelect(product.modelId)
-      requestAnimationFrame(() => {
-        listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
     },
     [onCatalogSelect, updateProductUrl]
   )
@@ -115,6 +113,13 @@ export default function HumiSteamCatalogView({
     setSelectedModelId(product.modelId)
     setSelectedPerformance(product.performanceKgH)
   }, [searchParams])
+
+  useEffect(() => {
+    if (!selectedProduct) {
+      return
+    }
+    scrollToPageTop()
+  }, [selectedProduct?.id])
 
   useEffect(() => {
     if (!selectedProductId || selectedProduct) {
@@ -159,7 +164,7 @@ export default function HumiSteamCatalogView({
     const modelProducts = getProductsForModel(selectedProduct.modelId)
 
     return (
-      <article className="min-w-0" ref={listRef}>
+      <article className="min-w-0">
         <HumiSteamProductDetail
           product={selectedProduct}
           modelProducts={modelProducts}

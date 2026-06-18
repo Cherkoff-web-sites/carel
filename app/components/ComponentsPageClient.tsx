@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import CatalogSidebar from '@/components/catalog/CatalogSidebar'
 import ComponentProductDetail from '@/components/components-catalog/ComponentProductDetail'
@@ -17,12 +17,12 @@ import {
   COMPONENTS_CATALOG_TREE,
   COMPONENTS_DEFAULT_SECTION_ID,
 } from '@/lib/componentsCatalogTree'
+import { scrollToPageTop } from '@/lib/scrollToPageTop'
 
 export default function ComponentsPageClient() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const mainRef = useRef<HTMLDivElement>(null)
 
   const [activeSectionId, setActiveSectionId] = useState(COMPONENTS_DEFAULT_SECTION_ID)
   const [selectedProduct, setSelectedProduct] = useState<ComponentCatalogItem | null>(null)
@@ -50,9 +50,6 @@ export default function ComponentsPageClient() {
       setActiveSectionId(product.sectionId)
       setSelectedProduct(product)
       syncUrl(product.sectionId, product.id)
-      requestAnimationFrame(() => {
-        mainRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
     },
     [syncUrl]
   )
@@ -84,6 +81,13 @@ export default function ComponentsPageClient() {
     }
   }, [searchParams])
 
+  useEffect(() => {
+    if (!selectedProduct) {
+      return
+    }
+    scrollToPageTop()
+  }, [selectedProduct?.id])
+
   const sectionProducts = getComponentsForSection(
     selectedProduct?.sectionId ?? activeSectionId
   )
@@ -97,7 +101,7 @@ export default function ComponentsPageClient() {
         showThumbnails={false}
         title="Каталог"
       />
-      <div ref={mainRef} className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1">
         {selectedProduct ? (
           <ComponentProductDetail
             product={selectedProduct}

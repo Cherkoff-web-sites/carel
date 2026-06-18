@@ -10,6 +10,7 @@ import CatalogProductRow from '@/components/catalog/CatalogProductRow'
 import HeaterSteamProductDetail from '@/components/catalog/HeaterSteamProductDetail'
 import { catalogIdToHeatersteamVariantId, type HeatersteamVariantId } from '@/lib/catalogData'
 import { heatersteamToCartItem } from '@/lib/cartFromProduct'
+import { scrollToPageTop } from '@/lib/scrollToPageTop'
 import {
   filterProducts,
   getHeaterSteamProductById,
@@ -69,9 +70,6 @@ export default function HeaterSteamCatalogView({
       setSelectedProductId(product.id)
       updateProductUrl(product)
       onCatalogSelect(product.variantId)
-      requestAnimationFrame(() => {
-        listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
     },
     [onCatalogSelect, updateProductUrl]
   )
@@ -110,6 +108,13 @@ export default function HeaterSteamCatalogView({
     setSelectedVariantId(product.variantId)
     setSelectedPerformance(product.performanceKgH)
   }, [searchParams])
+
+  useEffect(() => {
+    if (!selectedProduct) {
+      return
+    }
+    scrollToPageTop()
+  }, [selectedProduct?.id])
 
   useEffect(() => {
     if (!selectedProductId || selectedProduct) return
@@ -152,7 +157,7 @@ export default function HeaterSteamCatalogView({
     const variantProducts = getProductsForVariant(selectedProduct.variantId)
 
     return (
-      <article className="min-w-0" ref={listRef}>
+      <article className="min-w-0">
         <HeaterSteamProductDetail
           product={selectedProduct}
           variantProducts={variantProducts}
