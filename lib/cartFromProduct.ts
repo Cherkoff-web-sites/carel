@@ -20,7 +20,7 @@ export function humisteamToCartItem(product: HumiSteamProduct): Omit<CartItem, '
     performance: `${formatPerformanceKgH(product.performanceKgH)} кг/ч пара`,
     price: product.price,
     image: product.image,
-    href: `/catalog?series=humisteam&sku=${product.sku}`,
+    href: `/catalog?id=humisteam&sku=${product.sku}`,
   }
 }
 

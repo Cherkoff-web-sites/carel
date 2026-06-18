@@ -16,6 +16,26 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/about',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/catalog/converter',
+        destination: '/catalog',
+        permanent: true,
+      },
+      {
+        source: '/catalog/soft-starter',
+        destination: '/catalog',
+        permanent: true,
+      },
+      {
+        source: '/catalog/motor',
+        destination: '/catalog',
+        permanent: true,
+      },
     ]
   },
   

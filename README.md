@@ -1,120 +1,77 @@
 # CAREL Professional Service — сайт на Next.js
 
-## 🎯 Архитектура проекта
+Сайт сервиса увлажнителей CAREL: каталог оборудования, запчасти, услуги, корзина заявок.
 
-Гибридный подход Next.js 14 с App Router, комбинирующий SSG и CSR для оптимального баланса SEO и интерактивности.
+## Маршруты
 
-### SSG (Static Site Generation) - для контентных страниц:
-- ✅ `/` - Главная страница
-- ✅ `/about` - О компании
-- ✅ `/contact` - Контакты
-- ✅ `/catalog/[productId]` - Страницы товаров (SSG для SEO)
+| URL | Описание |
+|-----|----------|
+| `/` | Главная |
+| `/catalog` | Увлажнители (навигация через `?id=` и `?sku=`) |
+| `/components` | Запчасти и комплектующие (`?id=`) |
+| `/services` | Редирект на `/services/maintenance` |
+| `/services/[slug]` | Страницы услуг (SSG) |
+| `/cart` | Корзина |
+| `#contacts` | Контакты в подвале (якорь) |
+| `/admin` | Админ-панель (в разработке) |
 
-**Преимущества:** Максимальное SEO, быстрая загрузка, готовый HTML
+Редиректы: `/contact`, `/about` → `/`; `/catalog/converter`, `/catalog/soft-starter`, `/catalog/motor` → `/catalog`.
 
-### CSR (Client-Side Rendering) - для интерактивных страниц:
-- ✅ `/catalog` - Каталог товаров (React-приложение)
-- ✅ `/admin` - Административная панель
-
-**Преимущества:** Интерактивность, фильтры, динамические обновления
-
-## 🚀 Быстрый старт
-
-### 1. Установка зависимостей:
+## Быстрый старт
 
 ```bash
 npm install
-```
-
-### 2. Запуск в режиме разработки:
-
-```bash
 npm run dev
 ```
 
 Откройте [http://localhost:3000](http://localhost:3000)
 
-### 3. Сборка для продакшена:
+## Сборка
 
 ```bash
 npm run build
 npm start
 ```
 
-## 📁 Структура проекта
+Для Docker и Timeweb Cloud см. `DEPLOY_TIMEWEB.md` в корне репозитория.
+
+## Структура
 
 ```
-├── app/                          # App Router (Next.js 14)
-│   ├── layout.tsx               # Корневой layout с Header/Footer
-│   ├── page.tsx                 # Главная (SSG)
-│   ├── about/
-│   │   └── page.tsx             # О компании (SSG)
-│   ├── contact/
-│   │   └── page.tsx             # Контакты (SSG)
-│   ├── catalog/                 # КАТАЛОГ (React-приложение)
-│   │   ├── page.tsx             # Список товаров (CSR)
-│   │   ├── [productId]/
-│   │   │   └── page.tsx         # Страница товара (SSG)
-│   │   └── components/          # Компоненты каталога
-│   │       ├── ProductList.tsx
-│   │       ├── ProductCard.tsx
-│   │       └── Filters.tsx
-│   ├── api/                     # API роуты
-│   │   └── products/
-│   │       ├── route.ts        # GET /api/products
-│   │       └── [productId]/
-│   │           └── route.ts     # GET /api/products/[id]
-│   └── globals.css              # Глобальные стили + Tailwind
-├── components/                  # ОБЩИЕ КОМПОНЕНТЫ
-│   ├── Header/
-│   │   ├── Header.tsx
-│   │   └── Navigation.tsx
-│   ├── Footer/
-│   │   └── Footer.tsx
-│   ├── ui/                     # UI компоненты
-│   │   ├── Button.tsx
-│   │   ├── Card.tsx
-│   │   └── Input.tsx
-│   └── Layout/
-│       └── Container.tsx
-├── lib/                        # УТИЛИТЫ
-│   ├── api/
-│   │   └── mockData.ts         # Моковые данные
-│   ├── utils.ts                # Общие утилиты
-│   └── constants.ts            # Константы
-├── types/                      # ТИПЫ TypeScript
-│   ├── product.ts
-│   └── global.d.ts
-├── public/                     # СТАТИЧЕСКИЕ ФАЙЛЫ
-├── tailwind.config.ts          # Конфиг Tailwind
-├── postcss.config.js           # Конфиг PostCSS
-├── next.config.js              # Конфиг Next.js
-└── tsconfig.json               # Конфиг TypeScript
+app/
+├── layout.tsx              # Header, Footer, корзина, модалка, чат
+├── page.tsx                # Главная
+├── catalog/                # Каталог увлажнителей (CSR + query params)
+├── components/             # Каталог запчастей
+├── services/               # Услуги
+├── cart/                   # Корзина
+├── admin/                  # Админка
+└── api/admin/              # API админки (content, products)
+
+components/
+├── Header/, Footer/
+├── catalog/                # humiSteam, heaterSteam UI
+├── components-catalog/     # Запчасти UI
+├── services/
+└── ContactModal/, ChatWidget/
+
+lib/
+├── catalogData.ts          # Дерево каталога увлажнителей
+├── humisteam*.ts           # Данные humiSteam
+├── heatersteam*.ts         # Данные heaterSteam
+├── componentsCatalog*.ts   # Данные запчастей
+├── servicesData.ts         # Услуги
+└── constants.ts            # Телефон, отступы шапки и т.д.
+
+public/images/              # Статика (см. README в подпапках catalog/)
 ```
 
-## 🛠 Технологии
+## Технологии
 
-- **Next.js 14** - React фреймворк с App Router
-- **React 18** - UI библиотека
-- **TypeScript** - Типизация
-- **Tailwind CSS** - Стилизация
-- **PostCSS** - Обработка CSS
+- Next.js 14 (App Router)
+- React 18, TypeScript
+- Tailwind CSS
 
-## ✅ Особенности
+## Данные админки
 
-- ✅ Гибридный рендеринг (SSG + CSR)
-- ✅ SEO-оптимизация для статичных страниц
-- ✅ Интерактивный каталог с фильтрами
-- ✅ TypeScript для типобезопасности
-- ✅ Tailwind CSS для стилизации
-- ✅ API Routes для работы с данными
-- ✅ Готово к подключению CMS (Strapi и др.)
-
-## 🎨 Проверка работы
-
-После установки зависимостей:
-
-1. **SSG страницы** - откройте исходный код (View Page Source), должен быть готовый HTML
-2. **CSR каталог** - проверьте работу фильтров и поиска
-3. **API Routes** - откройте `/api/products` в браузере
-
+Runtime-файлы `data/content.json` и `data/products.json` создаются админкой на сервере. Папка `data/` в `.gitignore`. При пересборке Docker-контейнера данные не сохраняются — см. деплой-инструкцию.
