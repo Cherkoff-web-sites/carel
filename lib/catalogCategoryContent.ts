@@ -17,7 +17,7 @@ export const CATALOG_CATEGORY_INTRO: Record<CatalogCategoryId, string> = {
 /** Краткое описание серии / позиции в списке категории */
 export const CATALOG_SERIES_SUMMARY: Partial<Record<string, string>> = {
   humisteam:
-    'Паровые увлажнители с погружными электродами: Basic (UE*Y), X-Plus (UE*X), Wellness (UE*W) — от 1 до 130 кг/ч',
+    'Паровые увлажнители с погружными электродами: Basic (UE*Y), X-Plus (UE*X), Wellness (UE*W) — производительность 1,5–130 кг/ч',
   heatersteam: 'Увлажнители с электронагревателем — process, titanium',
   compactsteam: 'Компактные паровые увлажнители — duct, room',
   'humisonic-compact': 'Ультразвуковое увлажнение, компактное исполнение',

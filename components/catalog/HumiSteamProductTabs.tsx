@@ -103,6 +103,8 @@ function SeriesTab({
         ))}
       </div>
 
+      <p className="mt-8 leading-relaxed text-[#232326]/90 sm:mt-10">{HUMISTEAM_SERIES_INTRO.outro}</p>
+
       <div className="relative mx-auto mt-8 aspect-[3/4] w-full max-w-[280px] sm:mt-10 sm:max-w-[320px] lg:max-w-[360px]">
         <Image
           src={HUMISTEAM_PRODUCT_IMAGE}
