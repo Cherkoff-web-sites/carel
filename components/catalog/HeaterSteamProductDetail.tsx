@@ -4,6 +4,8 @@ import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
 import CatalogAllModelsSelect from '@/components/catalog/CatalogAllModelsSelect'
 import CatalogImageSlider from '@/components/catalog/CatalogImageSlider'
 import HeaterSteamProductTabs from '@/components/catalog/HeaterSteamProductTabs'
+import ProductDetailCartIconButton from '@/components/product/ProductDetailCartIconButton'
+import ProductDetailPhoneButton from '@/components/product/ProductDetailPhoneButton'
 import { heatersteamToCartItem } from '@/lib/cartFromProduct'
 import type { HeaterSteamProduct } from '@/lib/heatersteamData'
 import { HEATERSTEAM_GALLERY_IMAGES } from '@/lib/heatersteamData'
@@ -13,30 +15,11 @@ import {
   getHeaterSteamProductSubtitle,
 } from '@/lib/heatersteamProductSpecs'
 
-const SITE_PHONE_HREF = 'tel:+79295385634'
-
 type HeaterSteamProductDetailProps = {
   product: HeaterSteamProduct
   variantProducts: HeaterSteamProduct[]
   onBack: () => void
   onSelectProduct: (product: HeaterSteamProduct) => void
-}
-
-function PhoneIconButton() {
-  return (
-    <a
-      href={SITE_PHONE_HREF}
-      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#232326] text-white transition-colors hover:bg-[#232326]/85 sm:h-11 sm:w-11"
-      aria-label="Позвонить"
-    >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path
-          d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.85 21 3 13.15 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"
-          fill="currentColor"
-        />
-      </svg>
-    </a>
-  )
 }
 
 export default function HeaterSteamProductDetail({
@@ -88,7 +71,7 @@ export default function HeaterSteamProductDetail({
               <span className="text-[#232326]/50">Цена:</span>{' '}
               <span className="font-bold">по запросу</span>
             </p>
-            <PhoneIconButton />
+            <ProductDetailPhoneButton />
           </div>
 
           <div className="mt-5 flex w-auto flex-col items-start gap-4 sm:mt-6">
@@ -98,9 +81,15 @@ export default function HeaterSteamProductDetail({
               onSelect={onSelectProduct}
             />
 
-            <ContactModalTrigger className="inline-flex w-auto items-center justify-center rounded-[5px] bg-[#E62614] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90">
-              Заявка на сервис
-            </ContactModalTrigger>
+            <div className="flex w-full max-w-md items-stretch gap-2">
+              <ContactModalTrigger className="inline-flex min-h-[52px] flex-1 items-center justify-center rounded-[5px] bg-[#E62614] px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90">
+                Заявка на сервис
+              </ContactModalTrigger>
+              <ProductDetailCartIconButton
+                getCartItem={() => heatersteamToCartItem(product)}
+                ariaLabel={`Добавить ${product.sku} в корзину`}
+              />
+            </div>
           </div>
         </div>
       </div>
