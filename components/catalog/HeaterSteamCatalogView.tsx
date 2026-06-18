@@ -179,7 +179,10 @@ export default function HeaterSteamCatalogView({
             ))}
           </div>
 
-          <ContactModalTrigger className="mt-6 inline-flex w-auto items-center justify-center self-start rounded-[5px] bg-[#E62614] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90">
+          <ContactModalTrigger
+            modalView="call"
+            className="mt-6 inline-flex w-auto items-center justify-center self-start rounded-[5px] bg-[#E62614] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90"
+          >
             Позвонить инженеру
           </ContactModalTrigger>
 

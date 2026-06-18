@@ -31,22 +31,22 @@ function QuantityControl({
     <div className="inline-flex items-center rounded-full border border-[#232326]/15 bg-[#e8e6e1]/80 px-1 py-0.5">
       <button
         type="button"
-        onClick={onIncrease}
+        onClick={onDecrease}
         className="flex h-8 w-8 items-center justify-center text-lg text-[#232326]/70 transition-colors hover:text-[#232326]"
-        aria-label="Увеличить количество"
+        aria-label="Уменьшить количество"
       >
-        +
+        −
       </button>
       <span className="min-w-[1.5rem] text-center text-base font-medium text-[#232326]">
         {quantity}
       </span>
       <button
         type="button"
-        onClick={onDecrease}
+        onClick={onIncrease}
         className="flex h-8 w-8 items-center justify-center text-lg text-[#232326]/70 transition-colors hover:text-[#232326]"
-        aria-label="Уменьшить количество"
+        aria-label="Увеличить количество"
       >
-        −
+        +
       </button>
     </div>
   )
@@ -130,7 +130,7 @@ function CartSummary({ disabled }: { disabled: boolean }) {
   }
 
   return (
-    <aside className="rounded-[5px] border border-[#232326]/12 bg-white p-6 lg:sticky lg:top-[138px]">
+    <aside className="h-fit w-full self-start rounded-[5px] border border-[#232326]/12 bg-white p-6 lg:sticky lg:top-[138px]">
       <p className="text-lg font-bold text-[#232326] sm:text-xl">Цена: по запросу</p>
 
       {submitted ? (
@@ -188,7 +188,7 @@ export default function CartPage() {
             </Link>
           </p>
         ) : (
-          <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)] lg:gap-10 xl:gap-14">
+          <div className="mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10 xl:gap-14">
             <div className="space-y-4 sm:space-y-5">
               {items.map((item) => (
                 <CartLineItem

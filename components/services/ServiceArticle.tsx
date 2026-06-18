@@ -124,7 +124,10 @@ export default function ServiceArticle({ service }: ServiceArticleProps) {
       </div>
 
       <div className="my-8 flex justify-center sm:my-10">
-        <ContactModalTrigger className="inline-flex w-fit items-center justify-center rounded-[5px] bg-[#E62614] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90">
+        <ContactModalTrigger
+          modalView="call"
+          className="inline-flex w-fit items-center justify-center rounded-[5px] bg-[#E62614] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90"
+        >
           {service.ctaLabel}
         </ContactModalTrigger>
       </div>

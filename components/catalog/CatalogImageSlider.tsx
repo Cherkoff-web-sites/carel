@@ -1,14 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { Swiper as SwiperInstance } from 'swiper'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/css'
 import 'swiper/css/free-mode'
-import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 
 type CatalogImageSliderProps = {
@@ -16,8 +15,35 @@ type CatalogImageSliderProps = {
   alt: string
 }
 
+function SliderChevron({ direction }: { direction: 'prev' | 'next' }) {
+  return (
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      fill="none"
+      className="h-2.5 w-2.5 shrink-0"
+      aria-hidden
+    >
+      <path
+        d={
+          direction === 'prev'
+            ? 'M6.5 1.5L2.5 5l4 3.5'
+            : 'M3.5 1.5L7.5 5l-4 3.5'
+        }
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export default function CatalogImageSlider({ images, alt }: CatalogImageSliderProps) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperInstance | null>(null)
+  const prevRef = useRef<HTMLButtonElement>(null)
+  const nextRef = useRef<HTMLButtonElement>(null)
   const safeImages =
     images.length > 0 ? images : (['/images/catalog/humisteam/gallery-1.png'] as const)
 
@@ -48,12 +74,15 @@ export default function CatalogImageSlider({ images, alt }: CatalogImageSliderPr
         ))}
       </Swiper>
 
-      <div className="catalog-image-slider__thumbs-wrap relative mt-4 flex items-center gap-2">
+      <div className="catalog-image-slider__thumbs-wrap relative mt-4 flex items-center gap-1 sm:gap-2">
         <button
+          ref={prevRef}
           type="button"
-          className="catalog-image-slider__nav catalog-image-slider__nav--prev swiper-button-prev"
+          className="catalog-image-slider__nav catalog-image-slider__nav--prev"
           aria-label="Предыдущее фото"
-        />
+        >
+          <SliderChevron direction="prev" />
+        </button>
         <Swiper
           onSwiper={setThumbsSwiper}
           modules={[FreeMode, Navigation, Thumbs]}
@@ -63,8 +92,15 @@ export default function CatalogImageSlider({ images, alt }: CatalogImageSliderPr
           spaceBetween={8}
           freeMode
           navigation={{
-            prevEl: '.catalog-image-slider__nav--prev',
-            nextEl: '.catalog-image-slider__nav--next',
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
+          }}
+          onBeforeInit={(swiper) => {
+            const nav = swiper.params.navigation
+            if (nav && typeof nav !== 'boolean') {
+              nav.prevEl = prevRef.current
+              nav.nextEl = nextRef.current
+            }
           }}
           breakpoints={{
             0: { slidesPerView: 3 },
@@ -87,10 +123,13 @@ export default function CatalogImageSlider({ images, alt }: CatalogImageSliderPr
           ))}
         </Swiper>
         <button
+          ref={nextRef}
           type="button"
-          className="catalog-image-slider__nav catalog-image-slider__nav--next swiper-button-next"
+          className="catalog-image-slider__nav catalog-image-slider__nav--next"
           aria-label="Следующее фото"
-        />
+        >
+          <SliderChevron direction="next" />
+        </button>
       </div>
     </div>
   )

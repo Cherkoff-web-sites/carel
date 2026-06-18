@@ -227,7 +227,7 @@ export default function HomePage() {
               >
                 <Link
                   href={`/services/${card.slug}`}
-                  className="relative aspect-[194/109] w-full bg-[#e8e6e1] lg:aspect-[375/211]"
+                  className="relative aspect-[194/109] w-full bg-[#e8e6e1] lg:aspect-[375/210]"
                 >
                   <Image
                     src={card.image}

@@ -21,6 +21,13 @@ export const HEADER_SCROLL_MARGIN_CLASS =
 export const CONTACTS_ANCHOR_ID = 'contacts'
 export const CONTACTS_HREF = `#${CONTACTS_ANCHOR_ID}`
 
+export const SITE_PHONE = '+79295385634'
+export const SITE_PHONE_DISPLAY = '8 (929) 538-56-34'
+
+export const ENGINEER_CALL_CTA_LABEL = 'Позвонить инженеру'
+
+export type ContactModalView = 'form' | 'call'
+
 export const NAVIGATION_ITEMS = [
   { href: '/', label: 'Главная' },
   { href: '/about', label: 'О компании' },

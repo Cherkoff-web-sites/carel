@@ -2,15 +2,18 @@
 
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { useContactModal } from '@/contexts/ContactModalContext'
+import type { ContactModalView } from '@/lib/constants'
 
 type ContactModalTriggerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode
+  modalView?: ContactModalView
 }
 
 export default function ContactModalTrigger({
   children,
   className = '',
   type = 'button',
+  modalView = 'form',
   onClick,
   ...props
 }: ContactModalTriggerProps) {
@@ -23,7 +26,7 @@ export default function ContactModalTrigger({
       onClick={(event) => {
         onClick?.(event)
         if (!event.defaultPrevented) {
-          openContactModal()
+          openContactModal(modalView)
         }
       }}
       {...props}
