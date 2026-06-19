@@ -11,12 +11,18 @@ export default function AdminInactiveField({ label }: AdminInactiveFieldProps) {
   )
 }
 
-export function AdminDisabledButton({ children }: { children: React.ReactNode }) {
+export function AdminDisabledButton({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
   return (
     <button
       type="button"
       disabled
-      className="cursor-not-allowed rounded-[5px] border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-[#232326]/55"
+      className={`cursor-not-allowed rounded-[5px] border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-[#232326]/55 ${className}`}
     >
       {children}
     </button>

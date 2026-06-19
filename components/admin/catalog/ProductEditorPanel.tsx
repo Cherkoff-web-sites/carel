@@ -57,8 +57,8 @@ export default function ProductEditorPanel({
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-5">
-        <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-5">
+        <div className="grid gap-6 lg:grid-cols-[280px_1fr] lg:gap-8">
           <ProductImagePreview src={image} alt={draft.title} galleryCount={galleryCount} />
 
           <div className="space-y-5">
@@ -153,20 +153,26 @@ export default function ProductEditorPanel({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 border-t border-gray-200 bg-gray-50 px-5 py-4">
-        <Button onClick={onSave} disabled={saving} className="bg-[#E62614] text-white hover:bg-[#E62614]/90">
+      <div className="flex flex-col gap-2 border-t border-gray-200 bg-gray-50 px-4 py-4 sm:flex-row sm:flex-wrap sm:items-center sm:px-5">
+        <Button
+          onClick={onSave}
+          disabled={saving}
+          className="w-full bg-[#E62614] text-white hover:bg-[#E62614]/90 sm:w-auto"
+        >
           {saving ? 'Сохранение…' : 'Сохранить'}
         </Button>
         <Link
           href={siteUrl}
           target="_blank"
-          className="text-sm font-medium text-[#E62614] hover:underline"
+          className="inline-flex w-full items-center justify-center py-2 text-sm font-medium text-[#E62614] hover:underline sm:w-auto sm:justify-start sm:py-0"
         >
           Открыть на сайте
         </Link>
-        <AdminDisabledButton>Дублировать</AdminDisabledButton>
-        <AdminDisabledButton>Скрыть</AdminDisabledButton>
-        <AdminDisabledButton>Удалить</AdminDisabledButton>
+        <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
+          <AdminDisabledButton className="w-full sm:w-auto">Дублировать</AdminDisabledButton>
+          <AdminDisabledButton className="w-full sm:w-auto">Скрыть</AdminDisabledButton>
+          <AdminDisabledButton className="w-full sm:w-auto">Удалить</AdminDisabledButton>
+        </div>
       </div>
     </div>
   )

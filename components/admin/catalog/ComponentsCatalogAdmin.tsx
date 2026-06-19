@@ -131,7 +131,7 @@ export default function ComponentsCatalogAdmin() {
   }
 
   return (
-    <>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <AdminPageHeader
         title="Запчасти"
         description="Управление каталогом комплектующих и запчастей."
@@ -139,7 +139,7 @@ export default function ComponentsCatalogAdmin() {
 
       {message ? (
         <div
-          className={`mx-6 mt-4 rounded-[5px] px-4 py-3 text-sm ${
+          className={`mx-4 mt-3 rounded-[5px] px-4 py-3 text-sm sm:mx-6 sm:mt-4 ${
             message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
           }`}
         >
@@ -147,8 +147,8 @@ export default function ComponentsCatalogAdmin() {
         </div>
       ) : null}
 
-      <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <div className="w-full shrink-0 lg:w-[280px]">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">
+        <div className="w-full shrink-0 lg:w-[280px] lg:overflow-hidden">
           <AdminTree
             tree={COMPONENTS_CATALOG_TREE}
             activeId={treeNodeId}
@@ -157,7 +157,7 @@ export default function ComponentsCatalogAdmin() {
           />
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:overflow-hidden">
           <CatalogToolbar
             search={search}
             onSearchChange={setSearch}
@@ -167,10 +167,12 @@ export default function ComponentsCatalogAdmin() {
           />
 
           {loading ? (
-            <p className="p-8 text-sm text-[#232326]/60">Загрузка товаров…</p>
+            <p className="p-6 text-sm text-[#232326]/60 sm:p-8">Загрузка товаров…</p>
           ) : (
-            <div className="flex min-h-0 flex-1 flex-col xl:flex-row">
-              <div className={`min-w-0 flex-1 overflow-y-auto ${selectedProduct ? 'xl:max-w-[55%]' : ''}`}>
+            <div className="relative flex min-h-0 flex-1 flex-col lg:flex-row lg:overflow-hidden">
+              <div
+                className={`min-w-0 flex-1 overflow-y-auto ${selectedProduct ? 'lg:max-w-[55%]' : ''}`}
+              >
                 {viewMode === 'table' ? (
                   <ProductTable rows={rows} selectedId={selectedId} onEdit={handleEdit} />
                 ) : (
@@ -179,7 +181,7 @@ export default function ComponentsCatalogAdmin() {
               </div>
 
               {selectedProduct && selectedId && drafts[selectedId] ? (
-                <div className="w-full shrink-0 border-t border-gray-200 xl:w-[45%] xl:border-l xl:border-t-0">
+                <div className="fixed inset-0 z-[220] flex flex-col bg-white lg:static lg:z-auto lg:w-[45%] lg:shrink-0 lg:border-l lg:border-gray-200">
                   <ProductEditorPanel
                     catalogKey="components"
                     productId={selectedProduct.id}
@@ -199,6 +201,6 @@ export default function ComponentsCatalogAdmin() {
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }

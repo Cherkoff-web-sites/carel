@@ -156,7 +156,7 @@ export default function HumidifiersCatalogAdmin() {
   }
 
   return (
-    <>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <AdminPageHeader
         title="Увлажнители"
         description="Управление каталогом humiSteam и heaterSteam."
@@ -164,7 +164,7 @@ export default function HumidifiersCatalogAdmin() {
 
       {message ? (
         <div
-          className={`mx-6 mt-4 rounded-[5px] px-4 py-3 text-sm ${
+          className={`mx-4 mt-3 rounded-[5px] px-4 py-3 text-sm sm:mx-6 sm:mt-4 ${
             message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
           }`}
         >
@@ -172,8 +172,8 @@ export default function HumidifiersCatalogAdmin() {
         </div>
       ) : null}
 
-      <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <div className="w-full shrink-0 lg:w-[280px]">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">
+        <div className="w-full shrink-0 lg:w-[280px] lg:overflow-hidden">
           <AdminTree
             tree={CATALOG_TREE}
             activeId={treeNodeId}
@@ -182,7 +182,7 @@ export default function HumidifiersCatalogAdmin() {
           />
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:overflow-hidden">
           <CatalogToolbar
             search={search}
             onSearchChange={setSearch}
@@ -192,10 +192,12 @@ export default function HumidifiersCatalogAdmin() {
           />
 
           {loading ? (
-            <p className="p-8 text-sm text-[#232326]/60">Загрузка товаров…</p>
+            <p className="p-6 text-sm text-[#232326]/60 sm:p-8">Загрузка товаров…</p>
           ) : (
-            <div className="flex min-h-0 flex-1 flex-col xl:flex-row">
-              <div className={`min-w-0 flex-1 overflow-y-auto ${selectedItem ? 'xl:max-w-[55%]' : ''}`}>
+            <div className="relative flex min-h-0 flex-1 flex-col lg:flex-row lg:overflow-hidden">
+              <div
+                className={`min-w-0 flex-1 overflow-y-auto ${selectedItem ? 'lg:max-w-[55%]' : ''}`}
+              >
                 {viewMode === 'table' ? (
                   <ProductTable rows={rows} selectedId={selectedKey} onEdit={handleEdit} />
                 ) : (
@@ -204,7 +206,7 @@ export default function HumidifiersCatalogAdmin() {
               </div>
 
               {selectedItem && selectedKey && drafts[selectedKey] ? (
-                <div className="w-full shrink-0 border-t border-gray-200 xl:w-[45%] xl:border-l xl:border-t-0">
+                <div className="fixed inset-0 z-[220] flex flex-col bg-white lg:static lg:z-auto lg:w-[45%] lg:shrink-0 lg:border-l lg:border-gray-200">
                   <ProductEditorPanel
                     catalogKey={selectedItem.catalogKey}
                     productId={selectedItem.product.id}
@@ -224,6 +226,6 @@ export default function HumidifiersCatalogAdmin() {
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }

@@ -52,6 +52,10 @@ function TreeItem({
   const isExpanded = expandedIds.has(node.id)
   const isActive = activeId === node.id
 
+  const handleSelect = () => {
+    onSelect(node.id)
+  }
+
   return (
     <li>
       <div
@@ -62,18 +66,18 @@ function TreeItem({
           <button
             type="button"
             onClick={() => onToggle(node.id)}
-            className="mr-1 flex h-6 w-6 items-center justify-center rounded hover:bg-gray-100"
+            className="mr-1 flex h-8 w-8 items-center justify-center rounded hover:bg-gray-100"
             aria-label={isExpanded ? 'Свернуть' : 'Развернуть'}
           >
             <Chevron open={isExpanded} />
           </button>
         ) : (
-          <span className="mr-1 w-6" />
+          <span className="mr-1 w-8" />
         )}
         <button
           type="button"
-          onClick={() => onSelect(node.id)}
-          className={`min-w-0 flex-1 truncate rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
+          onClick={handleSelect}
+          className={`min-w-0 flex-1 truncate rounded-md px-2 py-2 text-left text-sm transition-colors ${
             isActive
               ? 'bg-[#E62614]/10 font-semibold text-[#E62614]'
               : 'text-[#232326]/85 hover:bg-gray-100'
@@ -103,6 +107,7 @@ function TreeItem({
 
 export default function AdminTree({ tree, activeId, onSelect, title = 'Дерево каталога' }: AdminTreeProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set())
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
     const ancestors = getCatalogAncestorIds(tree, activeId) ?? []
@@ -127,23 +132,44 @@ export default function AdminTree({ tree, activeId, onSelect, title = 'Дере�
     })
   }
 
-  const activeLabel = findCatalogNodeById(tree, activeId)?.label
+  const handleSelect = (id: string) => {
+    onSelect(id)
+    setMobileOpen(false)
+  }
+
+  const activeLabel =
+    activeId === 'all' ? 'Все товары' : findCatalogNodeById(tree, activeId)?.label
 
   return (
-    <div className="flex h-full flex-col border-r border-gray-200 bg-white">
-      <div className="border-b border-gray-200 px-4 py-3">
-        <p className="text-xs font-semibold uppercase tracking-wide text-[#232326]/50">{title}</p>
-        {activeLabel ? (
-          <p className="mt-1 truncate text-sm font-medium text-[#232326]">{activeLabel}</p>
-        ) : null}
-      </div>
-      <div className="flex-1 overflow-y-auto py-2">
+    <div className="flex shrink-0 flex-col border-b border-gray-200 bg-white lg:h-full lg:border-b-0 lg:border-r">
+      <button
+        type="button"
+        onClick={() => setMobileOpen((open) => !open)}
+        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left lg:pointer-events-none lg:cursor-default"
+        aria-expanded={mobileOpen}
+      >
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#232326]/50">{title}</p>
+          {activeLabel ? (
+            <p className="mt-1 truncate text-sm font-medium text-[#232326]">{activeLabel}</p>
+          ) : null}
+        </div>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-gray-200 lg:hidden">
+          <Chevron open={mobileOpen} />
+        </span>
+      </button>
+
+      <div
+        className={`overflow-y-auto py-2 transition-[max-height] duration-200 lg:max-h-none lg:flex-1 ${
+          mobileOpen ? 'max-h-[45vh]' : 'max-h-0 lg:max-h-none'
+        }`}
+      >
         <ul>
           <li>
             <button
               type="button"
-              onClick={() => onSelect('all')}
-              className={`mx-2 block w-[calc(100%-16px)] rounded-md px-2 py-1.5 text-left text-sm ${
+              onClick={() => handleSelect('all')}
+              className={`mx-2 block w-[calc(100%-16px)] rounded-md px-2 py-2 text-left text-sm ${
                 activeId === 'all'
                   ? 'bg-[#E62614]/10 font-semibold text-[#E62614]'
                   : 'text-[#232326]/85 hover:bg-gray-100'
@@ -160,7 +186,7 @@ export default function AdminTree({ tree, activeId, onSelect, title = 'Дере�
               expandedIds={expandedIds}
               activeId={activeId}
               onToggle={handleToggle}
-              onSelect={onSelect}
+              onSelect={handleSelect}
             />
           ))}
         </ul>
