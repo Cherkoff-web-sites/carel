@@ -70,23 +70,21 @@ export function getModelLabel(modelId: HumisteamModelId): string {
   return HUMISTEAM_MODELS.find((m) => m.id === modelId)?.label ?? modelId
 }
 
-export function getProductsForModel(modelId: HumisteamModelId): HumiSteamProduct[] {
-  return HUMISTEAM_PRODUCTS.filter((p) => p.modelId === modelId)
-}
-
-export function getPerformanceOptions(modelId: HumisteamModelId | null): number[] {
-  const source = modelId
-    ? HUMISTEAM_PRODUCTS.filter((p) => p.modelId === modelId)
-    : HUMISTEAM_PRODUCTS
+export function getPerformanceOptions(
+  products: readonly HumiSteamProduct[],
+  modelId: HumisteamModelId | null
+): number[] {
+  const source = modelId ? products.filter((p) => p.modelId === modelId) : products
   const values = Array.from(new Set(source.map((p) => p.performanceKgH)))
   return values.sort((a, b) => a - b)
 }
 
 export function filterProducts(
+  products: readonly HumiSteamProduct[],
   modelId: HumisteamModelId | null,
   performanceKgH: number | null
 ): HumiSteamProduct[] {
-  return HUMISTEAM_PRODUCTS.filter((p) => {
+  return products.filter((p) => {
     if (modelId && p.modelId !== modelId) return false
     if (performanceKgH !== null && p.performanceKgH !== performanceKgH) return false
     return true
@@ -98,11 +96,24 @@ export function getModelsToDisplay(modelId: HumisteamModelId | null): HumisteamM
   return HUMISTEAM_MODELS.map((m) => m.id)
 }
 
-export function getHumiSteamProductById(id: string): HumiSteamProduct | undefined {
-  return HUMISTEAM_PRODUCTS.find((p) => p.id === id)
+export function getProductsForModel(
+  products: readonly HumiSteamProduct[],
+  modelId: HumisteamModelId
+): HumiSteamProduct[] {
+  return products.filter((p) => p.modelId === modelId)
 }
 
-export function getHumiSteamProductBySku(sku: string): HumiSteamProduct | undefined {
+export function getHumiSteamProductById(
+  products: readonly HumiSteamProduct[],
+  id: string
+): HumiSteamProduct | undefined {
+  return products.find((p) => p.id === id)
+}
+
+export function getHumiSteamProductBySku(
+  products: readonly HumiSteamProduct[],
+  sku: string
+): HumiSteamProduct | undefined {
   const normalized = sku.trim().toUpperCase()
-  return HUMISTEAM_PRODUCTS.find((p) => p.sku.toUpperCase() === normalized)
+  return products.find((p) => p.sku.toUpperCase() === normalized)
 }

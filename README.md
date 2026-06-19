@@ -13,7 +13,7 @@
 | `/services/[slug]` | Страницы услуг (SSG) |
 | `/cart` | Корзина |
 | `#contacts` | Контакты в подвале (якорь) |
-| `/admin` | Админ-панель (в разработке) |
+| `/admin` | Админ-панель каталога и заявок |
 
 Редиректы: `/contact`, `/about` → `/`; `/catalog/converter`, `/catalog/soft-starter`, `/catalog/motor` → `/catalog`.
 

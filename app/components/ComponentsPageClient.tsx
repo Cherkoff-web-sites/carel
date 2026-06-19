@@ -6,6 +6,7 @@ import CatalogSidebar from '@/components/catalog/CatalogSidebar'
 import ComponentProductDetail from '@/components/components-catalog/ComponentProductDetail'
 import ComponentsCatalogPanel from '@/components/components-catalog/ComponentsCatalogPanel'
 import ComponentsPageShell from '@/components/components-catalog/ComponentsPageShell'
+import { useCatalogProducts } from '@/hooks/useCatalogProducts'
 import { findCatalogNodeById } from '@/lib/catalogData'
 import {
   getComponentById,
@@ -23,6 +24,7 @@ export default function ComponentsPageClient() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const { products, loading } = useCatalogProducts('components')
 
   const [activeSectionId, setActiveSectionId] = useState(COMPONENTS_DEFAULT_SECTION_ID)
   const [selectedProduct, setSelectedProduct] = useState<ComponentCatalogItem | null>(null)
@@ -61,13 +63,17 @@ export default function ComponentsPageClient() {
   }, [activeSectionId, selectedProduct?.sectionId, syncUrl])
 
   useEffect(() => {
+    if (products.length === 0) {
+      return
+    }
+
     const id = searchParams.get('id')
     if (!id) {
       return
     }
 
-    if (isComponentProductId(id)) {
-      const product = getComponentById(id)
+    if (isComponentProductId(products, id)) {
+      const product = getComponentById(products, id)
       if (product) {
         setSelectedProduct(product)
         setActiveSectionId(product.sectionId)
@@ -79,7 +85,7 @@ export default function ComponentsPageClient() {
       setActiveSectionId(id)
       setSelectedProduct(null)
     }
-  }, [searchParams])
+  }, [products, searchParams])
 
   useEffect(() => {
     if (!selectedProduct) {
@@ -89,8 +95,17 @@ export default function ComponentsPageClient() {
   }, [selectedProduct?.id])
 
   const sectionProducts = getComponentsForSection(
+    products,
     selectedProduct?.sectionId ?? activeSectionId
   )
+
+  if (loading && products.length === 0) {
+    return (
+      <ComponentsPageShell>
+        <p className="p-8 text-[#232326]/60">Загрузка каталога…</p>
+      </ComponentsPageShell>
+    )
+  }
 
   return (
     <ComponentsPageShell>
@@ -110,7 +125,11 @@ export default function ComponentsPageClient() {
             onSelectProduct={openProduct}
           />
         ) : (
-          <ComponentsCatalogPanel sectionId={activeSectionId} onOpenProduct={openProduct} />
+          <ComponentsCatalogPanel
+            sectionId={activeSectionId}
+            products={products}
+            onOpenProduct={openProduct}
+          />
         )}
       </div>
     </ComponentsPageShell>

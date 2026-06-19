@@ -15,6 +15,7 @@ function buildComponentsRedirect(searchParams: URLSearchParams): string {
 import CatalogMainPanel from '@/components/catalog/CatalogMainPanel'
 import CatalogPageShell from '@/components/catalog/CatalogPageShell'
 import CatalogSidebar from '@/components/catalog/CatalogSidebar'
+import { useCatalogProducts } from '@/hooks/useCatalogProducts'
 import { findCatalogNodeById, CATALOG_TREE } from '@/lib/catalogData'
 import { getHeaterSteamProductBySku } from '@/lib/heatersteamData'
 import { getHumiSteamProductBySku } from '@/lib/humisteamData'
@@ -23,6 +24,8 @@ export default function CatalogPageClient() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const { products: humiProducts } = useCatalogProducts('humisteam')
+  const { products: heaterProducts } = useCatalogProducts('heatersteam')
   const [activeCatalogId, setActiveCatalogId] = useState<string | null>(null)
 
   /** Клик в сайдбаре: раздел каталога без карточки товара */
@@ -54,17 +57,17 @@ export default function CatalogPageClient() {
     const sku = searchParams.get('sku')
     if (!sku) return
 
-    const humiProduct = getHumiSteamProductBySku(sku)
+    const humiProduct = getHumiSteamProductBySku(humiProducts, sku)
     if (humiProduct) {
       setActiveCatalogId(humiProduct.modelId)
       return
     }
 
-    const heaterProduct = getHeaterSteamProductBySku(sku)
+    const heaterProduct = getHeaterSteamProductBySku(heaterProducts, sku)
     if (heaterProduct) {
       setActiveCatalogId(heaterProduct.variantId)
     }
-  }, [router, searchParams])
+  }, [heaterProducts, humiProducts, router, searchParams])
 
   return (
     <CatalogPageShell>

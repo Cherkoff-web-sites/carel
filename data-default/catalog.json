@@ -1,0 +1,1186 @@
+{
+  "version": 1,
+  "humisteam": [
+    {
+      "id": "ue001yd001",
+      "modelId": "basic-uey",
+      "sku": "UE001YD001",
+      "title": "UE001YD001 — humiSteam Basic 1,5 кг/ч",
+      "performanceKgH": 1.5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "recommendedArea": "до 45 м²"
+      }
+    },
+    {
+      "id": "ue001ydc01",
+      "modelId": "basic-uey",
+      "sku": "UE001YDC01",
+      "title": "UE001YDC01 — humiSteam Basic 1,5 кг/ч",
+      "performanceKgH": 1.5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 45 м²"
+      }
+    },
+    {
+      "id": "ue003yd001",
+      "modelId": "basic-uey",
+      "sku": "UE003YD001",
+      "title": "UE003YD001 — humiSteam Basic 3 кг/ч",
+      "performanceKgH": 3,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "recommendedArea": "до 90 м²"
+      }
+    },
+    {
+      "id": "ue003ydc01",
+      "modelId": "basic-uey",
+      "sku": "UE003YDC01",
+      "title": "UE003YDC01 — humiSteam Basic 3 кг/ч",
+      "performanceKgH": 3,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 90 м²"
+      }
+    },
+    {
+      "id": "ue005yd001",
+      "modelId": "basic-uey",
+      "sku": "UE005YD001",
+      "title": "UE005YD001 — humiSteam Basic 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "powerKw": "3,75 кВт",
+        "steamConnection": "Ø 30 мм",
+        "cylinderCount": "1",
+        "weight": "17 кг",
+        "recommendedArea": "до 150 м²"
+      }
+    },
+    {
+      "id": "ue005ydc01",
+      "modelId": "basic-uey",
+      "sku": "UE005YDC01",
+      "title": "UE005YDC01 — humiSteam Basic 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное (200–230В ±10–15%, 50/60 Гц)",
+        "cylinderType": "Разборный (cleanable)",
+        "powerKw": "3,75 кВт",
+        "steamConnection": "Ø 30 мм",
+        "cylinderCount": "1",
+        "weight": "17 кг",
+        "recommendedArea": "до 150 м²"
+      }
+    },
+    {
+      "id": "ue005yl001",
+      "modelId": "basic-uey",
+      "sku": "UE005YL001",
+      "title": "UE005YL001 — humiSteam Basic 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "recommendedArea": "до 150 м²"
+      }
+    },
+    {
+      "id": "ue009yd001",
+      "modelId": "basic-uey",
+      "sku": "UE009YD001",
+      "title": "UE009YD001 — humiSteam Basic 9 кг/ч",
+      "performanceKgH": 9,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "recommendedArea": "до 270 м²"
+      }
+    },
+    {
+      "id": "ue010ylc01",
+      "modelId": "basic-uey",
+      "sku": "UE010YLC01",
+      "title": "UE010YLC01 — humiSteam Basic 10 кг/ч",
+      "performanceKgH": 10,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 300 м²"
+      }
+    },
+    {
+      "id": "ue015ylc01",
+      "modelId": "basic-uey",
+      "sku": "UE015YLC01",
+      "title": "UE015YLC01 — humiSteam Basic 15 кг/ч",
+      "performanceKgH": 15,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 450 м²"
+      }
+    },
+    {
+      "id": "ue025ylc01",
+      "modelId": "basic-uey",
+      "sku": "UE025YLC01",
+      "title": "UE025YLC01 — humiSteam Basic 25 кг/ч",
+      "performanceKgH": 25,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 750 м²"
+      }
+    },
+    {
+      "id": "ue035ylc01",
+      "modelId": "basic-uey",
+      "sku": "UE035YLC01",
+      "title": "UE035YLC01 — humiSteam Basic 35 кг/ч",
+      "performanceKgH": 35,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 1050 м²"
+      }
+    },
+    {
+      "id": "ue045ylc01",
+      "modelId": "basic-uey",
+      "sku": "UE045YLC01",
+      "title": "UE045YLC01 — humiSteam Basic 45 кг/ч",
+      "performanceKgH": 45,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 1350 м²"
+      }
+    },
+    {
+      "id": "ue065ylc01",
+      "modelId": "basic-uey",
+      "sku": "UE065YLC01",
+      "title": "UE065YLC01 — humiSteam Basic 65 кг/ч",
+      "performanceKgH": 65,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "ВКЛ/ВЫКЛ или пропорциональное",
+        "dimensions": "890×635×465 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 1950 м²"
+      }
+    },
+    {
+      "id": "ue001xdc01",
+      "modelId": "xplus-uex",
+      "sku": "UE001XDC01",
+      "title": "UE001XDC01 — humiSteam X-Plus 1,5 кг/ч",
+      "performanceKgH": 1.5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное (1~, 220В)",
+        "cylinderType": "Разборный (cleanable)",
+        "powerKw": "1,12 кВт",
+        "steamConnection": "Ø 22/30 мм",
+        "cylinderCount": "1",
+        "netWeight": "13,5 кг",
+        "recommendedArea": "до 45 м²"
+      }
+    },
+    {
+      "id": "ue001xd0e1",
+      "modelId": "xplus-uex",
+      "sku": "UE001XD0E1",
+      "title": "UE001XD0E1 — humiSteam X-Plus 1,5 кг/ч",
+      "performanceKgH": 1.5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр | Малошумный контактор",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное (1~, 220В)",
+        "cylinderType": "Неразборный (одноразовый)",
+        "powerKw": "1,12 кВт",
+        "steamConnection": "Ø 22/30 мм",
+        "cylinderCount": "1",
+        "netWeight": "13,5 кг",
+        "features": "Малошумный контактор",
+        "recommendedArea": "до 45 м²"
+      }
+    },
+    {
+      "id": "ue003xdc01",
+      "modelId": "xplus-uex",
+      "sku": "UE003XDC01",
+      "title": "UE003XDC01 — humiSteam X-Plus 3 кг/ч",
+      "performanceKgH": 3,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Разборный (cleanable)",
+        "powerKw": "2,25 кВт",
+        "steamConnection": "Ø 30 мм",
+        "cylinderCount": "1",
+        "recommendedArea": "до 90 м²"
+      }
+    },
+    {
+      "id": "ue003xd0e1",
+      "modelId": "xplus-uex",
+      "sku": "UE003XD0E1",
+      "title": "UE003XD0E1 — humiSteam X-Plus 3 кг/ч",
+      "performanceKgH": 3,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "powerKw": "2,25 кВт",
+        "steamConnection": "Ø 30 мм",
+        "cylinderCount": "1",
+        "recommendedArea": "до 90 м²"
+      }
+    },
+    {
+      "id": "ue005xdc01",
+      "modelId": "xplus-uex",
+      "sku": "UE005XDC01",
+      "title": "UE005XDC01 — humiSteam X-Plus 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное (1~, 220В)",
+        "cylinderType": "Разборный (cleanable)",
+        "powerKw": "3,75 кВт",
+        "steamConnection": "Ø 30 мм",
+        "cylinderCount": "1",
+        "packagingDimensions": "850×500×400 мм",
+        "netWeight": "13,5 кг",
+        "grossWeight": "16 кг",
+        "recommendedArea": "до 150 м²"
+      }
+    },
+    {
+      "id": "ue005xd0e1",
+      "modelId": "xplus-uex",
+      "sku": "UE005XD0E1",
+      "title": "UE005XD0E1 — humiSteam X-Plus 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "powerKw": "3,75 кВт",
+        "steamConnection": "Ø 30 мм",
+        "cylinderCount": "1",
+        "recommendedArea": "до 150 м²"
+      }
+    },
+    {
+      "id": "ue009xd0e1",
+      "modelId": "xplus-uex",
+      "sku": "UE009XD0E1",
+      "title": "UE009XD0E1 — humiSteam X-Plus 9 кг/ч",
+      "performanceKgH": 9,
+      "description": "Паровой увлажнитель CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "recommendedArea": "до 270 м²"
+      }
+    },
+    {
+      "id": "ue010xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE010XLC01",
+      "title": "UE010XLC01 — humiSteam X-Plus 10 кг/ч",
+      "performanceKgH": 10,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 300 м²"
+      }
+    },
+    {
+      "id": "ue015xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE015XLC01",
+      "title": "UE015XLC01 — humiSteam X-Plus 15 кг/ч",
+      "performanceKgH": 15,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 450 м²"
+      }
+    },
+    {
+      "id": "ue015xl0e1",
+      "modelId": "xplus-uex",
+      "sku": "UE015XL0E1",
+      "title": "UE015XL0E1 — humiSteam X-Plus 15 кг/ч",
+      "performanceKgH": 15,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "recommendedArea": "до 450 м²"
+      }
+    },
+    {
+      "id": "ue025xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE025XLC01",
+      "title": "UE025XLC01 — humiSteam X-Plus 25 кг/ч",
+      "performanceKgH": 25,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 750 м²"
+      }
+    },
+    {
+      "id": "ue035xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE035XLC01",
+      "title": "UE035XLC01 — humiSteam X-Plus 35 кг/ч",
+      "performanceKgH": 35,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 1050 м²"
+      }
+    },
+    {
+      "id": "ue045xl0e1",
+      "modelId": "xplus-uex",
+      "sku": "UE045XL0E1",
+      "title": "UE045XL0E1 — humiSteam X-Plus 45 кг/ч",
+      "performanceKgH": 45,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Неразборный (одноразовый)",
+        "recommendedArea": "до 1350 м²"
+      }
+    },
+    {
+      "id": "ue045xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE045XLC01",
+      "title": "UE045XLC01 — humiSteam X-Plus 45 кг/ч",
+      "performanceKgH": 45,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 1350 м²"
+      }
+    },
+    {
+      "id": "ue065xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE065XLC01",
+      "title": "UE065XLC01 — humiSteam X-Plus 65 кг/ч",
+      "performanceKgH": 65,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "890×635×465 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "recommendedArea": "до 1950 м²"
+      }
+    },
+    {
+      "id": "ue090xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE090XLC01",
+      "title": "UE090XLC01 — humiSteam X-Plus 90 кг/ч",
+      "performanceKgH": 90,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр | Двухцилиндровая конфигурация",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "890×635×465 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "features": "Двухцилиндровая конфигурация, регулирование от 10%",
+        "recommendedArea": "до 2700 м²"
+      }
+    },
+    {
+      "id": "ue130xlc01",
+      "modelId": "xplus-uex",
+      "sku": "UE130XLC01",
+      "title": "UE130XLC01 — humiSteam X-Plus 130 кг/ч",
+      "performanceKgH": 130,
+      "description": "Паровой увлажнитель CAREL | 3×400В, трёхфазное | Разборный цилиндр | Двухцилиндровая конфигурация",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "интеллектуальный контроллер pCO (серия X)",
+        "protectionClass": "IP20",
+        "dimensions": "890×635×465 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)",
+        "features": "Двухцилиндровая конфигурация, регулирование от 10%",
+        "recommendedArea": "до 3900 м²"
+      }
+    },
+    {
+      "id": "ue001wdc01",
+      "modelId": "wellness-uew",
+      "sku": "UE001WDC01",
+      "title": "UE001WDC01 — humiSteam Wellness 1,5 кг/ч",
+      "performanceKgH": 1.5,
+      "description": "Паровой увлажнитель CAREL для саун | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue003wdc01",
+      "modelId": "wellness-uew",
+      "sku": "UE003WDC01",
+      "title": "UE003WDC01 — humiSteam Wellness 3 кг/ч",
+      "performanceKgH": 3,
+      "description": "Паровой увлажнитель CAREL для саун | 230В, однофазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "powerSupply": "230В, однофазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue005wd001",
+      "modelId": "wellness-uew",
+      "sku": "UE005WD001",
+      "title": "UE005WD001 — humiSteam Wellness 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Паровой увлажнитель CAREL для саун | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "230В, однофазное (1~, 220В)",
+        "cylinderType": "Неразборный (одноразовый)",
+        "powerKw": "3,75 кВт",
+        "steamConnection": "Ø 30 мм",
+        "cylinderCount": "1",
+        "packagingDimensions": "850×500×400 мм",
+        "netWeight": "13,5 кг",
+        "grossWeight": "16 кг"
+      }
+    },
+    {
+      "id": "ue005wlc01",
+      "modelId": "wellness-uew",
+      "sku": "UE005WLC01",
+      "title": "UE005WLC01 — humiSteam Wellness 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue008wlc01",
+      "modelId": "wellness-uew",
+      "sku": "UE008WLC01",
+      "title": "UE008WLC01 — humiSteam Wellness 8 кг/ч",
+      "performanceKgH": 8,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue010wlc01",
+      "modelId": "wellness-uew",
+      "sku": "UE010WLC01",
+      "title": "UE010WLC01 — humiSteam Wellness 10 кг/ч",
+      "performanceKgH": 10,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue015wl001",
+      "modelId": "wellness-uew",
+      "sku": "UE015WL001",
+      "title": "UE015WL001 — humiSteam Wellness 15 кг/ч",
+      "performanceKgH": 15,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Неразборный (одноразовый)"
+      }
+    },
+    {
+      "id": "ue015wlc01",
+      "modelId": "wellness-uew",
+      "sku": "UE015WLC01",
+      "title": "UE015WLC01 — humiSteam Wellness 15 кг/ч",
+      "performanceKgH": 15,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "712×365×275 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue025wl001",
+      "modelId": "wellness-uew",
+      "sku": "UE025WL001",
+      "title": "UE025WL001 — humiSteam Wellness 25 кг/ч",
+      "performanceKgH": 25,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Неразборный (одноразовый)"
+      }
+    },
+    {
+      "id": "ue025wlc01",
+      "modelId": "wellness-uew",
+      "sku": "UE025WLC01",
+      "title": "UE025WLC01 — humiSteam Wellness 25 кг/ч",
+      "performanceKgH": 25,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue045wl001",
+      "modelId": "wellness-uew",
+      "sku": "UE045WL001",
+      "title": "UE045WL001 — humiSteam Wellness 45 кг/ч",
+      "performanceKgH": 45,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Неразборный (одноразовый)"
+      }
+    },
+    {
+      "id": "ue045wlc01",
+      "modelId": "wellness-uew",
+      "sku": "UE045WLC01",
+      "title": "UE045WLC01 — humiSteam Wellness 45 кг/ч",
+      "performanceKgH": 45,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "815×545×375 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    },
+    {
+      "id": "ue065wlc01",
+      "modelId": "wellness-uew",
+      "sku": "UE065WLC01",
+      "title": "UE065WLC01 — humiSteam Wellness 65 кг/ч",
+      "performanceKgH": 65,
+      "description": "Паровой увлажнитель CAREL для саун | 3×400В, трёхфазное | Разборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1,
+      "specs": {
+        "control": "управление температурой для саун",
+        "protectionClass": "IP20",
+        "features": "Управление температурой для саун",
+        "dimensions": "890×635×465 мм",
+        "powerSupply": "3×400В, трёхфазное",
+        "cylinderType": "Разборный (cleanable)"
+      }
+    }
+  ],
+  "heatersteam": [
+    {
+      "id": "ue001yd001",
+      "variantId": "heatersteam-process",
+      "sku": "UE001YD001",
+      "title": "UE001YD001 — heaterSteam process 1,5 кг/ч",
+      "performanceKgH": 1.5,
+      "description": "Увлажнитель с электронагревателем CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue003d001",
+      "variantId": "heatersteam-process",
+      "sku": "UE003D001",
+      "title": "UE003D001 — heaterSteam process 3 кг/ч",
+      "performanceKgH": 3,
+      "description": "Увлажнитель с электронагревателем CAREL | 3 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue005yd001",
+      "variantId": "heatersteam-process",
+      "sku": "UE005YD001",
+      "title": "UE005YD001 — heaterSteam process 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Увлажнитель с электронагревателем CAREL | 230В, однофазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue008d001",
+      "variantId": "heatersteam-process",
+      "sku": "UE008D001",
+      "title": "UE008D001 — heaterSteam process 8 кг/ч",
+      "performanceKgH": 8,
+      "description": "Увлажнитель с электронагревателем CAREL | 8 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue010yd001",
+      "variantId": "heatersteam-process",
+      "sku": "UE010YD001",
+      "title": "UE010YD001 — heaterSteam process 15 кг/ч",
+      "performanceKgH": 15,
+      "description": "Увлажнитель с электронагревателем CAREL | 400В, трёхфазное | Неразборный цилиндр",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue025d001",
+      "variantId": "heatersteam-process",
+      "sku": "UE025D001",
+      "title": "UE025D001 — heaterSteam process 25 кг/ч",
+      "performanceKgH": 25,
+      "description": "Увлажнитель с электронагревателем CAREL | 25 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue045d001",
+      "variantId": "heatersteam-process",
+      "sku": "UE045D001",
+      "title": "UE045D001 — heaterSteam process 45 кг/ч",
+      "performanceKgH": 45,
+      "description": "Увлажнитель с электронагревателем CAREL | 45 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue001t001",
+      "variantId": "heatersteam-titanium",
+      "sku": "UE001T001",
+      "title": "UE001T001 — heaterSteam titanium 1,5 кг/ч",
+      "performanceKgH": 1.5,
+      "description": "Увлажнитель с электронагревателем CAREL | 1,5 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue003td001",
+      "variantId": "heatersteam-titanium",
+      "sku": "UE003TD001",
+      "title": "UE003TD001 — heaterSteam titanium 3 кг/ч",
+      "performanceKgH": 3,
+      "description": "Увлажнитель heaterSteam titanium | 230В, однофазное | Повышенная коррозионная стойкость",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue005t001",
+      "variantId": "heatersteam-titanium",
+      "sku": "UE005T001",
+      "title": "UE005T001 — heaterSteam titanium 5 кг/ч",
+      "performanceKgH": 5,
+      "description": "Увлажнитель с электронагревателем CAREL | 5 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue008td001",
+      "variantId": "heatersteam-titanium",
+      "sku": "UE008TD001",
+      "title": "UE008TD001 — heaterSteam titanium 8 кг/ч",
+      "performanceKgH": 8,
+      "description": "Увлажнитель heaterSteam titanium | 400В, трёхфазное | Повышенная коррозионная стойкость",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue015t001",
+      "variantId": "heatersteam-titanium",
+      "sku": "UE015T001",
+      "title": "UE015T001 — heaterSteam titanium 15 кг/ч",
+      "performanceKgH": 15,
+      "description": "Увлажнитель с электронагревателем CAREL | 15 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue025t001",
+      "variantId": "heatersteam-titanium",
+      "sku": "UE025T001",
+      "title": "UE025T001 — heaterSteam titanium 25 кг/ч",
+      "performanceKgH": 25,
+      "description": "Увлажнитель с электронагревателем CAREL | 25 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    },
+    {
+      "id": "ue045t001",
+      "variantId": "heatersteam-titanium",
+      "sku": "UE045T001",
+      "title": "UE045T001 — heaterSteam titanium 45 кг/ч",
+      "performanceKgH": 45,
+      "description": "Увлажнитель с электронагревателем CAREL | 45 кг/ч",
+      "image": "/images/catalog/humisteam/products/ue001yd001.png",
+      "price": 1
+    }
+  ],
+  "components": [
+    {
+      "id": "cyl-blot2c00h2",
+      "sku": "BLOT2C00H2",
+      "title": "BLOT2C00H2",
+      "description": "Неразборный цилиндр CAREL 5–8 кг/ч, тип С",
+      "fullDescription": "BLOT2C00H2 Неразборный цилиндр CAREL 5–8 кг/ч, тип С, 3x400В, тип С, для средней электропроводности воды (350–750 мкС/см).",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-cylinders",
+      "relatedContexts": [
+        "basic-uey",
+        "xplus-uex"
+      ]
+    },
+    {
+      "id": "cyl-blot4c00h2",
+      "sku": "BLOT4C00H2",
+      "title": "BLOT4C00H2",
+      "description": "Неразборный цилиндр CAREL 9–15 кг/ч, тип С",
+      "fullDescription": "BLOT4C00H2 Неразборный цилиндр CAREL 9–15 кг/ч, тип С, 3x400В, тип С, для средней электропроводности воды (350–750 мкС/см).",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-cylinders",
+      "relatedContexts": [
+        "basic-uey",
+        "xplus-uex"
+      ]
+    },
+    {
+      "id": "cyl-blot8c00h2",
+      "sku": "BLOT8C00H2",
+      "title": "BLOT8C00H2",
+      "description": "Неразборный цилиндр CAREL 18–25 кг/ч, тип С",
+      "fullDescription": "BLOT8C00H2 Неразборный цилиндр CAREL 18–25 кг/ч, тип С, 3x400В, тип С, для средней электропроводности воды (350–750 мкС/см).",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-cylinders",
+      "relatedContexts": [
+        "xplus-uex",
+        "wellness-uew"
+      ]
+    },
+    {
+      "id": "cyl-blot16c00h2",
+      "sku": "BLOT16C00H2",
+      "title": "BLOT16C00H2",
+      "description": "Неразборный цилиндр CAREL 35–45 кг/ч, тип С",
+      "fullDescription": "BLOT16C00H2 Неразборный цилиндр CAREL 35–45 кг/ч, тип С, 3x400В, тип С, для средней электропроводности воды (350–750 мкС/см).",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-cylinders",
+      "relatedContexts": [
+        "xplus-uex"
+      ]
+    },
+    {
+      "id": "cyl-blot32c00h2",
+      "sku": "BLOT32C00H2",
+      "title": "BLOT32C00H2",
+      "description": "Неразборный цилиндр CAREL 65–90 кг/ч, тип С",
+      "fullDescription": "BLOT32C00H2 Неразборный цилиндр CAREL 65–90 кг/ч, тип С, 3x400В, тип С, для средней электропроводности воды (350–750 мкС/см).",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-cylinders",
+      "relatedContexts": [
+        "xplus-uex"
+      ]
+    },
+    {
+      "id": "cyl-blot64c00h2",
+      "sku": "BLOT64C00H2",
+      "title": "BLOT64C00H2",
+      "description": "Неразборный цилиндр CAREL 90–130 кг/ч, тип С",
+      "fullDescription": "BLOT64C00H2 Неразборный цилиндр CAREL 90–130 кг/ч, тип С, 3x400В, тип С, для средней электропроводности воды (350–750 мкС/см).",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-cylinders",
+      "relatedContexts": [
+        "xplus-uex"
+      ]
+    },
+    {
+      "id": "distribution-kit",
+      "sku": "DIST-KIT-01",
+      "title": "Комплект парораспределителей",
+      "description": "Комплект парораспределителей для равномерной подачи пара",
+      "fullDescription": "DIST-KIT-01 Комплект парораспределителей для равномерной подачи пара в воздуховод.",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-distributors",
+      "relatedContexts": [
+        "xplus-uex",
+        "wellness-uew",
+        "heatersteam-process"
+      ]
+    },
+    {
+      "id": "feed-water-tube",
+      "sku": "FW-TUBE-12",
+      "title": "Трубка для подачи питающей воды Carel",
+      "description": "Трубка для подачи питающей воды, комплект поставки Carel",
+      "fullDescription": "FW-TUBE-12 Трубка для подачи питающей воды Carel, комплект поставки для подключения увлажнителя.",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "air-water-lines",
+      "relatedContexts": [
+        "heatersteam-process",
+        "heatersteam-titanium",
+        "basic-uey",
+        "xplus-uex"
+      ]
+    },
+    {
+      "id": "modbus-module",
+      "sku": "MODBUS-PCO",
+      "title": "Модуль связи Modbus",
+      "description": "Модуль связи Modbus для интеграции в систему автоматики",
+      "fullDescription": "MODBUS-PCO Модуль связи Modbus для интеграции увлажнителя в систему диспетчеризации.",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "controllers",
+      "relatedContexts": [
+        "xplus-uex",
+        "heatersteam-titanium"
+      ]
+    },
+    {
+      "id": "sensor-th",
+      "sku": "SENSOR-TH-01",
+      "title": "Датчик температуры и влажности Carel",
+      "description": "Датчик температуры и влажности для контроля микроклимата",
+      "fullDescription": "SENSOR-TH-01 Датчик температуры и влажности Carel для контроля микроклимата в помещении.",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "th-sensors",
+      "relatedContexts": [
+        "basic-uey",
+        "xplus-uex",
+        "wellness-uew"
+      ]
+    },
+    {
+      "id": "water-filter",
+      "sku": "FILTER-WTS",
+      "title": "Фильтр подготовки воды",
+      "description": "Фильтр подготовки воды для увлажнительных систем",
+      "fullDescription": "FILTER-WTS Фильтр подготовки воды для увлажнительных и климатических систем CAREL.",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "filters",
+      "relatedContexts": [
+        "heatersteam-process",
+        "heatersteam-titanium",
+        "basic-uey",
+        "xplus-uex",
+        "wellness-uew"
+      ]
+    },
+    {
+      "id": "steam-hose",
+      "sku": "HOSE-STEAM-1",
+      "title": "Паропровод гибкий для humiSteam",
+      "description": "Гибкий паропровод для подключения humiSteam",
+      "fullDescription": "HOSE-STEAM-1 Паропровод гибкий для подключения увлажнителей серии humiSteam.",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "tubes",
+      "relatedContexts": [
+        "basic-uey",
+        "xplus-uex"
+      ]
+    },
+    {
+      "id": "cylinder-basic",
+      "sku": "CYL-BASIC-UEY",
+      "title": "Сменный цилиндр (Basic)",
+      "description": "Сменный цилиндр для линейки humiSteam Basic (UE*Y)",
+      "fullDescription": "CYL-BASIC-UEY Сменный цилиндр для линейки humiSteam Basic (UE*Y), подбор по производительности.",
+      "image": "/images/parts.png",
+      "galleryImages": [
+        "/images/parts.png"
+      ],
+      "price": 0,
+      "sectionId": "steam-cylinders",
+      "relatedContexts": [
+        "basic-uey"
+      ]
+    }
+  ]
+}

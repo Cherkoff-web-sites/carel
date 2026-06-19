@@ -27,6 +27,7 @@ import {
   HUMISTEAM_MODELS,
   HUMISTEAM_PERFORMANCE_GRID,
 } from '@/lib/humisteamData'
+import { useCatalogProducts } from '@/hooks/useCatalogProducts'
 
 type HumiSteamCatalogViewProps = {
   activeCatalogId: string
@@ -48,9 +49,11 @@ export default function HumiSteamCatalogView({
   const [selectedPerformance, setSelectedPerformance] = useState<number | null>(null)
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
 
+  const { products, loading } = useCatalogProducts('humisteam')
+
   const selectedProduct = useMemo(
-    () => (selectedProductId ? getHumiSteamProductById(selectedProductId) : undefined),
-    [selectedProductId]
+    () => (selectedProductId ? getHumiSteamProductById(products, selectedProductId) : undefined),
+    [products, selectedProductId]
   )
 
   const updateProductUrl = useCallback(
@@ -105,14 +108,14 @@ export default function HumiSteamCatalogView({
       setSelectedProductId(null)
       return
     }
-    const product = getHumiSteamProductBySku(sku)
+    const product = getHumiSteamProductBySku(products, sku)
     if (!product) {
       return
     }
     setSelectedProductId(product.id)
     setSelectedModelId(product.modelId)
     setSelectedPerformance(product.performanceKgH)
-  }, [searchParams])
+  }, [products, searchParams])
 
   useEffect(() => {
     if (!selectedProduct) {
@@ -130,11 +133,15 @@ export default function HumiSteamCatalogView({
   }, [selectedProduct, selectedProductId, updateProductUrl])
 
   const availablePerformanceValues = useMemo(
-    () => getPerformanceOptions(selectedModelId),
-    [selectedModelId]
+    () => getPerformanceOptions(products, selectedModelId),
+    [products, selectedModelId]
   )
 
   const modelsToDisplay = getModelsToDisplay(selectedModelId)
+
+  if (loading && products.length === 0) {
+    return <p className="text-[#232326]/60">Загрузка каталога…</p>
+  }
 
   const handleModelChange = (modelId: HumisteamModelId | null) => {
     setSelectedModelId(modelId)
@@ -161,7 +168,7 @@ export default function HumiSteamCatalogView({
   }))
 
   if (selectedProduct) {
-    const modelProducts = getProductsForModel(selectedProduct.modelId)
+    const modelProducts = getProductsForModel(products, selectedProduct.modelId)
 
     return (
       <article className="min-w-0">
@@ -220,8 +227,8 @@ export default function HumiSteamCatalogView({
 
       <div ref={listRef} className="mt-10 space-y-10 sm:mt-12">
         {modelsToDisplay.map((modelId) => {
-          const products = filterProducts(modelId, selectedPerformance)
-          if (products.length === 0) {
+          const modelProducts = filterProducts(products, modelId, selectedPerformance)
+          if (modelProducts.length === 0) {
             return null
           }
 
@@ -231,7 +238,7 @@ export default function HumiSteamCatalogView({
                 {getModelLabel(modelId)}
               </h2>
               <div className="space-y-4">
-                {products.map((product) => (
+                {modelProducts.map((product) => (
                   <CatalogProductRow
                     key={product.id}
                     product={product}
@@ -245,7 +252,7 @@ export default function HumiSteamCatalogView({
         })}
 
         {modelsToDisplay.every(
-          (modelId) => filterProducts(modelId, selectedPerformance).length === 0
+          (modelId) => filterProducts(products, modelId, selectedPerformance).length === 0
         ) ? (
           <p className="text-center text-base text-[#232326]/60">
             {selectedModelId

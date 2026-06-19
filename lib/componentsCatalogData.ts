@@ -214,16 +214,19 @@ export const COMPONENTS_CATALOG: ComponentCatalogItem[] = [
   },
 ]
 
-export function isComponentProductId(id: string): boolean {
-  return COMPONENTS_CATALOG.some((item) => item.id === id)
+export function isComponentProductId(products: readonly ComponentCatalogItem[], id: string): boolean {
+  return products.some((item) => item.id === id)
 }
 
-export function getComponentsForSection(sectionId: string): ComponentCatalogItem[] {
+export function getComponentsForSection(
+  products: readonly ComponentCatalogItem[],
+  sectionId: string
+): ComponentCatalogItem[] {
   const leafIds = getCatalogLeafIds(COMPONENTS_CATALOG_TREE, sectionId)
   if (leafIds.length === 0) {
     return []
   }
-  return COMPONENTS_CATALOG.filter((item) => leafIds.includes(item.sectionId))
+  return products.filter((item) => leafIds.includes(item.sectionId))
 }
 
 export function getSectionLabel(sectionId: string): string {
@@ -254,8 +257,11 @@ export function getComponentsForSeries(modelId: string): ComponentCatalogItem[] 
   return getComponentsForCatalogContext(modelId)
 }
 
-export function getComponentById(id: string): ComponentCatalogItem | undefined {
-  return COMPONENTS_CATALOG.find((item) => item.id === id)
+export function getComponentById(
+  products: readonly ComponentCatalogItem[],
+  id: string
+): ComponentCatalogItem | undefined {
+  return products.find((item) => item.id === id)
 }
 
 export function componentToCartItem(item: ComponentCatalogItem): Omit<CartItem, 'quantity'> {

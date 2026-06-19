@@ -95,18 +95,20 @@ export function getVariantLabel(variantId: HeatersteamVariantId): string {
   return HEATERSTEAM_VARIANTS.find((v) => v.id === variantId)?.label ?? variantId
 }
 
-export function getPerformanceOptions(variantId: HeatersteamVariantId | null): number[] {
-  const source = variantId
-    ? HEATERSTEAM_PRODUCTS.filter((p) => p.variantId === variantId)
-    : HEATERSTEAM_PRODUCTS
+export function getPerformanceOptions(
+  products: readonly HeaterSteamProduct[],
+  variantId: HeatersteamVariantId | null
+): number[] {
+  const source = variantId ? products.filter((p) => p.variantId === variantId) : products
   return Array.from(new Set(source.map((p) => p.performanceKgH))).sort((a, b) => a - b)
 }
 
 export function filterProducts(
+  products: readonly HeaterSteamProduct[],
   variantId: HeatersteamVariantId | null,
   performanceKgH: number | null
 ): HeaterSteamProduct[] {
-  return HEATERSTEAM_PRODUCTS.filter((p) => {
+  return products.filter((p) => {
     if (variantId && p.variantId !== variantId) return false
     if (performanceKgH !== null && p.performanceKgH !== performanceKgH) return false
     return true
@@ -118,15 +120,24 @@ export function getVariantsToDisplay(variantId: HeatersteamVariantId | null): He
   return HEATERSTEAM_VARIANTS.map((v) => v.id)
 }
 
-export function getProductsForVariant(variantId: HeatersteamVariantId): HeaterSteamProduct[] {
-  return HEATERSTEAM_PRODUCTS.filter((p) => p.variantId === variantId)
+export function getProductsForVariant(
+  products: readonly HeaterSteamProduct[],
+  variantId: HeatersteamVariantId
+): HeaterSteamProduct[] {
+  return products.filter((p) => p.variantId === variantId)
 }
 
-export function getHeaterSteamProductById(id: string): HeaterSteamProduct | undefined {
-  return HEATERSTEAM_PRODUCTS.find((p) => p.id === id)
+export function getHeaterSteamProductById(
+  products: readonly HeaterSteamProduct[],
+  id: string
+): HeaterSteamProduct | undefined {
+  return products.find((p) => p.id === id)
 }
 
-export function getHeaterSteamProductBySku(sku: string): HeaterSteamProduct | undefined {
+export function getHeaterSteamProductBySku(
+  products: readonly HeaterSteamProduct[],
+  sku: string
+): HeaterSteamProduct | undefined {
   const normalized = sku.trim().toUpperCase()
-  return HEATERSTEAM_PRODUCTS.find((p) => p.sku.toUpperCase() === normalized)
+  return products.find((p) => p.sku.toUpperCase() === normalized)
 }

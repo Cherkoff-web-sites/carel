@@ -11,6 +11,7 @@ import HeaterSteamProductDetail from '@/components/catalog/HeaterSteamProductDet
 import { catalogIdToHeatersteamVariantId, type HeatersteamVariantId } from '@/lib/catalogData'
 import { heatersteamToCartItem } from '@/lib/cartFromProduct'
 import { scrollToPageTop } from '@/lib/scrollToPageTop'
+import { useCatalogProducts } from '@/hooks/useCatalogProducts'
 import {
   filterProducts,
   getHeaterSteamProductById,
@@ -38,6 +39,7 @@ export default function HeaterSteamCatalogView({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const { products, loading } = useCatalogProducts('heatersteam')
 
   const [selectedVariantId, setSelectedVariantId] = useState<HeatersteamVariantId | null>(() =>
     catalogIdToHeatersteamVariantId(activeCatalogId)
@@ -46,8 +48,8 @@ export default function HeaterSteamCatalogView({
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
 
   const selectedProduct = useMemo(
-    () => (selectedProductId ? getHeaterSteamProductById(selectedProductId) : undefined),
-    [selectedProductId]
+    () => (selectedProductId ? getHeaterSteamProductById(products, selectedProductId) : undefined),
+    [products, selectedProductId]
   )
 
   const updateProductUrl = useCallback(
@@ -102,12 +104,12 @@ export default function HeaterSteamCatalogView({
       setSelectedProductId(null)
       return
     }
-    const product = getHeaterSteamProductBySku(sku)
+    const product = getHeaterSteamProductBySku(products, sku)
     if (!product) return
     setSelectedProductId(product.id)
     setSelectedVariantId(product.variantId)
     setSelectedPerformance(product.performanceKgH)
-  }, [searchParams])
+  }, [products, searchParams])
 
   useEffect(() => {
     if (!selectedProduct) {
@@ -123,8 +125,8 @@ export default function HeaterSteamCatalogView({
   }, [selectedProduct, selectedProductId, updateProductUrl])
 
   const availablePerformanceValues = useMemo(
-    () => getPerformanceOptions(selectedVariantId),
-    [selectedVariantId]
+    () => getPerformanceOptions(products, selectedVariantId),
+    [products, selectedVariantId]
   )
 
   const variantsToDisplay = getVariantsToDisplay(selectedVariantId)
@@ -153,8 +155,12 @@ export default function HeaterSteamCatalogView({
     label: v.label,
   }))
 
+  if (loading && products.length === 0) {
+    return <p className="text-[#232326]/60">Загрузка каталога…</p>
+  }
+
   if (selectedProduct) {
-    const variantProducts = getProductsForVariant(selectedProduct.variantId)
+    const variantProducts = getProductsForVariant(products, selectedProduct.variantId)
 
     return (
       <article className="min-w-0">
@@ -213,8 +219,8 @@ export default function HeaterSteamCatalogView({
 
       <div ref={listRef} className="mt-10 space-y-10 sm:mt-12">
         {variantsToDisplay.map((variantId) => {
-          const products = filterProducts(variantId, selectedPerformance)
-          if (products.length === 0) return null
+          const variantProducts = filterProducts(products, variantId, selectedPerformance)
+          if (variantProducts.length === 0) return null
 
           return (
             <section key={variantId}>
@@ -222,7 +228,7 @@ export default function HeaterSteamCatalogView({
                 {getVariantLabel(variantId)}
               </h2>
               <div className="space-y-4">
-                {products.map((product) => (
+                {variantProducts.map((product) => (
                   <CatalogProductRow
                     key={product.id}
                     product={product}
@@ -236,7 +242,7 @@ export default function HeaterSteamCatalogView({
         })}
 
         {variantsToDisplay.every(
-          (variantId) => filterProducts(variantId, selectedPerformance).length === 0
+          (variantId) => filterProducts(products, variantId, selectedPerformance).length === 0
         ) ? (
           <p className="text-center text-base text-[#232326]/60">
             {selectedVariantId

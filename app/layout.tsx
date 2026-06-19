@@ -36,7 +36,7 @@ export default function RootLayout({
       <body className={ptSans.className}>
         <CartProvider>
           <ContactModalProvider>
-            <div className="flex flex-col min-h-screen">
+            <div className="flex min-h-screen flex-col">
               <Header />
               <main className="flex flex-grow flex-col">{children}</main>
               <Footer />
@@ -49,4 +49,3 @@ export default function RootLayout({
     </html>
   )
 }
-

@@ -9,14 +9,16 @@ import {
 
 type ComponentsCatalogPanelProps = {
   sectionId: string
+  products: ComponentCatalogItem[]
   onOpenProduct: (product: ComponentCatalogItem) => void
 }
 
 export default function ComponentsCatalogPanel({
   sectionId,
+  products,
   onOpenProduct,
 }: ComponentsCatalogPanelProps) {
-  const items = getComponentsForSection(sectionId)
+  const items = getComponentsForSection(products, sectionId)
   const title = getSectionLabel(sectionId)
 
   return (
