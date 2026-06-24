@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import PersonalDataConsent from '@/components/legal/PersonalDataConsent'
 import { useCart } from '@/contexts/CartContext'
 import { HUMISTEAM_PRODUCT_IMAGE } from '@/lib/humisteamData'
 import { isComponentCartItemId, PARTS_AND_COMPONENTS_IMAGE } from '@/lib/partsImage'
@@ -121,11 +122,12 @@ function CartLineItem({
 
 function CartSummary({ disabled }: { disabled: boolean }) {
   const [phone, setPhone] = useState('')
+  const [consent, setConsent] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
-    if (!phone.trim()) return
+    if (!phone.trim() || !consent) return
     setSubmitted(true)
   }
 
@@ -149,9 +151,14 @@ function CartSummary({ disabled }: { disabled: boolean }) {
             required
             className="w-full rounded-[5px] border-0 bg-[#e8e6e1] px-4 py-3.5 text-base text-[#232326] placeholder:text-[#232326]/45 focus:outline-none focus:ring-2 focus:ring-[#E62614]/30 disabled:opacity-50"
           />
+          <PersonalDataConsent
+            id="cart-consent"
+            checked={consent}
+            onChange={setConsent}
+          />
           <button
             type="submit"
-            disabled={disabled}
+            disabled={disabled || !consent}
             className="w-full rounded-[5px] bg-[#E62614] px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Отправить запрос

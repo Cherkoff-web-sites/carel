@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { PT_Sans, PT_Sans_Caption } from 'next/font/google'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
+import CookieConsent from '@/components/CookieConsent/CookieConsent'
 import { CartProvider } from '@/contexts/CartContext'
 import CartToast from '@/components/cart/CartToast'
 import ChatWidget from '@/components/ChatWidget/ChatWidget'
@@ -43,6 +44,7 @@ export default function RootLayout({
             </div>
             <ChatWidget />
             <CartToast />
+            <CookieConsent />
           </ContactModalProvider>
         </CartProvider>
       </body>

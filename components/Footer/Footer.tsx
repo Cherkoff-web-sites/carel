@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   CONTACTS_ANCHOR_ID,
   HEADER_SCROLL_MARGIN_CLASS,
@@ -110,17 +111,31 @@ export default function Footer() {
 
       <div className="bg-[#fdfbf6] py-8 sm:py-10">
         <div className="container">
-          <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:items-center md:gap-10 lg:gap-14">
-            <Image
-              src="/images/header/logo-carel-works.svg"
-              alt="CAREL Works"
-              width={160}
-              height={56}
-              className="h-12 w-auto md:h-14"
-            />
-            <p className="max-w-xl text-center text-xs leading-relaxed text-[#232326]/55 md:max-w-none md:text-left md:text-sm">
-              2022 © «CAREL Professional Service» Все права защищены
-            </p>
+          <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
+            <div className="flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-10 lg:gap-14">
+              <Image
+                src="/images/header/logo-carel-works.svg"
+                alt="CAREL Works"
+                width={160}
+                height={56}
+                className="h-12 w-auto md:h-14"
+              />
+              <p className="max-w-xl text-center text-xs leading-relaxed text-[#232326]/55 md:max-w-none md:text-left md:text-sm">
+                2022 © «CAREL Professional Service» Все права защищены
+              </p>
+            </div>
+
+            <nav className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-[#232326]/65 sm:text-sm">
+              <Link href="/legal/personal-data" className="hover:text-[#E62614] hover:underline">
+                Обработка персональных данных
+              </Link>
+              <Link href="/legal/privacy" className="hover:text-[#E62614] hover:underline">
+                Конфиденциальность
+              </Link>
+              <Link href="/legal/cookie" className="hover:text-[#E62614] hover:underline">
+                Cookie
+              </Link>
+            </nav>
           </div>
         </div>
       </div>

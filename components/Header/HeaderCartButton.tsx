@@ -36,20 +36,26 @@ export default function HeaderCartButton({
     <Link
       href="/cart"
       onClick={onNavigate}
-      className={`relative inline-flex items-center gap-2 text-white transition-colors hover:text-white/90 ${
-        isActive ? 'text-[#E62614]' : ''
-      } ${className}`}
+      className={`relative transition-colors hover:text-white ${
+        showLabel
+          ? 'flex w-full items-center gap-3 text-white/95 hover:text-white'
+          : 'inline-flex items-center gap-2 text-white hover:text-white/90'
+      } ${isActive ? 'text-[#E62614]' : ''} ${className}`}
       aria-label={ariaLabel}
       aria-current={isActive ? 'page' : undefined}
     >
-      <span className="relative inline-flex h-10 w-10 items-center justify-center lg:h-6 lg:w-6">
+      <span
+        className={`relative inline-flex shrink-0 items-center justify-center ${
+          showLabel ? 'h-5 w-5' : 'h-10 w-10 lg:h-6 lg:w-6'
+        }`}
+      >
         <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
+          className={showLabel ? 'h-5 w-5' : 'h-6 w-6'}
           aria-hidden
         >
           <path
@@ -64,7 +70,11 @@ export default function HeaderCartButton({
         </svg>
         {count > 0 ? (
           <span
-            className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#E62614] px-1 text-[10px] font-bold leading-none text-white"
+            className={`absolute flex items-center justify-center rounded-full bg-[#E62614] font-bold leading-none text-white ${
+              showLabel
+                ? '-right-1.5 -top-1.5 h-4 min-w-4 px-0.5 text-[9px]'
+                : '-right-0.5 -top-0.5 h-[18px] min-w-[18px] px-1 text-[10px]'
+            }`}
             aria-hidden
           >
             {formatCartCount(count)}

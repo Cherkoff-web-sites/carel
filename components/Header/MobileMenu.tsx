@@ -100,17 +100,17 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </ul>
 
           <div className="mt-auto space-y-4 border-t border-white/10 pt-6">
-            <HeaderCartButton
-              onNavigate={onClose}
-              showLabel
-              className="w-full rounded-[5px] px-4 py-3 hover:bg-white/5"
-            />
-
             <a
               href="tel:+79295385634"
               className="flex items-center gap-3 rounded-[5px] px-4 py-3 text-white/95 transition-colors hover:bg-white/5 hover:text-white"
             >
-              <Image src="/images/header/icon-phone.svg" alt="" width={20} height={20} />
+              <Image
+                src="/images/header/icon-phone.svg"
+                alt=""
+                width={20}
+                height={20}
+                className="h-5 w-5 shrink-0"
+              />
               <span className="text-base font-medium">8 (929) 538-56-34</span>
             </a>
 
@@ -123,18 +123,9 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   setTimeout(() => scrollToContacts(), 50)
                 })
               }}
-              className="flex items-center gap-3 rounded-[5px] px-4 py-3 text-white/95 transition-colors hover:bg-white/5 hover:text-white"
+              className="flex items-center rounded-[5px] px-4 py-3 text-base font-medium text-white/95 transition-colors hover:bg-white/5 hover:text-white"
             >
-              <span className="flex items-center gap-2.5">
-                <Image
-                  src="/images/header/icon-thermometer.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                />
-                <Image src="/images/header/icon-drop.svg" alt="" width={20} height={20} />
-              </span>
-              <span className="text-base font-medium">Контакты</span>
+              Контакты
             </a>
 
             <ContactModalTrigger

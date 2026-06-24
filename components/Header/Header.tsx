@@ -72,20 +72,6 @@ export default function Header() {
                   href={CONTACTS_HREF}
                   className="inline-flex items-center gap-2.5 hover:text-white"
                 >
-                  <Image
-                    src="/images/header/icon-thermometer.svg"
-                    alt=""
-                    width={26}
-                    height={26}
-                    className="h-auto w-[26px]"
-                  />
-                  <Image
-                    src="/images/header/icon-drop.svg"
-                    alt=""
-                    width={26}
-                    height={26}
-                    className="h-auto w-[26px]"
-                  />
                   <span>Контакты</span>
                 </a>
 

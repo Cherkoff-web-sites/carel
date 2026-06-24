@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, type FormEvent } from 'react'
+import PersonalDataConsent from '@/components/legal/PersonalDataConsent'
 import {
   SITE_PHONE,
   SITE_PHONE_DISPLAY,
@@ -20,6 +21,7 @@ export default function ContactModal({
 }: ContactModalProps) {
   const [view, setView] = useState<ContactModalView>(initialView)
   const [submitted, setSubmitted] = useState(false)
+  const [consent, setConsent] = useState(false)
 
   useEffect(() => {
     if (!isOpen) {
@@ -29,6 +31,7 @@ export default function ContactModal({
 
     setView(initialView)
     setSubmitted(false)
+    setConsent(false)
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -149,9 +152,15 @@ export default function ContactModal({
                 placeholder="Причина обращения"
                 className="w-full rounded-[5px] bg-[#c8c8c8] px-4 py-3.5 text-base text-[#232326] placeholder:text-white/95 focus:outline-none focus:ring-2 focus:ring-[#E62614]/40"
               />
+              <PersonalDataConsent
+                id="contact-modal-consent"
+                checked={consent}
+                onChange={setConsent}
+              />
               <button
                 type="submit"
-                className="mt-1 w-full rounded-[5px] bg-[#E62614] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90"
+                disabled={!consent}
+                className="mt-1 w-full rounded-[5px] bg-[#E62614] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Перезвонить мне
               </button>
