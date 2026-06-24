@@ -73,7 +73,7 @@ export default function HeaderCartButton({
             className={`absolute flex items-center justify-center rounded-full bg-[#E62614] font-bold leading-none text-white ${
               showLabel
                 ? '-right-1.5 -top-1.5 h-4 min-w-4 px-0.5 text-[9px]'
-                : '-right-0.5 -top-0.5 h-[18px] min-w-[18px] px-1 text-[10px]'
+                : '-right-0.5 -top-0.5 h-[18px] min-w-[18px] px-1 text-[10px] lg:-right-2 lg:-top-2 lg:h-4 lg:min-w-4 lg:px-0.5 lg:text-[9px]'
             }`}
             aria-hidden
           >
