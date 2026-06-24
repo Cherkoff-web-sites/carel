@@ -6,6 +6,7 @@ import CatalogImageSlider from '@/components/catalog/CatalogImageSlider'
 import HeaterSteamProductTabs from '@/components/catalog/HeaterSteamProductTabs'
 import ProductDetailCartIconButton from '@/components/product/ProductDetailCartIconButton'
 import ProductDetailPhoneButton from '@/components/product/ProductDetailPhoneButton'
+import { ChevronLeftIcon } from '@/components/ui/ChevronIcon'
 import { heatersteamToCartItem } from '@/lib/cartFromProduct'
 import type { HeaterSteamProduct } from '@/lib/heatersteamData'
 import { HEATERSTEAM_GALLERY_IMAGES } from '@/lib/heatersteamData'
@@ -38,7 +39,7 @@ export default function HeaterSteamProductDetail({
         onClick={onBack}
         className="mb-5 inline-flex items-center gap-2 text-sm text-[#232326]/60 transition-colors hover:text-[#E62614] sm:mb-6 sm:text-base"
       >
-        <span aria-hidden>←</span>
+        <ChevronLeftIcon />
         К списку моделей
       </button>
 

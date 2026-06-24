@@ -11,6 +11,7 @@ import {
   catalogSidebarThumbSrc,
   hasCatalogSidebarThumb,
 } from '@/lib/catalogSidebarThumbs'
+import { ChevronDownIcon } from '@/components/ui/ChevronIcon'
 
 type CatalogSidebarProps = {
   tree: CatalogTreeNode[]
@@ -22,20 +23,9 @@ type CatalogSidebarProps = {
 
 function Chevron({ open }: { open: boolean }) {
   return (
-    <svg
-      className={`h-4 w-4 shrink-0 text-[#232326]/60 transition-transform ${open ? 'rotate-180' : ''}`}
-      viewBox="0 0 16 16"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M4 6L8 10L12 6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <ChevronDownIcon
+      className={`h-4 w-4 text-[#232326]/60 transition-transform ${open ? 'rotate-180' : ''}`}
+    />
   )
 }
 

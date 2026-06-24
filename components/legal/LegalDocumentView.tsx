@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { HEADER_OFFSET_CLASS } from '@/lib/constants'
+import { ChevronLeftIcon } from '@/components/ui/ChevronIcon'
 import type { LegalDocument } from '@/lib/legal'
 
 type LegalDocumentViewProps = {
@@ -12,9 +13,10 @@ export default function LegalDocumentView({ document }: LegalDocumentViewProps) 
       <div className="container max-w-3xl py-10 sm:py-12 lg:py-14">
         <Link
           href="/"
-          className="text-sm text-[#232326]/55 transition-colors hover:text-[#232326]"
+          className="inline-flex items-center gap-2 text-sm text-[#232326]/55 transition-colors hover:text-[#232326]"
         >
-          ← На главную
+          <ChevronLeftIcon />
+          На главную
         </Link>
 
         <h1 className="mt-4 text-2xl font-bold text-[#232326] sm:text-3xl lg:text-4xl">

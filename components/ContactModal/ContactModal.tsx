@@ -126,9 +126,17 @@ export default function ContactModal({
           </div>
         ) : (
           <>
-            <h2 id="contact-modal-title" className="sr-only">
-              Заявка на обратный звонок
-            </h2>
+            <div className="mb-5 text-center sm:mb-6">
+              <h2
+                id="contact-modal-title"
+                className="text-lg font-medium text-[#232326] sm:text-xl"
+              >
+                Обратная связь
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-[#232326]/70 sm:text-base">
+                Оставьте контакты — мы перезвоним вам
+              </p>
+            </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
                 type="text"

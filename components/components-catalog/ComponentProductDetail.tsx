@@ -1,6 +1,7 @@
 'use client'
 
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
+import { ChevronLeftIcon } from '@/components/ui/ChevronIcon'
 import CatalogImageSlider from '@/components/catalog/CatalogImageSlider'
 import CatalogAllModelsSelect from '@/components/catalog/CatalogAllModelsSelect'
 import ComponentProductTabs from '@/components/components-catalog/ComponentProductTabs'
@@ -45,7 +46,7 @@ export default function ComponentProductDetail({
         onClick={onBack}
         className="mb-5 inline-flex items-center gap-2 text-sm text-[#232326]/60 transition-colors hover:text-[#E62614] sm:mb-6 sm:text-base"
       >
-        <span aria-hidden>←</span>
+        <ChevronLeftIcon />
         К списку товаров
       </button>
 

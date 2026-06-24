@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useCart } from '@/contexts/CartContext'
+import { ChevronLeftIcon, ChevronRightIcon } from '@/components/ui/ChevronIcon'
 import {
   componentToCartItem,
   type ComponentCatalogItem,
@@ -107,7 +108,9 @@ export default function ComponentsSlider({ items, onOpenItem }: ComponentsSlider
           type="button"
           className="components-slider__nav components-slider__nav--prev swiper-button-prev hidden shrink-0 sm:inline-flex"
           aria-label="Предыдущие комплектующие"
-        />
+        >
+          <ChevronLeftIcon className="h-4 w-4 shrink-0" />
+        </button>
 
         <Swiper
           modules={[Navigation]}
@@ -135,7 +138,9 @@ export default function ComponentsSlider({ items, onOpenItem }: ComponentsSlider
           type="button"
           className="components-slider__nav components-slider__nav--next swiper-button-next hidden shrink-0 sm:inline-flex"
           aria-label="Следующие комплектующие"
-        />
+        >
+          <ChevronRightIcon className="h-4 w-4 shrink-0" />
+        </button>
       </div>
     </section>
   )

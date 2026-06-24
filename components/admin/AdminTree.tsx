@@ -6,6 +6,7 @@ import {
   getCatalogAncestorIds,
   type CatalogTreeNode,
 } from '@/lib/catalogData'
+import { ChevronDownIcon } from '@/components/ui/ChevronIcon'
 
 type AdminTreeProps = {
   tree: CatalogTreeNode[]
@@ -16,20 +17,9 @@ type AdminTreeProps = {
 
 function Chevron({ open }: { open: boolean }) {
   return (
-    <svg
+    <ChevronDownIcon
       className={`h-3.5 w-3.5 shrink-0 text-[#232326]/50 transition-transform ${open ? 'rotate-180' : ''}`}
-      viewBox="0 0 16 16"
-      fill="none"
-      aria-hidden
-    >
-      <path
-        d="M4 6L8 10L12 6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    />
   )
 }
 

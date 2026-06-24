@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SITE_NAME } from '@/lib/constants'
+import { ChevronLeftIcon } from '@/components/ui/ChevronIcon'
 
 const NAV = [
   {
@@ -109,7 +110,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
             onClick={onClose}
             className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
           >
-            <span aria-hidden>←</span>
+            <ChevronLeftIcon className="h-4 w-4 shrink-0 text-white/70" />
             На сайт
           </Link>
         </div>

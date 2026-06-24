@@ -5,6 +5,7 @@ import { useRef, useState } from 'react'
 import type { Swiper as SwiperInstance } from 'swiper'
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { ChevronLeftIcon, ChevronRightIcon } from '@/components/ui/ChevronIcon'
 
 import 'swiper/css'
 import 'swiper/css/free-mode'
@@ -13,31 +14,6 @@ import 'swiper/css/thumbs'
 type CatalogImageSliderProps = {
   images: readonly string[]
   alt: string
-}
-
-function SliderChevron({ direction }: { direction: 'prev' | 'next' }) {
-  return (
-    <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
-      fill="none"
-      className="h-2.5 w-2.5 shrink-0"
-      aria-hidden
-    >
-      <path
-        d={
-          direction === 'prev'
-            ? 'M6.5 1.5L2.5 5l4 3.5'
-            : 'M3.5 1.5L7.5 5l-4 3.5'
-        }
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
 }
 
 export default function CatalogImageSlider({ images, alt }: CatalogImageSliderProps) {
@@ -81,7 +57,7 @@ export default function CatalogImageSlider({ images, alt }: CatalogImageSliderPr
           className="catalog-image-slider__nav catalog-image-slider__nav--prev"
           aria-label="Предыдущее фото"
         >
-          <SliderChevron direction="prev" />
+          <ChevronLeftIcon className="h-2.5 w-2.5 shrink-0" />
         </button>
         <Swiper
           onSwiper={setThumbsSwiper}
@@ -128,7 +104,7 @@ export default function CatalogImageSlider({ images, alt }: CatalogImageSliderPr
           className="catalog-image-slider__nav catalog-image-slider__nav--next"
           aria-label="Следующее фото"
         >
-          <SliderChevron direction="next" />
+          <ChevronRightIcon className="h-2.5 w-2.5 shrink-0" />
         </button>
       </div>
     </div>

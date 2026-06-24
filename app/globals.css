@@ -166,6 +166,9 @@ a {
   left: auto;
   right: auto;
   z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
   margin: 0;
@@ -178,8 +181,7 @@ a {
 }
 
 .components-slider__nav::after {
-  font-size: 0.65rem;
-  font-weight: 700;
+  content: none !important;
 }
 
 .components-slider__nav:hover {

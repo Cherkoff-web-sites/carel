@@ -4,6 +4,7 @@ import { useState, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
 import ComponentsSlider from '@/components/catalog/ComponentsSlider'
+import { ChevronDownIcon } from '@/components/ui/ChevronIcon'
 import type { HeatersteamVariantId } from '@/lib/catalogData'
 import { getComponentsForCatalogContext, type ComponentCatalogItem } from '@/lib/componentsCatalogData'
 import {
@@ -110,20 +111,9 @@ function HeaterSteamSeriesTab({
         aria-expanded={expanded}
       >
         {expanded ? 'свернуть' : 'читать далее'}
-        <svg
-          className={`h-4 w-4 shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
-          viewBox="0 0 16 16"
-          fill="none"
-          aria-hidden
-        >
-          <path
-            d="M4 6L8 10L12 6"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <ChevronDownIcon
+          className={`transition-transform ${expanded ? 'rotate-180' : ''}`}
+        />
       </button>
 
       <ComponentsSlider items={components} onOpenItem={onOpenComponent} />

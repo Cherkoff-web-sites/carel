@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import PersonalDataConsent from '@/components/legal/PersonalDataConsent'
+import { ChevronLeftIcon } from '@/components/ui/ChevronIcon'
 import { useCart } from '@/contexts/CartContext'
 import { HUMISTEAM_PRODUCT_IMAGE } from '@/lib/humisteamData'
 import { isComponentCartItemId, PARTS_AND_COMPONENTS_IMAGE } from '@/lib/partsImage'
@@ -178,9 +179,10 @@ export default function CartPage() {
       <div className="container py-8 sm:py-10 lg:py-12">
         <Link
           href="/catalog"
-          className="inline-flex items-center gap-1 text-sm text-[#232326]/55 transition-colors hover:text-[#232326] sm:text-base"
+          className="inline-flex items-center gap-2 text-sm text-[#232326]/55 transition-colors hover:text-[#232326] sm:text-base"
         >
-          <span aria-hidden>‹</span> Вернуться к покупкам
+          <ChevronLeftIcon />
+          Вернуться к покупкам
         </Link>
 
         <h1 className="mt-4 text-3xl font-bold text-[#232326] sm:mt-5 sm:text-4xl lg:text-[42px]">
