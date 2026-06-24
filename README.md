@@ -20,7 +20,10 @@
 ## Быстрый старт
 
 ```bash
+cp .env.example .env.local
+# PostgreSQL: docker compose up -d db
 npm install
+npm run db:init   # миграции + seed
 npm run dev
 ```
 

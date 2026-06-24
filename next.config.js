@@ -9,6 +9,10 @@ const nextConfig = {
   // Для SSG статических страниц
   output: 'standalone',
 
+  experimental: {
+    serverComponentsExternalPackages: ['pg'],
+  },
+
   async redirects() {
     return [
       {

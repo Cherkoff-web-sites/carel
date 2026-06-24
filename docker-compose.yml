@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: carel
+      POSTGRES_PASSWORD: carel
+      POSTGRES_DB: carel
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://carel:carel@db:5432/carel
+
+volumes:
+  pg-data:

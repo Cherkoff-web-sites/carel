@@ -1,6 +1,6 @@
-import { readFile, writeFile, mkdir, copyFile, access } from 'fs/promises'
-import { join } from 'path'
-import { buildCatalogSeed } from '@/lib/catalogSeed'
+import { and, eq } from 'drizzle-orm'
+import { getDb } from '@/lib/db/client'
+import { products } from '@/lib/db/schema'
 import type {
   CatalogFile,
   CatalogKey,
@@ -9,70 +9,73 @@ import type {
   HumisteamPatch,
 } from '@/lib/catalogTypes'
 
-const DATA_DIR = join(process.cwd(), 'data')
-const CATALOG_FILE = join(DATA_DIR, 'catalog.json')
-const CATALOG_DEFAULT_FILE = join(process.cwd(), 'data-default', 'catalog.json')
+type CatalogPatch = HumisteamPatch | HeatersteamPatch | ComponentsPatch
 
-async function fileExists(path: string): Promise<boolean> {
-  try {
-    await access(path)
-    return true
-  } catch {
-    return false
-  }
-}
-
-async function ensureDataDir(): Promise<void> {
-  await mkdir(DATA_DIR, { recursive: true })
-}
-
-async function writeCatalog(catalog: CatalogFile): Promise<void> {
-  await ensureDataDir()
-  await writeFile(CATALOG_FILE, JSON.stringify(catalog, null, 2), 'utf-8')
+function parseProducts<T>(rows: Array<{ dataJson: string }>): T[] {
+  return rows.map((row) => JSON.parse(row.dataJson) as T)
 }
 
 export async function readCatalog(): Promise<CatalogFile> {
-  await ensureDataDir()
+  const db = await getDb()
 
-  if (await fileExists(CATALOG_FILE)) {
-    const raw = await readFile(CATALOG_FILE, 'utf-8')
-    return JSON.parse(raw) as CatalogFile
+  const humisteam = parseProducts<CatalogFile['humisteam'][number]>(
+    await db.select().from(products).where(eq(products.catalog, 'humisteam'))
+  )
+  const heatersteam = parseProducts<CatalogFile['heatersteam'][number]>(
+    await db.select().from(products).where(eq(products.catalog, 'heatersteam'))
+  )
+  const components = parseProducts<CatalogFile['components'][number]>(
+    await db.select().from(products).where(eq(products.catalog, 'components'))
+  )
+
+  return {
+    version: 1,
+    humisteam,
+    heatersteam,
+    components,
   }
-
-  if (await fileExists(CATALOG_DEFAULT_FILE)) {
-    await copyFile(CATALOG_DEFAULT_FILE, CATALOG_FILE)
-    const raw = await readFile(CATALOG_FILE, 'utf-8')
-    return JSON.parse(raw) as CatalogFile
-  }
-
-  const seed = buildCatalogSeed()
-  await writeCatalog(seed)
-  return seed
 }
 
 export async function getCatalogProducts<K extends CatalogKey>(
   catalog: K
 ): Promise<CatalogFile[K]> {
-  const data = await readCatalog()
-  return data[catalog]
-}
+  const db = await getDb()
+  const rows = await db
+    .select()
+    .from(products)
+    .where(eq(products.catalog, catalog))
+    .orderBy(products.id)
 
-type CatalogPatch = HumisteamPatch | HeatersteamPatch | ComponentsPatch
+  return parseProducts<CatalogFile[K][number]>(rows) as CatalogFile[K]
+}
 
 export async function updateCatalogProduct(
   catalog: CatalogKey,
   id: string,
   patch: CatalogPatch
 ): Promise<CatalogFile[CatalogKey][number] | null> {
-  const data = await readCatalog()
-  const products = data[catalog] as Array<{ id: string } & CatalogPatch>
-  const index = products.findIndex((item) => item.id === id)
+  const db = await getDb()
+  const rows = await db
+    .select()
+    .from(products)
+    .where(and(eq(products.catalog, catalog), eq(products.id, id)))
+    .limit(1)
 
-  if (index === -1) {
+  const row = rows[0]
+  if (!row) {
     return null
   }
 
-  products[index] = { ...products[index], ...patch }
-  await writeCatalog(data)
-  return products[index] as CatalogFile[CatalogKey][number]
+  const current = JSON.parse(row.dataJson) as CatalogFile[CatalogKey][number] & CatalogPatch
+  const updated = { ...current, ...patch }
+
+  await db
+    .update(products)
+    .set({
+      dataJson: JSON.stringify(updated),
+      updatedAt: new Date(),
+    })
+    .where(and(eq(products.catalog, catalog), eq(products.id, id)))
+
+  return updated as CatalogFile[CatalogKey][number]
 }
