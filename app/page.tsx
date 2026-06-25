@@ -216,7 +216,7 @@ export default function HomePage() {
                 { slug: 'diagnostics', image: '/images/home-services/diagnostics.png' },
                 { slug: 'installation', image: '/images/home-services/installation.png' },
                 { slug: 'pnr', image: '/images/home-services/pnr.png' },
-                { slug: 'maintenance', image: '/images/home-services/maintenance.png' },
+                { slug: 'maintenance', image: '/images/home-services/maintenance.webp' },
               ] as const
             ).map((card) => {
               const service = HOME_SERVICES.find((s) => s.slug === card.slug)!

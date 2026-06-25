@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { SITE_NAME } from '@/lib/constants'
 import { ChevronLeftIcon } from '@/components/ui/ChevronIcon'
 
@@ -42,6 +42,14 @@ function CloseIcon() {
 
 export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
   const pathname = usePathname()
+  const router = useRouter()
+
+  async function handleLogout() {
+    await fetch('/api/admin/auth/logout', { method: 'POST' })
+    onClose()
+    router.replace('/admin/login')
+    router.refresh()
+  }
 
   return (
     <>
@@ -104,7 +112,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
           ))}
         </nav>
 
-        <div className="border-t border-[#2a2a2e] p-4">
+        <div className="space-y-2 border-t border-[#2a2a2e] p-4">
           <Link
             href="/"
             onClick={onClose}
@@ -113,6 +121,13 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
             <ChevronLeftIcon className="h-4 w-4 shrink-0 text-white/70" />
             На сайт
           </Link>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="text-sm text-white/50 transition-colors hover:text-white"
+          >
+            Выйти
+          </button>
         </div>
       </aside>
     </>
