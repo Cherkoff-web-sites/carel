@@ -20,6 +20,10 @@ const NAV = [
       { href: '/admin/catalog/components', label: 'Запчасти' },
     ],
   },
+  {
+    title: 'Система',
+    items: [{ href: '/admin/settings', label: 'Настройки' }],
+  },
 ] as const
 
 type AdminSidebarProps = {

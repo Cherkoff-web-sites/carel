@@ -35,6 +35,14 @@ async function prepareDatabase(pool: Pool, db: Db): Promise<void> {
   await ensureSeeded(db)
 }
 
+export async function getPool(): Promise<Pool> {
+  await getDb()
+  if (!globalForDb.__carelPgPool) {
+    throw new Error('Database pool is not initialized')
+  }
+  return globalForDb.__carelPgPool
+}
+
 export async function getDb(): Promise<Db> {
   if (!globalForDb.__carelPgPool) {
     globalForDb.__carelPgPool = createPool()
