@@ -13,7 +13,10 @@ export async function GET(_request: Request, { params }: RouteParams) {
     return NextResponse.json({ error: 'Unknown catalog' }, { status: 404 })
   }
 
-  const products = await getCatalogProducts(catalog)
+  const products = await getCatalogProducts(catalog, {
+    publishedOnly: true,
+    forPublic: true,
+  })
   return NextResponse.json(products, {
     headers: { 'Cache-Control': 'no-store' },
   })

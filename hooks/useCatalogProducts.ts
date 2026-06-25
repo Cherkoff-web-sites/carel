@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import type { PublicPriceFields } from '@/lib/catalogProductMeta'
 import type { CatalogKey } from '@/lib/catalogTypes'
 import type { ComponentCatalogItem } from '@/lib/componentsCatalogData'
 import type { HeaterSteamProduct } from '@/lib/heatersteamData'
@@ -14,9 +15,9 @@ type CatalogProductsState<T> = {
 }
 
 type CatalogProductByKey = {
-  humisteam: HumiSteamProduct
-  heatersteam: HeaterSteamProduct
-  components: ComponentCatalogItem
+  humisteam: HumiSteamProduct & PublicPriceFields
+  heatersteam: HeaterSteamProduct & PublicPriceFields
+  components: ComponentCatalogItem & PublicPriceFields
 }
 
 export function useCatalogProducts<K extends CatalogKey>(

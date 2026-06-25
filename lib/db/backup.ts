@@ -33,6 +33,22 @@ export async function exportDatabaseSql(pool: Pool): Promise<string> {
     )
   }
 
+  const settings = await pool.query(
+    `SELECT key, value_json, updated_at FROM shared_settings ORDER BY key`
+  )
+
+  for (const row of settings.rows as Array<{
+    key: string
+    value_json: string
+    updated_at: Date
+  }>) {
+    lines.push(
+      `INSERT INTO shared_settings (key, value_json, updated_at) VALUES (${sqlLiteral(row.key)}, ${sqlLiteral(row.value_json)}, ${sqlTimestamp(row.updated_at)});`
+    )
+  }
+
+  lines.push('')
+
   const migrations = await pool.query(
     `SELECT version, applied_at FROM schema_migrations ORDER BY version`
   )
@@ -61,6 +77,7 @@ export async function restoreDatabaseSql(pool: Pool, sql: string): Promise<void>
 
   const lines = splitSqlStatements(sql)
   const insertProducts = lines.filter((line) => line.startsWith('INSERT INTO products'))
+  const insertSettings = lines.filter((line) => line.startsWith('INSERT INTO shared_settings'))
   const insertMigrations = lines.filter((line) => line.startsWith('INSERT INTO schema_migrations'))
 
   if (insertProducts.length === 0) {
@@ -71,9 +88,14 @@ export async function restoreDatabaseSql(pool: Pool, sql: string): Promise<void>
   try {
     await client.query('BEGIN')
     await client.query('TRUNCATE TABLE products')
+    await client.query('TRUNCATE TABLE shared_settings')
     await client.query('TRUNCATE TABLE schema_migrations')
 
     for (const line of insertProducts) {
+      await client.query(line.endsWith(';') ? line : `${line};`)
+    }
+
+    for (const line of insertSettings) {
       await client.query(line.endsWith(';') ? line : `${line};`)
     }
 

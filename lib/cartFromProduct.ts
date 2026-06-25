@@ -1,4 +1,5 @@
 import type { CartItem } from '@/contexts/CartContext'
+import { getEffectiveCartPrice, type PublicPriceFields } from '@/lib/catalogProductMeta'
 import type { HeaterSteamProduct } from '@/lib/heatersteamData'
 import type { HumiSteamProduct } from '@/lib/humisteamData'
 
@@ -6,7 +7,9 @@ function formatPerformanceKgH(kgH: number): string {
   return kgH.toString().replace('.', ',')
 }
 
-export function humisteamToCartItem(product: HumiSteamProduct): Omit<CartItem, 'quantity'> {
+export function humisteamToCartItem(
+  product: HumiSteamProduct & PublicPriceFields
+): Omit<CartItem, 'quantity'> {
   const cylinderType = product.description.includes('Разборный')
     ? 'Разборный'
     : 'Неразборный (одноразовый)'
@@ -18,13 +21,15 @@ export function humisteamToCartItem(product: HumiSteamProduct): Omit<CartItem, '
     cylinderType,
     dimensions: '712×365×275 мм',
     performance: `${formatPerformanceKgH(product.performanceKgH)} кг/ч пара`,
-    price: product.price,
+    price: getEffectiveCartPrice(product),
     image: product.image,
     href: `/catalog?id=humisteam&sku=${product.sku}`,
   }
 }
 
-export function heatersteamToCartItem(product: HeaterSteamProduct): Omit<CartItem, 'quantity'> {
+export function heatersteamToCartItem(
+  product: HeaterSteamProduct & PublicPriceFields
+): Omit<CartItem, 'quantity'> {
   const cylinderType = product.description.includes('Разборный')
     ? 'Разборный'
     : 'Неразборный (одноразовый)'
@@ -36,7 +41,7 @@ export function heatersteamToCartItem(product: HeaterSteamProduct): Omit<CartIte
     cylinderType,
     dimensions: '712×365×275 мм',
     performance: `${formatPerformanceKgH(product.performanceKgH)} кг/ч пара`,
-    price: product.price,
+    price: getEffectiveCartPrice(product),
     image: product.image,
     href: `/catalog?id=heatersteam&sku=${product.sku}`,
   }

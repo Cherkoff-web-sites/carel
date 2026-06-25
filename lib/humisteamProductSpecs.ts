@@ -85,5 +85,10 @@ export function getHumiSteamProductSpecRows(product: HumiSteamProduct): HumiStea
     rows.push({ label: 'Особенности:', value: specs.features })
   }
 
+  const fullDescription = (product as { fullDescription?: string }).fullDescription?.trim()
+  if (fullDescription && fullDescription !== product.description.trim()) {
+    rows.push({ label: 'Полное описание:', value: fullDescription })
+  }
+
   return rows
 }

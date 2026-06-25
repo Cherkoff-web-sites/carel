@@ -1,6 +1,6 @@
 import type { Pool } from 'pg'
 
-const SCHEMA_VERSION = 1
+const SCHEMA_VERSION = 2
 
 const MIGRATIONS: Record<number, string[]> = {
   1: [
@@ -16,6 +16,13 @@ const MIGRATIONS: Record<number, string[]> = {
       PRIMARY KEY (catalog, id)
     )`,
     `CREATE INDEX IF NOT EXISTS idx_products_catalog ON products (catalog)`,
+  ],
+  2: [
+    `CREATE TABLE IF NOT EXISTS shared_settings (
+      key TEXT PRIMARY KEY,
+      value_json TEXT NOT NULL,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )`,
   ],
 }
 

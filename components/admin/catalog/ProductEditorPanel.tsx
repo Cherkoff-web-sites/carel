@@ -2,51 +2,64 @@
 
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
-import AdminInactiveField, { AdminDisabledButton } from '@/components/admin/AdminInactiveField'
-import ProductImagePreview from '@/components/admin/catalog/ProductImagePreview'
+import ProductMediaEditor from '@/components/admin/catalog/ProductMediaEditor'
+import ProductTabsEditor from '@/components/admin/catalog/ProductTabsEditor'
+import type {
+  ProductEditorDraft,
+  ProductEditorMedia,
+  ProductEditorTabs,
+} from '@/lib/adminProductDraft'
 import type { CatalogKey } from '@/lib/catalogTypes'
-
-export type ProductEditorDraft = {
-  title: string
-  description: string
-  fullDescription?: string
-  price: string
-}
 
 type ProductEditorPanelProps = {
   catalogKey: CatalogKey
   productId: string
   sku: string
-  image: string
-  galleryCount?: number
-  performanceLabel?: string
   siteUrl: string
+  performanceLabel?: string
   draft: ProductEditorDraft
+  media: ProductEditorMedia
+  tabs: ProductEditorTabs
   saving: boolean
-  onDraftChange: (field: keyof ProductEditorDraft, value: string) => void
+  onDraftChange: (field: keyof ProductEditorDraft, value: string | boolean) => void
+  onMediaChange: (media: ProductEditorMedia) => void
+  onTabsChange: (tabs: ProductEditorTabs) => void
   onSave: () => void
+  onDuplicate: () => void
+  onHide: () => void
+  onDelete: () => void
   onClose: () => void
 }
 
 export default function ProductEditorPanel({
   catalogKey,
   sku,
-  image,
-  galleryCount,
   performanceLabel,
   siteUrl,
   draft,
+  media,
+  tabs,
   saving,
   onDraftChange,
+  onMediaChange,
+  onTabsChange,
   onSave,
+  onDuplicate,
+  onHide,
+  onDelete,
   onClose,
 }: ProductEditorPanelProps) {
+  const sitePreviewBlocked = !draft.published
+
   return (
     <div className="flex h-full flex-col overflow-hidden bg-white">
       <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-[#232326]/50">Редактор товара</p>
           <h2 className="mt-0.5 text-lg font-bold text-[#232326]">{sku}</h2>
+          {!draft.published ? (
+            <p className="mt-1 text-xs font-medium text-amber-700">Скрыт с сайта</p>
+          ) : null}
         </div>
         <button
           type="button"
@@ -59,7 +72,11 @@ export default function ProductEditorPanel({
 
       <div className="flex-1 overflow-y-auto p-4 sm:p-5">
         <div className="grid gap-6 lg:grid-cols-[280px_1fr] lg:gap-8">
-          <ProductImagePreview src={image} alt={draft.title} galleryCount={galleryCount} />
+          <ProductMediaEditor
+            image={media.image}
+            galleryImages={media.galleryImages}
+            onChange={onMediaChange}
+          />
 
           <div className="space-y-5">
             <section className="space-y-3">
@@ -82,19 +99,15 @@ export default function ProductEditorPanel({
                   className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
                 />
               </label>
-              {catalogKey === 'components' ? (
-                <label className="block">
-                  <span className="mb-1 block text-xs font-medium text-[#232326]/70">
-                    Полное описание
-                  </span>
-                  <textarea
-                    value={draft.fullDescription ?? ''}
-                    onChange={(e) => onDraftChange('fullDescription', e.target.value)}
-                    rows={4}
-                    className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
-                  />
-                </label>
-              ) : null}
+              <label className="block">
+                <span className="mb-1 block text-xs font-medium text-[#232326]/70">Полное описание</span>
+                <textarea
+                  value={draft.fullDescription}
+                  onChange={(e) => onDraftChange('fullDescription', e.target.value)}
+                  rows={4}
+                  className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                />
+              </label>
               {performanceLabel ? (
                 <div>
                   <span className="mb-1 block text-xs font-medium text-[#232326]/70">Производительность</span>
@@ -102,9 +115,7 @@ export default function ProductEditorPanel({
                 </div>
               ) : null}
               <label className="block max-w-xs">
-                <span className="mb-1 block text-xs font-medium text-[#232326]/70">
-                  Цена (0 = по запросу)
-                </span>
+                <span className="mb-1 block text-xs font-medium text-[#232326]/70">Цена (₽)</span>
                 <input
                   type="number"
                   min={0}
@@ -114,21 +125,35 @@ export default function ProductEditorPanel({
                   className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
                 />
               </label>
-              <label className="flex items-center gap-2 text-sm text-[#232326]/70">
-                <input type="checkbox" checked readOnly disabled className="rounded" />
+              <label className="flex items-center gap-2 text-sm text-[#232326]/80">
+                <input
+                  type="checkbox"
+                  checked={draft.showPriceOnSite}
+                  onChange={(e) => onDraftChange('showPriceOnSite', e.target.checked)}
+                  className="rounded"
+                />
+                Показывать цену на сайте
+              </label>
+              <label className="flex items-center gap-2 text-sm text-[#232326]/80">
+                <input
+                  type="checkbox"
+                  checked={draft.published}
+                  onChange={(e) => onDraftChange('published', e.target.checked)}
+                  className="rounded"
+                />
                 Опубликован
               </label>
             </section>
 
-            <section className="space-y-3 rounded-lg border border-gray-200 p-4">
-              <h3 className="text-sm font-semibold text-[#232326]">Характеристики и вкладки</h3>
-              <div className="flex flex-wrap gap-2">
-                <AdminInactiveField label="Монтаж" />
-                <AdminInactiveField label="Доставка" />
-                <AdminInactiveField label="Оплата" />
-                <AdminInactiveField label="Описание серии" />
-              </div>
-            </section>
+            <ProductTabsEditor
+              catalogKey={catalogKey}
+              tabsEnabled={tabs.tabsEnabled}
+              tabContent={tabs.tabContent}
+              documents={tabs.documents}
+              onTabsEnabledChange={(tabsEnabled) => onTabsChange({ ...tabs, tabsEnabled })}
+              onTabContentChange={(tabContent) => onTabsChange({ ...tabs, tabContent })}
+              onDocumentsChange={(documents) => onTabsChange({ ...tabs, documents })}
+            />
 
             <section className="space-y-3 rounded-lg border border-gray-200 p-4">
               <h3 className="text-sm font-semibold text-[#232326]">SEO</h3>
@@ -136,16 +161,18 @@ export default function ProductEditorPanel({
                 <span className="mb-1 block text-xs font-medium text-[#232326]/70">metaTitle</span>
                 <input
                   type="text"
-                  disabled
-                  className="w-full cursor-not-allowed rounded-[5px] border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-[#232326]/50"
+                  value={draft.metaTitle}
+                  onChange={(e) => onDraftChange('metaTitle', e.target.value)}
+                  className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
                 />
               </label>
               <label className="block">
                 <span className="mb-1 block text-xs font-medium text-[#232326]/70">metaDescription</span>
                 <textarea
-                  disabled
+                  value={draft.metaDescription}
+                  onChange={(e) => onDraftChange('metaDescription', e.target.value)}
                   rows={2}
-                  className="w-full cursor-not-allowed rounded-[5px] border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-[#232326]/50"
+                  className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
                 />
               </label>
             </section>
@@ -161,19 +188,46 @@ export default function ProductEditorPanel({
         >
           {saving ? 'Сохранение…' : 'Сохранить'}
         </Button>
-        <Link
-          href={siteUrl}
-          target="_blank"
-          className="inline-flex w-full items-center justify-center py-2 text-sm font-medium text-[#E62614] hover:underline sm:w-auto sm:justify-start sm:py-0"
-        >
-          Открыть на сайте
-        </Link>
+        {sitePreviewBlocked ? (
+          <span className="text-xs text-[#232326]/55">Ссылка на сайт недоступна — товар скрыт</span>
+        ) : (
+          <Link
+            href={siteUrl}
+            target="_blank"
+            className="inline-flex w-full items-center justify-center py-2 text-sm font-medium text-[#E62614] hover:underline sm:w-auto sm:justify-start sm:py-0"
+          >
+            Открыть на сайте
+          </Link>
+        )}
         <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
-          <AdminDisabledButton className="w-full sm:w-auto">Дублировать</AdminDisabledButton>
-          <AdminDisabledButton className="w-full sm:w-auto">Скрыть</AdminDisabledButton>
-          <AdminDisabledButton className="w-full sm:w-auto">Удалить</AdminDisabledButton>
+          <button
+            type="button"
+            onClick={onDuplicate}
+            disabled={saving}
+            className="rounded-[5px] border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-[#232326] hover:bg-gray-50 disabled:opacity-50"
+          >
+            Дублировать
+          </button>
+          <button
+            type="button"
+            onClick={onHide}
+            disabled={saving || !draft.published}
+            className="rounded-[5px] border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-[#232326] hover:bg-gray-50 disabled:opacity-50"
+          >
+            Скрыть
+          </button>
+          <button
+            type="button"
+            onClick={onDelete}
+            disabled={saving}
+            className="rounded-[5px] border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
+          >
+            Удалить
+          </button>
         </div>
       </div>
     </div>
   )
 }
+
+export type { ProductEditorDraft }

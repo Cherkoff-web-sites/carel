@@ -8,8 +8,9 @@ import ProductDetailCartIconButton from '@/components/product/ProductDetailCartI
 import ProductDetailPhoneButton from '@/components/product/ProductDetailPhoneButton'
 import { ChevronLeftIcon } from '@/components/ui/ChevronIcon'
 import { heatersteamToCartItem } from '@/lib/cartFromProduct'
+import { formatPublicSitePrice, type PublicPriceFields } from '@/lib/catalogProductMeta'
 import type { HeaterSteamProduct } from '@/lib/heatersteamData'
-import { HEATERSTEAM_GALLERY_IMAGES } from '@/lib/heatersteamData'
+import { getProductGalleryImages, type CatalogProductExtrasFields } from '@/lib/catalogProductExtras'
 import {
   getHeaterSteamProductDisplayName,
   getHeaterSteamProductSpecRows,
@@ -17,10 +18,10 @@ import {
 } from '@/lib/heatersteamProductSpecs'
 
 type HeaterSteamProductDetailProps = {
-  product: HeaterSteamProduct
-  variantProducts: HeaterSteamProduct[]
+  product: HeaterSteamProduct & PublicPriceFields & CatalogProductExtrasFields & { fullDescription?: string }
+  variantProducts: Array<HeaterSteamProduct & PublicPriceFields>
   onBack: () => void
-  onSelectProduct: (product: HeaterSteamProduct) => void
+  onSelectProduct: (product: HeaterSteamProduct & PublicPriceFields) => void
 }
 
 export default function HeaterSteamProductDetail({
@@ -31,6 +32,7 @@ export default function HeaterSteamProductDetail({
 }: HeaterSteamProductDetailProps) {
   const specRows = getHeaterSteamProductSpecRows(product)
   const displayName = getHeaterSteamProductDisplayName(product.sku)
+  const galleryImages = getProductGalleryImages(product)
 
   return (
     <div className="min-w-0">
@@ -53,7 +55,7 @@ export default function HeaterSteamProductDetail({
       </header>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
-        <CatalogImageSlider images={HEATERSTEAM_GALLERY_IMAGES} alt={displayName} />
+        <CatalogImageSlider images={galleryImages} alt={displayName} />
 
         <div className="min-w-0">
           <h2 className="text-lg font-bold text-[#232326] sm:text-xl">Характеристики:</h2>
@@ -70,7 +72,7 @@ export default function HeaterSteamProductDetail({
           <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
             <p className="text-base text-[#232326] sm:text-lg">
               <span className="text-[#232326]/50">Цена:</span>{' '}
-              <span className="font-bold">по запросу</span>
+              <span className="font-bold">{formatPublicSitePrice(product)}</span>
             </p>
             <ProductDetailPhoneButton />
           </div>
@@ -95,7 +97,12 @@ export default function HeaterSteamProductDetail({
         </div>
       </div>
 
-      <HeaterSteamProductTabs variantId={product.variantId} />
+      <HeaterSteamProductTabs
+        variantId={product.variantId}
+        tabsEnabled={product.tabsEnabled}
+        tabContent={product.tabContent}
+        documents={product.documents}
+      />
     </div>
   )
 }

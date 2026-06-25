@@ -1,4 +1,5 @@
 import type { CartItem } from '@/contexts/CartContext'
+import { getEffectiveCartPrice, type PublicPriceFields } from '@/lib/catalogProductMeta'
 import {
   findCatalogNodeById,
   getCatalogLeafIds,
@@ -264,13 +265,16 @@ export function getComponentById(
   return products.find((item) => item.id === id)
 }
 
-export function componentToCartItem(item: ComponentCatalogItem): Omit<CartItem, 'quantity'> {
+export function componentToCartItem(
+  item: ComponentCatalogItem & PublicPriceFields
+): Omit<CartItem, 'quantity'> {
+  const price = getEffectiveCartPrice(item)
   return {
     id: `component-${item.id}`,
     name: item.title,
     model: item.sku,
     sku: item.sku,
-    price: item.price > 0 ? item.price : 1,
+    price: price > 0 ? price : 1,
     image: PARTS_AND_COMPONENTS_IMAGE,
     href: `/components?id=${item.id}`,
   }

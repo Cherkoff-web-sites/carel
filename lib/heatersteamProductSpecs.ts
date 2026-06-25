@@ -58,6 +58,8 @@ export function getHeaterSteamProductSpecRows(product: HeaterSteamProduct): Heat
     AREA_BY_PERFORMANCE[product.performanceKgH] ??
     `до ${Math.round(product.performanceKgH * 30)} м²`
 
+  const fullDescription = (product as { fullDescription?: string }).fullDescription?.trim()
+
   return [
     { label: 'Артикул:', value: product.sku },
     { label: 'Производительность:', value: performance },
@@ -66,5 +68,8 @@ export function getHeaterSteamProductSpecRows(product: HeaterSteamProduct): Heat
     { label: 'Тип цилиндра:', value: getCylinderType(product.description) },
     { label: 'Размеры (ВхШхГ):', value: '712×365×275 мм' },
     { label: 'Рекомендуемая площадь:', value: area },
+    ...(fullDescription && fullDescription !== product.description.trim()
+      ? [{ label: 'Полное описание:', value: fullDescription }]
+      : []),
   ]
 }

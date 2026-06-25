@@ -13,14 +13,15 @@ import {
   getHumiSteamProductSpecRows,
   getHumiSteamProductSubtitle,
 } from '@/lib/humisteamProductSpecs'
+import { formatPublicSitePrice, type PublicPriceFields } from '@/lib/catalogProductMeta'
 import type { HumiSteamProduct } from '@/lib/humisteamData'
-import { HUMISTEAM_GALLERY_IMAGES } from '@/lib/humisteamData'
+import { getProductGalleryImages, type CatalogProductExtrasFields } from '@/lib/catalogProductExtras'
 
 type HumiSteamProductDetailProps = {
-  product: HumiSteamProduct
-  modelProducts: HumiSteamProduct[]
+  product: HumiSteamProduct & PublicPriceFields & CatalogProductExtrasFields & { fullDescription?: string }
+  modelProducts: Array<HumiSteamProduct & PublicPriceFields>
   onBack: () => void
-  onSelectProduct: (product: HumiSteamProduct) => void
+  onSelectProduct: (product: HumiSteamProduct & PublicPriceFields) => void
 }
 
 export default function HumiSteamProductDetail({
@@ -32,6 +33,7 @@ export default function HumiSteamProductDetail({
   const specRows = getHumiSteamProductSpecRows(product)
   const displayName = getHumiSteamProductDisplayName(product.sku)
   const subtitle = getHumiSteamProductSubtitle(product)
+  const galleryImages = getProductGalleryImages(product)
 
   return (
     <div className="min-w-0">
@@ -52,7 +54,7 @@ export default function HumiSteamProductDetail({
       </header>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
-        <CatalogImageSlider images={HUMISTEAM_GALLERY_IMAGES} alt={displayName} />
+        <CatalogImageSlider images={galleryImages} alt={displayName} />
 
         <div className="min-w-0">
           <h2 className="text-lg font-bold text-[#232326] sm:text-xl">Характеристики:</h2>
@@ -69,7 +71,7 @@ export default function HumiSteamProductDetail({
           <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
             <p className="text-base text-[#232326] sm:text-lg">
               <span className="text-[#232326]/50">Цена:</span>{' '}
-              <span className="font-bold">по запросу</span>
+              <span className="font-bold">{formatPublicSitePrice(product)}</span>
             </p>
             <ProductDetailPhoneButton />
           </div>
@@ -94,7 +96,12 @@ export default function HumiSteamProductDetail({
         </div>
       </div>
 
-      <HumiSteamProductTabs modelId={product.modelId} />
+      <HumiSteamProductTabs
+        modelId={product.modelId}
+        tabsEnabled={product.tabsEnabled}
+        tabContent={product.tabContent}
+        documents={product.documents}
+      />
     </div>
   )
 }

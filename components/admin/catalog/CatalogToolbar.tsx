@@ -1,6 +1,6 @@
 'use client'
 
-import AdminInactiveField, { AdminDisabledButton } from '@/components/admin/AdminInactiveField'
+import AdminInactiveField from '@/components/admin/AdminInactiveField'
 
 type ViewMode = 'table' | 'grid'
 
@@ -10,6 +10,9 @@ type CatalogToolbarProps = {
   viewMode: ViewMode
   onViewModeChange: (mode: ViewMode) => void
   totalCount: number
+  onCreate?: () => void
+  creating?: boolean
+  exportHref?: string
 }
 
 export default function CatalogToolbar({
@@ -18,6 +21,9 @@ export default function CatalogToolbar({
   viewMode,
   onViewModeChange,
   totalCount,
+  onCreate,
+  creating = false,
+  exportHref,
 }: CatalogToolbarProps) {
   return (
     <div className="shrink-0 space-y-3 border-b border-gray-200 bg-white px-3 py-3 sm:px-4">
@@ -57,7 +63,24 @@ export default function CatalogToolbar({
               Карточки
             </button>
           </div>
-          <AdminDisabledButton>+ Товар</AdminDisabledButton>
+          {exportHref ? (
+            <a
+              href={exportHref}
+              className="rounded-[5px] border border-gray-300 px-3 py-2 text-sm font-medium text-[#232326] hover:bg-gray-50"
+            >
+              Excel
+            </a>
+          ) : null}
+          {onCreate ? (
+            <button
+              type="button"
+              onClick={onCreate}
+              disabled={creating}
+              className="rounded-[5px] bg-[#232326] px-3 py-2 text-sm font-semibold text-white hover:bg-[#232326]/90 disabled:opacity-50"
+            >
+              {creating ? 'Создание…' : '+ Товар'}
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

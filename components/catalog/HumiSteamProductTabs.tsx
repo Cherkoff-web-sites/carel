@@ -1,11 +1,21 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import ContactModalTrigger from '@/components/ContactModal/ContactModalTrigger'
 import ComponentsSlider from '@/components/catalog/ComponentsSlider'
+import DocumentsTabPanel from '@/components/catalog/DocumentsTabPanel'
+import PlainTextTabPanel from '@/components/catalog/PlainTextTabPanel'
+import { useSharedTabs } from '@/hooks/useSharedTabs'
 import { HUMISTEAM_MODEL_IDS, type HumisteamModelId } from '@/lib/catalogData'
+import {
+  DEFAULT_TABS_ENABLED,
+  getVisibleProductTabs,
+  type ProductDocument,
+  type ProductTabContent,
+  type ProductTabsEnabled,
+} from '@/lib/catalogProductExtras'
 import {
   getComponentsForCatalogContexts,
   type ComponentCatalogItem,
@@ -23,11 +33,30 @@ import { HUMISTEAM_PRODUCT_IMAGE } from '@/lib/humisteamData'
 
 type HumiSteamProductTabsProps = {
   modelId: HumisteamModelId
+  tabsEnabled?: Partial<ProductTabsEnabled>
+  tabContent?: Partial<ProductTabContent>
+  documents?: ProductDocument[]
 }
 
-export default function HumiSteamProductTabs({ modelId }: HumiSteamProductTabsProps) {
-  const [activeTab, setActiveTab] = useState<HumiSteamProductTabId>('installation')
+export default function HumiSteamProductTabs({
+  modelId,
+  tabsEnabled,
+  tabContent,
+  documents = [],
+}: HumiSteamProductTabsProps) {
+  const enabled = useMemo(
+    () => ({ ...DEFAULT_TABS_ENABLED, ...tabsEnabled }),
+    [tabsEnabled]
+  )
+  const visibleTabs = useMemo(
+    () => getVisibleProductTabs(HUMISTEAM_PRODUCT_TABS, enabled),
+    [enabled]
+  )
+  const [activeTab, setActiveTab] = useState<HumiSteamProductTabId>(
+    visibleTabs[0]?.id ?? 'installation'
+  )
   const router = useRouter()
+  const { tabs: sharedTabs } = useSharedTabs()
 
   const handleOpenComponent = (item: ComponentCatalogItem) => {
     router.push(`/components?id=${item.id}`)
@@ -40,7 +69,7 @@ export default function HumiSteamProductTabs({ modelId }: HumiSteamProductTabsPr
         role="tablist"
         aria-label="Информация о товаре"
       >
-        {HUMISTEAM_PRODUCT_TABS.map((tab) => {
+        {visibleTabs.map((tab) => {
           const isActive = activeTab === tab.id
           return (
             <button
@@ -65,18 +94,32 @@ export default function HumiSteamProductTabs({ modelId }: HumiSteamProductTabsPr
         className="mt-6 min-w-0 text-sm leading-relaxed text-[#232326]/90 sm:mt-8 sm:text-base"
         role="tabpanel"
       >
-        {activeTab === 'installation' ? <InstallationTab /> : null}
-        {activeTab === 'series' ? <SeriesTab onOpenComponent={handleOpenComponent} /> : null}
-        {activeTab === 'documents' ? <SimpleTextTab text={HUMISTEAM_DOCUMENTS_TEXT} /> : null}
-        {activeTab === 'delivery' ? <DeliveryTab /> : null}
-        {activeTab === 'payment' ? <PaymentTab /> : null}
+        {activeTab === 'installation' ? (
+          tabContent?.installationText?.trim() ? (
+            <PlainTextTabPanel text={tabContent.installationText} />
+          ) : (
+            <InstallationTab />
+          )
+        ) : null}
+        {activeTab === 'series' ? (
+          tabContent?.seriesText?.trim() ? (
+            <PlainTextTabPanel text={tabContent.seriesText} />
+          ) : (
+            <SeriesTab onOpenComponent={handleOpenComponent} />
+          )
+        ) : null}
+        {activeTab === 'documents' ? (
+          <DocumentsTabPanel documents={documents} fallbackText={HUMISTEAM_DOCUMENTS_TEXT} />
+        ) : null}
+        {activeTab === 'delivery' ? (
+          <PlainTextTabPanel text={sharedTabs?.deliveryText ?? ''} />
+        ) : null}
+        {activeTab === 'payment' ? (
+          <PlainTextTabPanel text={sharedTabs?.paymentText ?? ''} />
+        ) : null}
       </div>
     </div>
   )
-}
-
-function SimpleTextTab({ text }: { text: string }) {
-  return <p>{text}</p>
 }
 
 function SeriesTab({
@@ -129,86 +172,6 @@ function TabBullet({ children }: { children: ReactNode }) {
       />
       <span>{children}</span>
     </li>
-  )
-}
-
-function PaymentTab() {
-  const { individuals, legal } = HUMISTEAM_PAYMENT_CONTENT
-
-  return (
-    <div className="max-w-3xl space-y-8 sm:space-y-10">
-      <section>
-        <h2 className="text-xl font-bold text-[#232326] sm:text-2xl">{individuals.title}</h2>
-        <p className="mt-4 leading-relaxed text-[#232326]/90 sm:mt-5">{individuals.intro}</p>
-        <ul className="mt-3 space-y-2 sm:mt-4 sm:space-y-2.5">
-          {individuals.methods.map((method) => (
-            <TabBullet key={method}>{method}</TabBullet>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-xl font-bold text-[#232326] sm:text-2xl">{legal.title}</h2>
-        <p className="mt-4 leading-relaxed text-[#232326]/90 sm:mt-5">{legal.text}</p>
-      </section>
-    </div>
-  )
-}
-
-function DeliveryTab() {
-  const { moscow, russia } = HUMISTEAM_DELIVERY_CONTENT
-
-  return (
-    <div className="max-w-3xl space-y-8 sm:space-y-10">
-      <section>
-        <h2 className="text-xl font-bold text-[#232326] sm:text-2xl">{moscow.title}</h2>
-
-        <ul className="mt-4 space-y-2 sm:mt-5 sm:space-y-2.5">
-          <TabBullet>
-            <strong className="font-bold text-[#232326]">{moscow.rates[0].bold}</strong>
-            {moscow.rates[0].text}
-          </TabBullet>
-          <TabBullet>
-            {moscow.rates[1].text}
-            <strong className="font-bold text-[#232326]">{moscow.rates[1].boldEnd}</strong>
-          </TabBullet>
-        </ul>
-
-        <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm font-bold text-[#E62614] sm:mt-5 sm:text-base">
-          <span>{moscow.schedule.days}</span>
-          <span>{moscow.schedule.hours}</span>
-        </p>
-
-        <p className="mt-3 text-[#232326]/90 sm:mt-4">{moscow.driverNote}</p>
-
-        <ul className="mt-3 sm:mt-4">
-          <TabBullet>
-            {moscow.outsideMkad.text}
-            <strong className="font-bold text-[#232326]">{moscow.outsideMkad.bold}</strong>
-          </TabBullet>
-        </ul>
-
-        <p className="mt-5 text-[#232326] sm:mt-6">{moscow.lifting.title}</p>
-        <ul className="mt-2 space-y-2 sm:space-y-2.5">
-          {moscow.lifting.items.map((item) => (
-            <TabBullet key={item}>{item}</TabBullet>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="text-xl font-bold text-[#232326] sm:text-2xl">{russia.title}</h2>
-        <p className="mt-1 text-sm text-[#232326]/55 sm:text-base">{russia.subtitle}</p>
-
-        <ul className="mt-4 space-y-2 sm:mt-5 sm:space-y-2.5">
-          {russia.rates.map((item) => (
-            <TabBullet key={item}>{item}</TabBullet>
-          ))}
-        </ul>
-
-        <p className="mt-5 font-bold text-[#232326] sm:mt-6">{russia.closing}</p>
-      </section>
-    </div>
   )
 }
 

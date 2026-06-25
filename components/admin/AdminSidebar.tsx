@@ -18,6 +18,8 @@ const NAV = [
     items: [
       { href: '/admin/catalog/humidifiers', label: 'Увлажнители' },
       { href: '/admin/catalog/components', label: 'Запчасти' },
+      { href: '/admin/catalog/shared-tabs', label: 'Доставка и оплата' },
+      { href: '/admin/catalog/bulk', label: 'Массовое редактирование' },
     ],
   },
   {

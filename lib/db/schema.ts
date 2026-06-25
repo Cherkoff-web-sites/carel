@@ -12,3 +12,9 @@ export const products = pgTable(
     pk: primaryKey({ columns: [table.catalog, table.id] }),
   })
 )
+
+export const sharedSettings = pgTable('shared_settings', {
+  key: text('key').primaryKey(),
+  valueJson: text('value_json').notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+})

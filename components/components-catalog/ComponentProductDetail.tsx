@@ -11,17 +11,23 @@ import {
   componentToCartItem,
   type ComponentCatalogItem,
 } from '@/lib/componentsCatalogData'
+import { formatPublicSitePrice, type PublicPriceFields } from '@/lib/catalogProductMeta'
+
+import { type CatalogProductExtrasFields } from '@/lib/catalogProductExtras'
+
 import {
   getComponentGalleryImages,
   getComponentProductSpecRows,
   getComponentProductTitle,
 } from '@/lib/componentProductSpecs'
 
+type ComponentCatalogProduct = ComponentCatalogItem & PublicPriceFields & CatalogProductExtrasFields
+
 type ComponentProductDetailProps = {
-  product: ComponentCatalogItem
-  sectionProducts: ComponentCatalogItem[]
+  product: ComponentCatalogProduct
+  sectionProducts: ComponentCatalogProduct[]
   onBack: () => void
-  onSelectProduct: (product: ComponentCatalogItem) => void
+  onSelectProduct: (product: ComponentCatalogProduct) => void
 }
 
 export default function ComponentProductDetail({
@@ -74,7 +80,7 @@ export default function ComponentProductDetail({
           <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
             <p className="text-base text-[#232326] sm:text-lg">
               <span className="text-[#232326]/50">Цена:</span>{' '}
-              <span className="font-bold">по запросу</span>
+              <span className="font-bold">{formatPublicSitePrice(product)}</span>
             </p>
             <ProductDetailPhoneButton />
           </div>
@@ -102,7 +108,12 @@ export default function ComponentProductDetail({
         </div>
       </div>
 
-      <ComponentProductTabs sectionId={product.sectionId} />
+      <ComponentProductTabs
+        sectionId={product.sectionId}
+        tabsEnabled={product.tabsEnabled}
+        tabContent={product.tabContent}
+        documents={product.documents}
+      />
     </div>
   )
 }

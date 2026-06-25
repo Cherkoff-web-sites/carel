@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { AdminDisabledButton } from '@/components/admin/AdminInactiveField'
 import { formatAdminPrice } from '@/lib/adminCatalogFilters'
 
 export type AdminProductRow = {
@@ -9,18 +8,46 @@ export type AdminProductRow = {
   image: string
   price: number
   subtitle?: string
+  published?: boolean
+  showPriceOnSite?: boolean
 }
 
 type ProductTableProps = {
   rows: AdminProductRow[]
   selectedId: string | null
   onEdit: (id: string) => void
+  onDuplicate?: (id: string) => void
+}
+
+function AdminPriceCell({ price, showPriceOnSite }: { price: number; showPriceOnSite?: boolean }) {
+  return (
+    <div className="space-y-1">
+      <p>{formatAdminPrice(price)}</p>
+      {showPriceOnSite === false && price > 0 ? (
+        <span className="inline-block rounded bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-800">
+          скрыта на сайте
+        </span>
+      ) : null}
+    </div>
+  )
+}
+
+function AdminStatusBadge({ published }: { published?: boolean }) {
+  if (published === false) {
+    return (
+      <span className="inline-block rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-600">
+        скрыт
+      </span>
+    )
+  }
+  return null
 }
 
 function MobileProductList({
   rows,
   selectedId,
   onEdit,
+  onDuplicate,
 }: ProductTableProps) {
   return (
     <ul className="divide-y divide-gray-100 md:hidden">
@@ -41,10 +68,13 @@ function MobileProductList({
               <div className="min-w-0 flex-1">
                 <p className="font-mono text-xs font-semibold text-[#232326]/70">{row.sku}</p>
                 <p className="mt-0.5 line-clamp-2 text-sm font-medium text-[#232326]">{row.title}</p>
+                <AdminStatusBadge published={row.published} />
                 {row.subtitle ? (
                   <p className="mt-1 text-xs text-[#232326]/60">{row.subtitle}</p>
                 ) : null}
-                <p className="mt-1 text-sm font-semibold text-[#232326]">{formatAdminPrice(row.price)}</p>
+                <div className="mt-1">
+                  <AdminPriceCell price={row.price} showPriceOnSite={row.showPriceOnSite} />
+                </div>
               </div>
             </button>
           </li>
@@ -54,7 +84,7 @@ function MobileProductList({
   )
 }
 
-export default function ProductTable({ rows, selectedId, onEdit }: ProductTableProps) {
+export default function ProductTable({ rows, selectedId, onEdit, onDuplicate }: ProductTableProps) {
   if (rows.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center p-8 text-center text-sm text-[#232326]/55 sm:p-12">
@@ -65,7 +95,7 @@ export default function ProductTable({ rows, selectedId, onEdit }: ProductTableP
 
   return (
     <>
-      <MobileProductList rows={rows} selectedId={selectedId} onEdit={onEdit} />
+      <MobileProductList rows={rows} selectedId={selectedId} onEdit={onEdit} onDuplicate={onDuplicate} />
 
       <div className="hidden overflow-x-auto md:block">
         <table className="min-w-full text-left text-sm">
@@ -95,9 +125,12 @@ export default function ProductTable({ rows, selectedId, onEdit }: ProductTableP
                   <td className="px-4 py-3 font-mono text-xs font-semibold text-[#232326]">{row.sku}</td>
                   <td className="max-w-xs px-4 py-3">
                     <p className="line-clamp-2 font-medium text-[#232326]">{row.title}</p>
+                    <AdminStatusBadge published={row.published} />
                   </td>
                   <td className="px-4 py-3 text-[#232326]/65">{row.subtitle ?? '—'}</td>
-                  <td className="whitespace-nowrap px-4 py-3">{formatAdminPrice(row.price)}</td>
+                  <td className="whitespace-nowrap px-4 py-3">
+                    <AdminPriceCell price={row.price} showPriceOnSite={row.showPriceOnSite} />
+                  </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">
                       <button
@@ -107,7 +140,15 @@ export default function ProductTable({ rows, selectedId, onEdit }: ProductTableP
                       >
                         Редактировать
                       </button>
-                      <AdminDisabledButton>Дублировать</AdminDisabledButton>
+                      {onDuplicate ? (
+                        <button
+                          type="button"
+                          onClick={() => onDuplicate(row.id)}
+                          className="rounded-[5px] border border-gray-300 bg-white px-2.5 py-1 text-xs font-medium text-[#232326] hover:bg-gray-50"
+                        >
+                          Дублировать
+                        </button>
+                      ) : null}
                     </div>
                   </td>
                 </tr>

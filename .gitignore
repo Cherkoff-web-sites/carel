@@ -35,3 +35,7 @@ next-env.d.ts
 
 # Admin panel data
 /data
+
+# Uploaded media (persist via volume on server)
+/public/uploads/*
+!/public/uploads/.gitkeep
