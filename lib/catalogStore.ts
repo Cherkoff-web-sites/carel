@@ -3,6 +3,7 @@ import { getDb } from '@/lib/db/client'
 import { products } from '@/lib/db/schema'
 import { withCatalogProductDefaults, toPublicCatalogProduct } from '@/lib/catalogProductMeta'
 import { withCatalogProductExtras } from '@/lib/catalogProductExtras'
+import { getCatalogDefaultGallery } from '@/lib/catalogDefaultGallery'
 import { PARTS_AND_COMPONENTS_IMAGE } from '@/lib/partsImage'
 import type {
   CatalogFile,
@@ -20,10 +21,18 @@ function parseProducts<T>(rows: Array<{ dataJson: string }>): T[] {
   return rows.map((row) => JSON.parse(row.dataJson) as T)
 }
 
-function normalizeProduct<T extends { description: string; price: number; image?: string }>(
-  product: T
+function normalizeProduct<T extends { description: string; price: number; image?: string; galleryImages?: readonly string[] }>(
+  product: T,
+  catalog: CatalogKey
 ) {
-  return withCatalogProductExtras(withCatalogProductDefaults(product))
+  const normalized = withCatalogProductExtras(withCatalogProductDefaults(product))
+  if (!product.galleryImages?.length) {
+    return {
+      ...normalized,
+      galleryImages: getCatalogDefaultGallery(catalog, normalized.image),
+    }
+  }
+  return normalized
 }
 
 export async function readCatalog(): Promise<CatalogFile> {
@@ -31,13 +40,13 @@ export async function readCatalog(): Promise<CatalogFile> {
 
   const humisteam = parseProducts<CatalogFile['humisteam'][number]>(
     await db.select().from(products).where(eq(products.catalog, 'humisteam'))
-  ).map(normalizeProduct)
+  ).map((product) => normalizeProduct(product, 'humisteam'))
   const heatersteam = parseProducts<CatalogFile['heatersteam'][number]>(
     await db.select().from(products).where(eq(products.catalog, 'heatersteam'))
-  ).map(normalizeProduct)
+  ).map((product) => normalizeProduct(product, 'heatersteam'))
   const components = parseProducts<CatalogFile['components'][number]>(
     await db.select().from(products).where(eq(products.catalog, 'components'))
-  ).map(normalizeProduct)
+  ).map((product) => normalizeProduct(product, 'components'))
 
   return {
     version: 1,
@@ -58,7 +67,9 @@ export async function getCatalogProducts<K extends CatalogKey>(
     .where(eq(products.catalog, catalog))
     .orderBy(products.id)
 
-  let items = parseProducts<CatalogFile[K][number]>(rows).map(normalizeProduct)
+  let items = parseProducts<CatalogFile[K][number]>(rows).map((product) =>
+    normalizeProduct(product, catalog)
+  )
 
   if (options.publishedOnly) {
     items = items.filter((item) => item.published) as typeof items
@@ -89,7 +100,8 @@ export async function updateCatalogProduct(
   }
 
   const current = normalizeProduct(
-    JSON.parse(row.dataJson) as CatalogFile[CatalogKey][number] & CatalogPatch
+    JSON.parse(row.dataJson) as CatalogFile[CatalogKey][number] & CatalogPatch,
+    catalog
   )
   const mergedTabsEnabled = patch.tabsEnabled
     ? { ...current.tabsEnabled, ...patch.tabsEnabled }
@@ -97,12 +109,15 @@ export async function updateCatalogProduct(
   const mergedTabContent = patch.tabContent
     ? { ...current.tabContent, ...patch.tabContent }
     : current.tabContent
-  const updated = normalizeProduct({
-    ...current,
-    ...patch,
-    tabsEnabled: mergedTabsEnabled,
-    tabContent: mergedTabContent,
-  })
+  const updated = normalizeProduct(
+    {
+      ...current,
+      ...patch,
+      tabsEnabled: mergedTabsEnabled,
+      tabContent: mergedTabContent,
+    },
+    catalog
+  )
 
   await db
     .update(products)
@@ -141,15 +156,18 @@ export async function duplicateCatalogProduct(
     return null
   }
 
-  const source = normalizeProduct(JSON.parse(row.dataJson) as CatalogFile[CatalogKey][number])
+  const source = normalizeProduct(JSON.parse(row.dataJson) as CatalogFile[CatalogKey][number], catalog)
   const newId = buildCopyId(id)
-  const copy = normalizeProduct({
-    ...JSON.parse(JSON.stringify(source)),
-    id: newId,
-    sku: buildCopySku(source.sku),
-    title: `${source.title} (копия)`,
-    published: false,
-  })
+  const copy = normalizeProduct(
+    {
+      ...JSON.parse(JSON.stringify(source)),
+      id: newId,
+      sku: buildCopySku(source.sku),
+      title: `${source.title} (копия)`,
+      published: false,
+    },
+    catalog
+  )
 
   await db.insert(products).values({
     catalog,
@@ -178,22 +196,25 @@ export async function createCatalogProduct(
 
   if (catalog === 'components') {
     const sectionId = options.sectionId ?? 'steam-cylinders'
-    const product = normalizeProduct({
-      id: newId,
-      sku: 'NEW-SKU',
-      title: 'Новый товар',
-      description: '',
-      fullDescription: '',
-      image: PARTS_AND_COMPONENTS_IMAGE,
-      galleryImages: [],
-      price: 0,
-      sectionId,
-      relatedContexts: [],
-      published: false,
-      showPriceOnSite: false,
-      metaTitle: '',
-      metaDescription: '',
-    })
+    const product = normalizeProduct(
+      {
+        id: newId,
+        sku: 'NEW-SKU',
+        title: 'Новый товар',
+        description: '',
+        fullDescription: '',
+        image: PARTS_AND_COMPONENTS_IMAGE,
+        galleryImages: [],
+        price: 0,
+        sectionId,
+        relatedContexts: [],
+        published: false,
+        showPriceOnSite: false,
+        metaTitle: '',
+        metaDescription: '',
+      },
+      'components'
+    )
     await db.insert(products).values({
       catalog,
       id: newId,
@@ -212,20 +233,23 @@ export async function createCatalogProduct(
     if (!template) {
       throw new Error('No humisteam products to use as template')
     }
-    const product = normalizeProduct({
-      ...JSON.parse(JSON.stringify(template)),
-      id: newId,
-      sku: 'NEW-SKU',
-      title: 'Новый товар',
-      description: '',
-      fullDescription: '',
-      published: false,
-      showPriceOnSite: false,
-      price: 0,
-      modelId,
-      metaTitle: '',
-      metaDescription: '',
-    })
+    const product = normalizeProduct(
+      {
+        ...JSON.parse(JSON.stringify(template)),
+        id: newId,
+        sku: 'NEW-SKU',
+        title: 'Новый товар',
+        description: '',
+        fullDescription: '',
+        published: false,
+        showPriceOnSite: false,
+        price: 0,
+        modelId,
+        metaTitle: '',
+        metaDescription: '',
+      },
+      'humisteam'
+    )
     await db.insert(products).values({
       catalog,
       id: newId,
@@ -243,20 +267,23 @@ export async function createCatalogProduct(
   if (!template) {
     throw new Error('No heatersteam products to use as template')
   }
-  const product = normalizeProduct({
-    ...JSON.parse(JSON.stringify(template)),
-    id: newId,
-    sku: 'NEW-SKU',
-    title: 'Новый товар',
-    description: '',
-    fullDescription: '',
-    published: false,
-    showPriceOnSite: false,
-    price: 0,
-    variantId,
-    metaTitle: '',
-    metaDescription: '',
-  })
+  const product = normalizeProduct(
+    {
+      ...JSON.parse(JSON.stringify(template)),
+      id: newId,
+      sku: 'NEW-SKU',
+      title: 'Новый товар',
+      description: '',
+      fullDescription: '',
+      published: false,
+      showPriceOnSite: false,
+      price: 0,
+      variantId,
+      metaTitle: '',
+      metaDescription: '',
+    },
+    'heatersteam'
+  )
   await db.insert(products).values({
     catalog: 'heatersteam',
     id: newId,
@@ -313,7 +340,7 @@ export async function getAllCatalogProductsNormalized(): Promise<CatalogBulkRow[
   const rows: CatalogBulkRow[] = []
 
   for (const product of catalog.humisteam) {
-    const p = normalizeProduct(product)
+    const p = normalizeProduct(product, 'humisteam')
     rows.push({
       catalog: 'humisteam',
       id: p.id,
@@ -327,7 +354,7 @@ export async function getAllCatalogProductsNormalized(): Promise<CatalogBulkRow[
     })
   }
   for (const product of catalog.heatersteam) {
-    const p = normalizeProduct(product)
+    const p = normalizeProduct(product, 'heatersteam')
     rows.push({
       catalog: 'heatersteam',
       id: p.id,
@@ -341,7 +368,7 @@ export async function getAllCatalogProductsNormalized(): Promise<CatalogBulkRow[
     })
   }
   for (const product of catalog.components) {
-    const p = normalizeProduct(product)
+    const p = normalizeProduct(product, 'components')
     rows.push({
       catalog: 'components',
       id: p.id,

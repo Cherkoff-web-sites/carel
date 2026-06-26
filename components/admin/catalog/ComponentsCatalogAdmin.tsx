@@ -81,7 +81,7 @@ export default function ComponentsCatalogAdmin() {
       const nextTabs: Record<string, ProductEditorTabs> = {}
       for (const item of data) {
         nextDrafts[item.id] = productToDraft(item)
-        nextMedia[item.id] = productToMedia(item)
+        nextMedia[item.id] = productToMedia(item, 'components')
         nextTabs[item.id] = productToTabs(item)
       }
       setDrafts(nextDrafts)
@@ -144,7 +144,7 @@ export default function ComponentsCatalogAdmin() {
       return [...prev, updated]
     })
     setDrafts((prev) => ({ ...prev, [updated.id]: productToDraft(updated) }))
-    setMediaState((prev) => ({ ...prev, [updated.id]: productToMedia(updated) }))
+    setMediaState((prev) => ({ ...prev, [updated.id]: productToMedia(updated, 'components') }))
     setTabsState((prev) => ({ ...prev, [updated.id]: productToTabs(updated) }))
     setSelectedId(updated.id)
   }
@@ -286,7 +286,7 @@ export default function ComponentsCatalogAdmin() {
     const item = products.find((entry) => entry.id === id)
     if (item) {
       setDrafts((prev) => ({ ...prev, [id]: prev[id] ?? productToDraft(item) }))
-      setMediaState((prev) => ({ ...prev, [id]: prev[id] ?? productToMedia(item) }))
+      setMediaState((prev) => ({ ...prev, [id]: prev[id] ?? productToMedia(item, 'components') }))
       setTabsState((prev) => ({ ...prev, [id]: prev[id] ?? productToTabs(item) }))
     }
     setSelectedId(id)

@@ -7,7 +7,7 @@ const PDF_EXTENSION = '.pdf'
 
 export type UploadKind = 'image' | 'pdf'
 
-function getUploadsRoot(): string {
+export function getUploadsRoot(): string {
   return process.env.UPLOADS_DIR ?? path.join(process.cwd(), 'public', 'uploads')
 }
 

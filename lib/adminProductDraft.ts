@@ -5,6 +5,7 @@ import {
   type ProductTabContent,
   type ProductTabsEnabled,
 } from '@/lib/catalogProductExtras'
+import { getCatalogDefaultGallery } from '@/lib/catalogDefaultGallery'
 import type { CatalogKey } from '@/lib/catalogTypes'
 
 export type ProductEditorDraft = {
@@ -93,11 +94,15 @@ type DraftSource = {
   documents?: ProductDocument[]
 }
 
-export function productToMedia(product: DraftSource): ProductEditorMedia {
+export function productToMedia(product: DraftSource, catalogKey?: CatalogKey): ProductEditorMedia {
   const normalized = withCatalogProductExtras(withCatalogProductDefaults(product))
+  const gallery =
+    normalized.galleryImages.length > 1 || !catalogKey
+      ? normalized.galleryImages
+      : getCatalogDefaultGallery(catalogKey, normalized.image)
   return {
-    image: normalized.image ?? normalized.galleryImages[0] ?? '',
-    galleryImages: [...normalized.galleryImages],
+    image: normalized.image ?? gallery[0] ?? '',
+    galleryImages: [...gallery],
   }
 }
 

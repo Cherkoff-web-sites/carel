@@ -44,6 +44,7 @@ export default function CatalogImageSlider({ images, alt }: CatalogImageSliderPr
                 className="object-contain p-4"
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 priority={index === 0}
+                unoptimized={src.startsWith('/uploads/')}
               />
             </div>
           </SwiperSlide>
@@ -93,6 +94,7 @@ export default function CatalogImageSlider({ images, alt }: CatalogImageSliderPr
                   fill
                   className="object-contain p-1"
                   sizes="96px"
+                  unoptimized={src.startsWith('/uploads/')}
                 />
               </div>
             </SwiperSlide>

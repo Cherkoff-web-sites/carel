@@ -123,7 +123,7 @@ export default function HumidifiersCatalogAdmin() {
       for (const item of items) {
         const key = itemKey(item)
         nextDrafts[key] = productToDraft(item.product)
-        nextMedia[key] = productToMedia(item.product)
+        nextMedia[key] = productToMedia(item.product, item.catalogKey)
         nextTabs[key] = productToTabs(item.product)
       }
       setDrafts(nextDrafts)
@@ -197,7 +197,7 @@ export default function HumidifiersCatalogAdmin() {
     }
     const key = `${catalogKey}:${updated.id}`
     setDrafts((prev) => ({ ...prev, [key]: productToDraft(updated) }))
-    setMediaState((prev) => ({ ...prev, [key]: productToMedia(updated) }))
+    setMediaState((prev) => ({ ...prev, [key]: productToMedia(updated, catalogKey) }))
     setTabsState((prev) => ({ ...prev, [key]: productToTabs(updated) }))
     setSelectedKey(key)
   }
@@ -374,7 +374,7 @@ export default function HumidifiersCatalogAdmin() {
       }))
       setMediaState((prev) => ({
         ...prev,
-        [key]: prev[key] ?? productToMedia(item.product),
+        [key]: prev[key] ?? productToMedia(item.product, item.catalogKey),
       }))
       setTabsState((prev) => ({
         ...prev,
