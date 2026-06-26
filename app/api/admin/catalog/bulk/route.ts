@@ -4,6 +4,9 @@ import type { CatalogKey, CatalogProductPatch } from '@/lib/catalogTypes'
 
 const VALID_CATALOGS = new Set<CatalogKey>(['humisteam', 'heatersteam', 'components'])
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json()

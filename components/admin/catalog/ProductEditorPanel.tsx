@@ -8,6 +8,7 @@ import type {
   ProductEditorDraft,
   ProductEditorMedia,
   ProductEditorTabs,
+  ProductSpecsDraft,
 } from '@/lib/adminProductDraft'
 import type { CatalogKey } from '@/lib/catalogTypes'
 
@@ -21,7 +22,7 @@ type ProductEditorPanelProps = {
   media: ProductEditorMedia
   tabs: ProductEditorTabs
   saving: boolean
-  onDraftChange: (field: keyof ProductEditorDraft, value: string | boolean) => void
+  onDraftChange: <K extends keyof ProductEditorDraft>(field: K, value: ProductEditorDraft[K]) => void
   onMediaChange: (media: ProductEditorMedia) => void
   onTabsChange: (tabs: ProductEditorTabs) => void
   onSave: () => void
@@ -30,6 +31,23 @@ type ProductEditorPanelProps = {
   onDelete: () => void
   onClose: () => void
 }
+
+const HUMISTEAM_SPEC_FIELDS: Array<{ key: keyof ProductSpecsDraft; label: string }> = [
+  { key: 'powerKw', label: 'Мощность' },
+  { key: 'powerSupply', label: 'Электропитание' },
+  { key: 'control', label: 'Управление' },
+  { key: 'cylinderType', label: 'Тип цилиндра' },
+  { key: 'steamConnection', label: 'Присоединение линии пара' },
+  { key: 'cylinderCount', label: 'Количество цилиндров' },
+  { key: 'dimensions', label: 'Размеры (ВхШхГ)' },
+  { key: 'packagingDimensions', label: 'Размеры упаковки' },
+  { key: 'weight', label: 'Вес' },
+  { key: 'netWeight', label: 'Вес нетто' },
+  { key: 'grossWeight', label: 'Вес брутто' },
+  { key: 'protectionClass', label: 'Класс защиты' },
+  { key: 'recommendedArea', label: 'Рекомендуемая площадь' },
+  { key: 'features', label: 'Особенности' },
+]
 
 export default function ProductEditorPanel({
   catalogKey,
@@ -103,6 +121,15 @@ export default function ProductEditorPanel({
                   className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
                 />
               </label>
+              <label className="block max-w-xs">
+                <span className="mb-1 block text-xs font-medium text-[#232326]/70">SKU / артикул</span>
+                <input
+                  type="text"
+                  value={draft.sku}
+                  onChange={(e) => onDraftChange('sku', e.target.value)}
+                  className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                />
+              </label>
               <label className="block">
                 <span className="mb-1 block text-xs font-medium text-[#232326]/70">Краткое описание</span>
                 <textarea
@@ -156,6 +183,102 @@ export default function ProductEditorPanel({
                 />
                 Опубликован
               </label>
+            </section>
+
+            <section className="space-y-3 rounded-lg border border-gray-200 p-4">
+              <h3 className="text-sm font-semibold text-[#232326]">Поля карточки и каталога</h3>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {catalogKey !== 'components' ? (
+                  <label className="block">
+                    <span className="mb-1 block text-xs font-medium text-[#232326]/70">
+                      Производительность, кг/ч
+                    </span>
+                    <input
+                      type="number"
+                      min={0}
+                      step="0.1"
+                      value={draft.performanceKgH}
+                      onChange={(e) => onDraftChange('performanceKgH', e.target.value)}
+                      className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                    />
+                  </label>
+                ) : null}
+                {catalogKey === 'humisteam' ? (
+                  <label className="block">
+                    <span className="mb-1 block text-xs font-medium text-[#232326]/70">
+                      Серия humiSteam (modelId)
+                    </span>
+                    <input
+                      type="text"
+                      value={draft.modelId}
+                      onChange={(e) => onDraftChange('modelId', e.target.value)}
+                      className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                    />
+                  </label>
+                ) : null}
+                {catalogKey === 'heatersteam' ? (
+                  <label className="block">
+                    <span className="mb-1 block text-xs font-medium text-[#232326]/70">
+                      Серия heaterSteam (variantId)
+                    </span>
+                    <input
+                      type="text"
+                      value={draft.variantId}
+                      onChange={(e) => onDraftChange('variantId', e.target.value)}
+                      className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                    />
+                  </label>
+                ) : null}
+                {catalogKey === 'components' ? (
+                  <>
+                    <label className="block">
+                      <span className="mb-1 block text-xs font-medium text-[#232326]/70">
+                        Раздел запчастей (sectionId)
+                      </span>
+                      <input
+                        type="text"
+                        value={draft.sectionId}
+                        onChange={(e) => onDraftChange('sectionId', e.target.value)}
+                        className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                      />
+                    </label>
+                    <label className="block sm:col-span-2">
+                      <span className="mb-1 block text-xs font-medium text-[#232326]/70">
+                        Связанные линейки увлажнителей через запятую
+                      </span>
+                      <input
+                        type="text"
+                        value={draft.relatedContexts}
+                        onChange={(e) => onDraftChange('relatedContexts', e.target.value)}
+                        className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                      />
+                    </label>
+                  </>
+                ) : null}
+              </div>
+
+              {catalogKey === 'humisteam' ? (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {HUMISTEAM_SPEC_FIELDS.map((field) => (
+                    <label key={field.key} className="block">
+                      <span className="mb-1 block text-xs font-medium text-[#232326]/70">
+                        {field.label}
+                      </span>
+                      <input
+                        type="text"
+                        value={draft.specs[field.key]}
+                        onChange={(e) =>
+                          onDraftChange('specs', {
+                            ...draft.specs,
+                            [field.key]: e.target.value,
+                          })
+                        }
+                        className="w-full rounded-[5px] border border-gray-300 px-3 py-2 text-sm"
+                      />
+                    </label>
+                  ))}
+                </div>
+              ) : null}
             </section>
 
             <ProductTabsEditor

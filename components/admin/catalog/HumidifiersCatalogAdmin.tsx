@@ -166,7 +166,11 @@ export default function HumidifiersCatalogAdmin() {
     return allItems.find((item) => itemKey(item) === selectedKey) ?? null
   }, [allItems, selectedKey])
 
-  const updateDraft = (key: string, field: keyof ProductEditorDraft, value: string | boolean) => {
+  const updateDraft = <K extends keyof ProductEditorDraft>(
+    key: string,
+    field: K,
+    value: ProductEditorDraft[K]
+  ) => {
     setDrafts((prev) => ({
       ...prev,
       [key]: { ...prev[key], [field]: value },
@@ -214,7 +218,7 @@ export default function HumidifiersCatalogAdmin() {
         body: JSON.stringify({
           catalog: selectedItem.catalogKey,
           id: selectedItem.product.id,
-          patch: draftToPatch(draft, media, tabs),
+          patch: draftToPatch(draft, media, tabs, selectedItem.catalogKey),
         }),
       })
       if (!response.ok) throw new Error('save failed')
@@ -306,7 +310,7 @@ export default function HumidifiersCatalogAdmin() {
         body: JSON.stringify({
           catalog: selectedItem.catalogKey,
           id: selectedItem.product.id,
-          patch: { ...draftToPatch(draft, media, tabs), published: false },
+          patch: { ...draftToPatch(draft, media, tabs, selectedItem.catalogKey), published: false },
         }),
       })
       if (!response.ok) throw new Error('hide failed')

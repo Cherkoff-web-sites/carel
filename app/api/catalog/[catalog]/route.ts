@@ -6,6 +6,9 @@ const VALID_CATALOGS = new Set<CatalogKey>(['humisteam', 'heatersteam', 'compone
 
 type RouteParams = { params: { catalog: string } }
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function GET(_request: Request, { params }: RouteParams) {
   const catalog = params.catalog as CatalogKey
 

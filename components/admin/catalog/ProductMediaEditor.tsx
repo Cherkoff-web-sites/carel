@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useId, useState } from 'react'
 import { useUploadFile } from '@/hooks/useUploadFile'
 
 type ProductMediaEditorProps = {
@@ -15,28 +15,39 @@ export default function ProductMediaEditor({
   galleryImages,
   onChange,
 }: ProductMediaEditorProps) {
-  const mainInputRef = useRef<HTMLInputElement>(null)
-  const galleryInputRef = useRef<HTMLInputElement>(null)
+  const mainInputId = useId()
+  const galleryInputId = useId()
+  const [error, setError] = useState<string | null>(null)
   const { upload, uploading } = useUploadFile()
 
   const handleMainUpload = async (file: File) => {
-    const saved = await upload(file, 'image')
-    const gallery = galleryImages.length > 0 ? galleryImages : [image]
-    const nextGallery = gallery[0] === image ? [saved.url, ...gallery.slice(1)] : [saved.url, ...gallery]
-    onChange({ image: saved.url, galleryImages: nextGallery.filter(Boolean) })
+    setError(null)
+    try {
+      const saved = await upload(file, 'image')
+      const gallery = galleryImages.length > 0 ? galleryImages : [image]
+      const nextGallery = gallery[0] === image ? [saved.url, ...gallery.slice(1)] : [saved.url, ...gallery]
+      onChange({ image: saved.url, galleryImages: nextGallery.filter(Boolean) })
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : 'Не удалось загрузить фото')
+    }
   }
 
   const handleGalleryUpload = async (files: FileList) => {
-    const urls: string[] = []
-    for (const file of Array.from(files)) {
-      const saved = await upload(file, 'image')
-      urls.push(saved.url)
+    setError(null)
+    try {
+      const urls: string[] = []
+      for (const file of Array.from(files)) {
+        const saved = await upload(file, 'image')
+        urls.push(saved.url)
+      }
+      const nextGallery = [...galleryImages, ...urls]
+      onChange({
+        image: image || nextGallery[0] || '',
+        galleryImages: nextGallery,
+      })
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : 'Не удалось загрузить фото')
     }
-    const nextGallery = [...galleryImages, ...urls]
-    onChange({
-      image: image || nextGallery[0] || '',
-      galleryImages: nextGallery,
-    })
   }
 
   const removeAt = (index: number) => {
@@ -69,26 +80,28 @@ export default function ProductMediaEditor({
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          disabled={uploading}
-          onClick={() => mainInputRef.current?.click()}
-          className="rounded-[5px] bg-[#E62614] px-3 py-2 text-sm font-semibold text-white hover:bg-[#E62614]/90 disabled:opacity-50"
+        <label
+          htmlFor={mainInputId}
+          className={`rounded-[5px] bg-[#E62614] px-3 py-2 text-sm font-semibold text-white hover:bg-[#E62614]/90 ${
+            uploading ? 'pointer-events-none opacity-50' : 'cursor-pointer'
+          }`}
         >
           {uploading ? 'Загрузка…' : 'Заменить главное'}
-        </button>
-        <button
-          type="button"
-          disabled={uploading}
-          onClick={() => galleryInputRef.current?.click()}
-          className="rounded-[5px] border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-[#232326] hover:bg-gray-50 disabled:opacity-50"
+        </label>
+        <label
+          htmlFor={galleryInputId}
+          className={`rounded-[5px] border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-[#232326] hover:bg-gray-50 ${
+            uploading ? 'pointer-events-none opacity-50' : 'cursor-pointer'
+          }`}
         >
           Добавить в галерею
-        </button>
+        </label>
       </div>
 
+      {error ? <p className="text-xs font-medium text-red-700">{error}</p> : null}
+
       <input
-        ref={mainInputRef}
+        id={mainInputId}
         type="file"
         accept="image/jpeg,image/png,image/webp,image/gif"
         className="hidden"
@@ -99,7 +112,7 @@ export default function ProductMediaEditor({
         }}
       />
       <input
-        ref={galleryInputRef}
+        id={galleryInputId}
         type="file"
         accept="image/jpeg,image/png,image/webp,image/gif"
         multiple

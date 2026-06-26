@@ -10,6 +10,9 @@ import type { CatalogKey, CatalogProductPatch } from '@/lib/catalogTypes'
 
 const VALID_CATALOGS = new Set<CatalogKey>(['humisteam', 'heatersteam', 'components'])
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   const catalog = request.nextUrl.searchParams.get('catalog') as CatalogKey | null
 

@@ -30,6 +30,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/data-default ./data-default
 
 RUN mkdir -p ./data-default && chown -R nextjs:nodejs ./data-default
+RUN mkdir -p ./public/uploads/images ./public/uploads/docs && chown -R nextjs:nodejs ./public/uploads
 
 COPY docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh

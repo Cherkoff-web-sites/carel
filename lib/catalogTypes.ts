@@ -25,10 +25,17 @@ export type CatalogProductMap = {
 }
 
 export type CatalogProductPatch = {
+  sku?: string
   title?: string
   description?: string
   fullDescription?: string
   price?: number
+  performanceKgH?: number
+  modelId?: string
+  variantId?: string
+  sectionId?: string
+  relatedContexts?: string[]
+  specs?: Record<string, string>
   showPriceOnSite?: boolean
   published?: boolean
   metaTitle?: string

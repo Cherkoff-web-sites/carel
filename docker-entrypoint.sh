@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
-mkdir -p public/uploads/images public/uploads/docs
+UPLOADS_ROOT="${UPLOADS_DIR:-public/uploads}"
+mkdir -p "$UPLOADS_ROOT/images" "$UPLOADS_ROOT/docs"
 
 exec node server.js

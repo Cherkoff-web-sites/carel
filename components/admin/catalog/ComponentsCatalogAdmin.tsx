@@ -124,7 +124,11 @@ export default function ComponentsCatalogAdmin() {
     [filtered, products, selectedId]
   )
 
-  const updateDraft = (id: string, field: keyof ProductEditorDraft, value: string | boolean) => {
+  const updateDraft = <K extends keyof ProductEditorDraft>(
+    id: string,
+    field: K,
+    value: ProductEditorDraft[K]
+  ) => {
     setDrafts((prev) => ({
       ...prev,
       [id]: { ...prev[id], [field]: value },
@@ -161,7 +165,7 @@ export default function ComponentsCatalogAdmin() {
         body: JSON.stringify({
           catalog: 'components',
           id: selectedProduct.id,
-          patch: draftToPatch(draft, media, tabs),
+          patch: draftToPatch(draft, media, tabs, 'components'),
         }),
       })
       if (!response.ok) throw new Error('save failed')
@@ -235,7 +239,7 @@ export default function ComponentsCatalogAdmin() {
         body: JSON.stringify({
           catalog: 'components',
           id: selectedProduct.id,
-          patch: { ...draftToPatch(draft, media, tabs), published: false },
+          patch: { ...draftToPatch(draft, media, tabs, 'components'), published: false },
         }),
       })
       if (!response.ok) throw new Error('hide failed')

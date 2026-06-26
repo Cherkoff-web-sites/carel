@@ -8,6 +8,7 @@ import type { CatalogKey } from '@/lib/catalogTypes'
 
 const VALID = new Set<CatalogKey>(['humisteam', 'heatersteam', 'components'])
 
+export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {

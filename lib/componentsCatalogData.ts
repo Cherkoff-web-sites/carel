@@ -219,10 +219,10 @@ export function isComponentProductId(products: readonly ComponentCatalogItem[], 
   return products.some((item) => item.id === id)
 }
 
-export function getComponentsForSection(
-  products: readonly ComponentCatalogItem[],
+export function getComponentsForSection<T extends ComponentCatalogItem>(
+  products: readonly T[],
   sectionId: string
-): ComponentCatalogItem[] {
+): T[] {
   const leafIds = getCatalogLeafIds(COMPONENTS_CATALOG_TREE, sectionId)
   if (leafIds.length === 0) {
     return []

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useId, useState } from 'react'
 import { useUploadFile } from '@/hooks/useUploadFile'
 import type { ProductDocument, ProductTabContent, ProductTabId, ProductTabsEnabled } from '@/lib/catalogProductExtras'
 import { HUMISTEAM_PRODUCT_TABS } from '@/lib/humisteamProductTabs'
@@ -34,7 +34,8 @@ export default function ProductTabsEditor({
   onTabContentChange,
   onDocumentsChange,
 }: ProductTabsEditorProps) {
-  const pdfInputRef = useRef<HTMLInputElement>(null)
+  const pdfInputId = useId()
+  const [uploadError, setUploadError] = useState<string | null>(null)
   const { upload, uploading } = useUploadFile()
 
   const tabDefs =
@@ -47,12 +48,17 @@ export default function ProductTabsEditor({
   }
 
   const addPdf = async (file: File) => {
-    const saved = await upload(file, 'pdf')
-    const title = file.name.replace(/\.pdf$/i, '')
-    onDocumentsChange([
-      ...documents,
-      { id: `doc-${Date.now()}`, title, url: saved.url },
-    ])
+    setUploadError(null)
+    try {
+      const saved = await upload(file, 'pdf')
+      const title = file.name.replace(/\.pdf$/i, '')
+      onDocumentsChange([
+        ...documents,
+        { id: `doc-${Date.now()}`, title, url: saved.url },
+      ])
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Не удалось загрузить PDF')
+    }
   }
 
   return (
@@ -104,17 +110,17 @@ export default function ProductTabsEditor({
       <div>
         <div className="mb-2 flex items-center justify-between gap-2">
           <span className="text-xs font-medium text-[#232326]/70">PDF-документы</span>
-          <button
-            type="button"
-            disabled={uploading}
-            onClick={() => pdfInputRef.current?.click()}
-            className="rounded-[5px] border border-gray-300 px-2.5 py-1 text-xs font-medium hover:bg-gray-50 disabled:opacity-50"
+          <label
+            htmlFor={pdfInputId}
+            className={`rounded-[5px] border border-gray-300 px-2.5 py-1 text-xs font-medium hover:bg-gray-50 ${
+              uploading ? 'pointer-events-none opacity-50' : 'cursor-pointer'
+            }`}
           >
             {uploading ? 'Загрузка…' : '+ PDF'}
-          </button>
+          </label>
         </div>
         <input
-          ref={pdfInputRef}
+          id={pdfInputId}
           type="file"
           accept="application/pdf,.pdf"
           className="hidden"
@@ -124,6 +130,7 @@ export default function ProductTabsEditor({
             e.target.value = ''
           }}
         />
+        {uploadError ? <p className="mb-2 text-xs font-medium text-red-700">{uploadError}</p> : null}
         {documents.length === 0 ? (
           <p className="text-xs text-[#232326]/50">Нет прикреплённых PDF</p>
         ) : (

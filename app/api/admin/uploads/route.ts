@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { saveUploadedFile } from '@/lib/uploads'
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
