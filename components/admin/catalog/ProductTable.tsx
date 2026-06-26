@@ -55,15 +55,20 @@ function MobileProductList({
         const selected = selectedId === row.id
         return (
           <li key={row.id}>
-            <button
-              type="button"
-              onClick={() => onEdit(row.id)}
-              className={`flex w-full gap-3 p-4 text-left transition-colors ${
-                selected ? 'bg-[#E62614]/5' : 'hover:bg-gray-50'
-              }`}
-            >
+              <div
+                className={`flex w-full gap-3 p-4 text-left transition-colors ${
+                  selected ? 'bg-[#E62614]/5' : 'hover:bg-gray-50'
+                }`}
+              >
               <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded border border-gray-200 bg-white">
-                <Image src={row.image} alt="" fill className="object-contain p-1" sizes="56px" />
+                  <Image
+                    src={row.image}
+                    alt=""
+                    fill
+                    className="object-contain p-1"
+                    sizes="56px"
+                    unoptimized={row.image.startsWith('/uploads/')}
+                  />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="font-mono text-xs font-semibold text-[#232326]/70">{row.sku}</p>
@@ -75,8 +80,26 @@ function MobileProductList({
                 <div className="mt-1">
                   <AdminPriceCell price={row.price} showPriceOnSite={row.showPriceOnSite} />
                 </div>
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    <button
+                      type="button"
+                      onClick={() => onEdit(row.id)}
+                      className="rounded-[5px] bg-[#E62614] px-2.5 py-1 text-xs font-semibold text-white"
+                    >
+                      Редактировать
+                    </button>
+                    {onDuplicate ? (
+                      <button
+                        type="button"
+                        onClick={() => onDuplicate(row.id)}
+                        className="rounded-[5px] border border-gray-300 bg-white px-2.5 py-1 text-xs font-medium text-[#232326]"
+                      >
+                        Дублировать
+                      </button>
+                    ) : null}
+                  </div>
               </div>
-            </button>
+              </div>
           </li>
         )
       })}
@@ -119,7 +142,14 @@ export default function ProductTable({ rows, selectedId, onEdit, onDuplicate }: 
                 >
                   <td className="px-4 py-3">
                     <div className="relative h-12 w-12 overflow-hidden rounded border border-gray-200 bg-white">
-                      <Image src={row.image} alt="" fill className="object-contain p-1" sizes="48px" />
+                      <Image
+                        src={row.image}
+                        alt=""
+                        fill
+                        className="object-contain p-1"
+                        sizes="48px"
+                        unoptimized={row.image.startsWith('/uploads/')}
+                      />
                     </div>
                   </td>
                   <td className="px-4 py-3 font-mono text-xs font-semibold text-[#232326]">{row.sku}</td>

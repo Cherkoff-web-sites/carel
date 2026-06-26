@@ -19,6 +19,9 @@ import {
   COMPONENTS_DEFAULT_SECTION_ID,
 } from '@/lib/componentsCatalogTree'
 import { scrollToPageTop } from '@/lib/scrollToPageTop'
+import type { PublicPriceFields } from '@/lib/catalogProductMeta'
+
+type ComponentCatalogProduct = ComponentCatalogItem & PublicPriceFields
 
 export default function ComponentsPageClient() {
   const router = useRouter()
@@ -27,7 +30,7 @@ export default function ComponentsPageClient() {
   const { products, loading } = useCatalogProducts('components')
 
   const [activeSectionId, setActiveSectionId] = useState(COMPONENTS_DEFAULT_SECTION_ID)
-  const [selectedProduct, setSelectedProduct] = useState<ComponentCatalogItem | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<ComponentCatalogProduct | null>(null)
 
   const syncUrl = useCallback(
     (sectionId: string, productId: string | null) => {
@@ -48,7 +51,7 @@ export default function ComponentsPageClient() {
   )
 
   const openProduct = useCallback(
-    (product: ComponentCatalogItem) => {
+    (product: ComponentCatalogProduct) => {
       setActiveSectionId(product.sectionId)
       setSelectedProduct(product)
       syncUrl(product.sectionId, product.id)

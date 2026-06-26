@@ -9,6 +9,8 @@ import {
   componentToCartItem,
   type ComponentCatalogItem,
 } from '@/lib/componentsCatalogData'
+import { getComponentProductTitle } from '@/lib/componentProductSpecs'
+import { formatPublicSitePrice, type PublicPriceFields } from '@/lib/catalogProductMeta'
 
 function CartIcon() {
   return (
@@ -29,13 +31,14 @@ function CartIcon() {
 }
 
 type ComponentCatalogCardProps = {
-  item: ComponentCatalogItem
-  onOpen?: (item: ComponentCatalogItem) => void
+  item: ComponentCatalogItem & PublicPriceFields
+  onOpen?: (item: ComponentCatalogItem & PublicPriceFields) => void
 }
 
 export default function ComponentCatalogCard({ item, onOpen }: ComponentCatalogCardProps) {
   const { addItem } = useCart()
   const [imageError, setImageError] = useState(false)
+  const title = getComponentProductTitle(item)
 
   const handleAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation()
@@ -55,7 +58,7 @@ export default function ComponentCatalogCard({ item, onOpen }: ComponentCatalogC
         {!imageError ? (
           <Image
             src={item.image}
-            alt={item.description}
+            alt={title}
             fill
             className="object-contain p-4 sm:p-5"
             sizes="(max-width: 640px) 100vw, 33vw"
@@ -69,7 +72,8 @@ export default function ComponentCatalogCard({ item, onOpen }: ComponentCatalogC
       </div>
 
       <div className="flex flex-1 flex-col px-4 pt-2 sm:px-5">
-        <p className="text-base font-bold text-[#232326] sm:text-lg">{item.sku}</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-[#232326]/45">{item.sku}</p>
+        <p className="mt-1 text-base font-bold text-[#232326] sm:text-lg">{title}</p>
         <p className="mt-1.5 flex-1 text-sm leading-snug text-[#232326]/80 sm:text-base">
           {item.description}
         </p>
@@ -78,7 +82,7 @@ export default function ComponentCatalogCard({ item, onOpen }: ComponentCatalogC
 
         <div className="mt-4 flex items-stretch gap-2 px-4 pb-4 sm:px-5 sm:pb-5">
           <ContactModalTrigger className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-[5px] border border-[#232326]/20 bg-white px-3 text-sm font-medium text-[#232326]/85 transition-colors hover:border-[#232326]/35 hover:text-[#232326] sm:text-base">
-            По запросу
+            {formatPublicSitePrice(item)}
           </ContactModalTrigger>
           <button
             type="button"

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import AdminPageHeader from '@/components/admin/AdminPageHeader'
 import AdminTree from '@/components/admin/AdminTree'
-import CatalogToolbar, { type ViewMode } from '@/components/admin/catalog/CatalogToolbar'
+import CatalogToolbar, { type StatusFilter, type ViewMode } from '@/components/admin/catalog/CatalogToolbar'
 import ProductEditorPanel from '@/components/admin/catalog/ProductEditorPanel'
 import ProductGrid from '@/components/admin/catalog/ProductGrid'
 import ProductTable, { type AdminProductRow } from '@/components/admin/catalog/ProductTable'
@@ -74,12 +74,22 @@ function toRow(item: HumidifierAdminItem): AdminProductRow {
   }
 }
 
+function matchesStatusFilter(item: HumidifierAdminItem, statusFilter: StatusFilter): boolean {
+  const meta = withCatalogProductDefaults(item.product)
+  if (statusFilter === 'published') return meta.published
+  if (statusFilter === 'hidden') return !meta.published
+  if (statusFilter === 'price-visible') return meta.showPriceOnSite
+  if (statusFilter === 'price-hidden') return !meta.showPriceOnSite
+  return true
+}
+
 export default function HumidifiersCatalogAdmin() {
   const [humiProducts, setHumiProducts] = useState<HumiSteamProduct[]>([])
   const [heaterProducts, setHeaterProducts] = useState<HeaterSteamProduct[]>([])
   const [loading, setLoading] = useState(true)
   const [treeNodeId, setTreeNodeId] = useState('humisteam')
   const [search, setSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
   const [viewMode, setViewMode] = useState<ViewMode>('table')
   const [selectedKey, setSelectedKey] = useState<string | null>(null)
   const [drafts, setDrafts] = useState<Record<string, ProductEditorDraft>>({})
@@ -131,8 +141,11 @@ export default function HumidifiersCatalogAdmin() {
   }, [loadCatalog])
 
   const filteredItems = useMemo(
-    () => filterHumidifierProducts(humiProducts, heaterProducts, treeNodeId, search),
-    [heaterProducts, humiProducts, search, treeNodeId]
+    () =>
+      filterHumidifierProducts(humiProducts, heaterProducts, treeNodeId, search).filter((item) =>
+        matchesStatusFilter(item, statusFilter)
+      ),
+    [heaterProducts, humiProducts, search, statusFilter, treeNodeId]
   )
 
   const rows = useMemo(() => filteredItems.map(toRow), [filteredItems])
@@ -398,6 +411,8 @@ export default function HumidifiersCatalogAdmin() {
           <CatalogToolbar
             search={search}
             onSearchChange={setSearch}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
             viewMode={viewMode}
             onViewModeChange={setViewMode}
             totalCount={rows.length}
@@ -421,7 +436,12 @@ export default function HumidifiersCatalogAdmin() {
                     onDuplicate={(id) => void duplicateProduct(id)}
                   />
                 ) : (
-                  <ProductGrid rows={rows} selectedId={selectedKey} onEdit={handleEdit} />
+                  <ProductGrid
+                    rows={rows}
+                    selectedId={selectedKey}
+                    onEdit={handleEdit}
+                    onDuplicate={(id) => void duplicateProduct(id)}
+                  />
                 )}
               </div>
 

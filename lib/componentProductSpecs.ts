@@ -5,14 +5,17 @@ import {
 } from '@/lib/componentProductTabs'
 
 export function getComponentProductTitle(item: ComponentCatalogItem): string {
-  return `${item.sku} ${item.description}`
+  return item.title?.trim() || `${item.sku} ${item.description}`.trim()
 }
 
 export function getComponentProductSpecRows(item: ComponentCatalogItem): { label: string; value: string }[] {
-  return [
-    { label: 'Артикул:', value: item.sku },
-    { label: 'Описание:', value: item.fullDescription },
-  ]
+  const rows = [{ label: 'Артикул:', value: item.sku }]
+
+  if (item.description?.trim()) {
+    rows.push({ label: 'Краткое описание:', value: item.description })
+  }
+
+  return rows
 }
 
 export function getComponentGalleryImages(item: ComponentCatalogItem): readonly string[] {

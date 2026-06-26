@@ -60,12 +60,21 @@ export default function ComponentProductDetail({
         <h1 className="text-2xl font-bold leading-tight text-[#232326] sm:text-3xl lg:text-4xl">
           {displayName}
         </h1>
+        {product.description ? (
+          <p className="mt-2 text-base text-[#232326]/65 sm:text-lg">{product.description}</p>
+        ) : null}
       </header>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
         <CatalogImageSlider images={galleryImages} alt={displayName} />
 
         <div className="min-w-0">
+          {product.fullDescription ? (
+            <div className="mb-6 rounded-lg bg-[#232326]/5 p-4 text-sm leading-relaxed text-[#232326]/85 sm:text-base">
+              {product.fullDescription}
+            </div>
+          ) : null}
+
           <h2 className="text-lg font-bold text-[#232326] sm:text-xl">Характеристики:</h2>
 
           <dl className="mt-4 space-y-2.5 sm:mt-5 sm:space-y-3">

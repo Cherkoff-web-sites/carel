@@ -115,7 +115,7 @@ export default function BulkCatalogAdmin() {
   )
 
   const toggleAll = () => {
-    if (selected.size === filtered.length) {
+    if (selectedItems.length === filtered.length) {
       setSelected(new Set())
     } else {
       setSelected(new Set(filtered.map((row) => row.key)))
@@ -164,8 +164,8 @@ export default function BulkCatalogAdmin() {
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <AdminPageHeader
-        title="Массовое редактирование"
-        description="Выделите товары и примените изменения ко всем сразу."
+        title="Массовое табличное редактирование"
+        description="Выделите товары в таблице и примените цену, публикацию, фото или вкладки ко всем выбранным позициям."
       />
 
       {message ? (
@@ -325,7 +325,7 @@ export default function BulkCatalogAdmin() {
                 <th className="px-3 py-2">
                   <input
                     type="checkbox"
-                    checked={filtered.length > 0 && selected.size === filtered.length}
+                    checked={filtered.length > 0 && selectedItems.length === filtered.length}
                     onChange={toggleAll}
                   />
                 </th>

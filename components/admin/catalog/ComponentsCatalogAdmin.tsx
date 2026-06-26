@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import AdminPageHeader from '@/components/admin/AdminPageHeader'
 import AdminTree from '@/components/admin/AdminTree'
-import CatalogToolbar, { type ViewMode } from '@/components/admin/catalog/CatalogToolbar'
+import CatalogToolbar, { type StatusFilter, type ViewMode } from '@/components/admin/catalog/CatalogToolbar'
 import ProductEditorPanel from '@/components/admin/catalog/ProductEditorPanel'
 import ProductGrid from '@/components/admin/catalog/ProductGrid'
 import ProductTable, { type AdminProductRow } from '@/components/admin/catalog/ProductTable'
@@ -46,11 +46,21 @@ function toRow(item: ComponentCatalogItem): AdminProductRow {
   }
 }
 
+function matchesStatusFilter(item: ComponentCatalogItem, statusFilter: StatusFilter): boolean {
+  const meta = withCatalogProductDefaults(item)
+  if (statusFilter === 'published') return meta.published
+  if (statusFilter === 'hidden') return !meta.published
+  if (statusFilter === 'price-visible') return meta.showPriceOnSite
+  if (statusFilter === 'price-hidden') return !meta.showPriceOnSite
+  return true
+}
+
 export default function ComponentsCatalogAdmin() {
   const [products, setProducts] = useState<ComponentCatalogItem[]>([])
   const [loading, setLoading] = useState(true)
   const [treeNodeId, setTreeNodeId] = useState(COMPONENTS_DEFAULT_SECTION_ID)
   const [search, setSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
   const [viewMode, setViewMode] = useState<ViewMode>('table')
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [drafts, setDrafts] = useState<Record<string, ProductEditorDraft>>({})
@@ -89,8 +99,11 @@ export default function ComponentsCatalogAdmin() {
   }, [loadCatalog])
 
   const filtered = useMemo(
-    () => filterComponentProducts(products, treeNodeId, search),
-    [products, search, treeNodeId]
+    () =>
+      filterComponentProducts(products, treeNodeId, search).filter((item) =>
+        matchesStatusFilter(item, statusFilter)
+      ),
+    [products, search, statusFilter, treeNodeId]
   )
 
   const rows = useMemo(() => filtered.map(toRow), [filtered])
@@ -306,6 +319,8 @@ export default function ComponentsCatalogAdmin() {
           <CatalogToolbar
             search={search}
             onSearchChange={setSearch}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
             viewMode={viewMode}
             onViewModeChange={setViewMode}
             totalCount={rows.length}
@@ -329,7 +344,12 @@ export default function ComponentsCatalogAdmin() {
                     onDuplicate={(id) => void duplicateProduct(id)}
                   />
                 ) : (
-                  <ProductGrid rows={rows} selectedId={selectedId} onEdit={handleEdit} />
+                  <ProductGrid
+                    rows={rows}
+                    selectedId={selectedId}
+                    onEdit={handleEdit}
+                    onDuplicate={(id) => void duplicateProduct(id)}
+                  />
                 )}
               </div>
 

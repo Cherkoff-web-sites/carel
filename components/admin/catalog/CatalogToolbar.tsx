@@ -1,29 +1,34 @@
 'use client'
 
-import AdminInactiveField from '@/components/admin/AdminInactiveField'
-
 type ViewMode = 'table' | 'grid'
+type StatusFilter = 'all' | 'published' | 'hidden' | 'price-visible' | 'price-hidden'
 
 type CatalogToolbarProps = {
   search: string
   onSearchChange: (value: string) => void
+  statusFilter: StatusFilter
+  onStatusFilterChange: (value: StatusFilter) => void
   viewMode: ViewMode
   onViewModeChange: (mode: ViewMode) => void
   totalCount: number
   onCreate?: () => void
   creating?: boolean
   exportHref?: string
+  bulkHref?: string
 }
 
 export default function CatalogToolbar({
   search,
   onSearchChange,
+  statusFilter,
+  onStatusFilterChange,
   viewMode,
   onViewModeChange,
   totalCount,
   onCreate,
   creating = false,
   exportHref,
+  bulkHref = '/admin/catalog/bulk',
 }: CatalogToolbarProps) {
   return (
     <div className="shrink-0 space-y-3 border-b border-gray-200 bg-white px-3 py-3 sm:px-4">
@@ -36,8 +41,20 @@ export default function CatalogToolbar({
       />
 
       <div className="flex flex-wrap items-center gap-2">
-        <AdminInactiveField label="Статус: все" />
-        <AdminInactiveField label="Черновики" />
+        <label className="text-xs font-medium text-[#232326]/60">
+          Статус
+          <select
+            value={statusFilter}
+            onChange={(event) => onStatusFilterChange(event.target.value as StatusFilter)}
+            className="ml-2 rounded-[5px] border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-[#232326]"
+          >
+            <option value="all">Все товары</option>
+            <option value="published">Опубликованные</option>
+            <option value="hidden">Скрытые</option>
+            <option value="price-visible">Цена видна на сайте</option>
+            <option value="price-hidden">Цена скрыта на сайте</option>
+          </select>
+        </label>
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -71,6 +88,14 @@ export default function CatalogToolbar({
               Excel
             </a>
           ) : null}
+          {bulkHref ? (
+            <a
+              href={bulkHref}
+              className="rounded-[5px] border border-[#E62614]/30 bg-[#E62614]/5 px-3 py-2 text-sm font-medium text-[#E62614] hover:bg-[#E62614]/10"
+            >
+              Массовое редактирование
+            </a>
+          ) : null}
           {onCreate ? (
             <button
               type="button"
@@ -87,4 +112,4 @@ export default function CatalogToolbar({
   )
 }
 
-export type { ViewMode }
+export type { StatusFilter, ViewMode }

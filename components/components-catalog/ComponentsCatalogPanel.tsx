@@ -6,11 +6,14 @@ import {
   getSectionLabel,
   type ComponentCatalogItem,
 } from '@/lib/componentsCatalogData'
+import type { PublicPriceFields } from '@/lib/catalogProductMeta'
+
+type ComponentCatalogProduct = ComponentCatalogItem & PublicPriceFields
 
 type ComponentsCatalogPanelProps = {
   sectionId: string
-  products: ComponentCatalogItem[]
-  onOpenProduct: (product: ComponentCatalogItem) => void
+  products: ComponentCatalogProduct[]
+  onOpenProduct: (product: ComponentCatalogProduct) => void
 }
 
 export default function ComponentsCatalogPanel({

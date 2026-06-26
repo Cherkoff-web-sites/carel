@@ -53,7 +53,7 @@ export default function ProductEditorPanel({
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-white">
-      <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+      <div className="flex items-center justify-between gap-3 border-b border-gray-200 px-5 py-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-[#232326]/50">Редактор товара</p>
           <h2 className="mt-0.5 text-lg font-bold text-[#232326]">{sku}</h2>
@@ -61,13 +61,22 @@ export default function ProductEditorPanel({
             <p className="mt-1 text-xs font-medium text-amber-700">Скрыт с сайта</p>
           ) : null}
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-md px-3 py-1.5 text-sm text-[#232326]/70 hover:bg-gray-100"
-        >
-          Закрыть
-        </button>
+        <div className="flex shrink-0 items-center gap-2">
+          <Button
+            onClick={onSave}
+            disabled={saving}
+            className="bg-[#E62614] px-3 py-2 text-sm text-white hover:bg-[#E62614]/90"
+          >
+            {saving ? 'Сохранение…' : 'Сохранить'}
+          </Button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-md px-3 py-1.5 text-sm text-[#232326]/70 hover:bg-gray-100"
+          >
+            Закрыть
+          </button>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 sm:p-5">
@@ -81,8 +90,12 @@ export default function ProductEditorPanel({
           <div className="space-y-5">
             <section className="space-y-3">
               <h3 className="text-sm font-semibold text-[#232326]">Витрина</h3>
+              <p className="rounded-[5px] bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800">
+                После изменения названия, цены, публикации или вкладок нажмите «Сохранить».
+                Изменения сразу попадут на сайт.
+              </p>
               <label className="block">
-                <span className="mb-1 block text-xs font-medium text-[#232326]/70">Название</span>
+                <span className="mb-1 block text-xs font-medium text-[#232326]/70">Название на сайте</span>
                 <input
                   type="text"
                   value={draft.title}
