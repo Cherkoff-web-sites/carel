@@ -155,6 +155,13 @@ export default function ContactModal({
                 className="w-full rounded-[5px] bg-[#c8c8c8] px-4 py-3.5 text-base text-[#232326] placeholder:text-white/95 focus:outline-none focus:ring-2 focus:ring-[#E62614]/40"
               />
               <input
+                type="email"
+                name="email"
+                autoComplete="email"
+                placeholder="Электронная почта"
+                className="w-full rounded-[5px] bg-[#c8c8c8] px-4 py-3.5 text-base text-[#232326] placeholder:text-white/95 focus:outline-none focus:ring-2 focus:ring-[#E62614]/40"
+              />
+              <input
                 type="text"
                 name="reason"
                 placeholder="Причина обращения"
@@ -170,7 +177,7 @@ export default function ContactModal({
                 disabled={!consent}
                 className="mt-1 w-full rounded-[5px] bg-[#E62614] px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#E62614]/90 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Перезвонить мне
+                Отправить заявку
               </button>
             </form>
           </>

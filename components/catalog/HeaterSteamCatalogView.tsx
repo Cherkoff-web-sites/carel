@@ -10,7 +10,8 @@ import CatalogProductRow from '@/components/catalog/CatalogProductRow'
 import HeaterSteamProductDetail from '@/components/catalog/HeaterSteamProductDetail'
 import { catalogIdToHeatersteamVariantId, type HeatersteamVariantId } from '@/lib/catalogData'
 import { heatersteamToCartItem } from '@/lib/cartFromProduct'
-import { scrollToPageTop } from '@/lib/scrollToPageTop'
+import { HEADER_SCROLL_MARGIN_CLASS } from '@/lib/constants'
+import { scrollToElement } from '@/lib/scrollToPageTop'
 import { useCatalogProducts } from '@/hooks/useCatalogProducts'
 import {
   filterProducts,
@@ -36,6 +37,7 @@ export default function HeaterSteamCatalogView({
   onCatalogSelect,
 }: HeaterSteamCatalogViewProps) {
   const listRef = useRef<HTMLDivElement>(null)
+  const productDetailRef = useRef<HTMLElement>(null)
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -115,7 +117,7 @@ export default function HeaterSteamCatalogView({
     if (!selectedProduct) {
       return
     }
-    scrollToPageTop()
+    scrollToElement(productDetailRef.current)
   }, [selectedProduct?.id])
 
   useEffect(() => {
@@ -163,7 +165,7 @@ export default function HeaterSteamCatalogView({
     const variantProducts = getProductsForVariant(products, selectedProduct.variantId)
 
     return (
-      <article className="min-w-0">
+      <article ref={productDetailRef} className={`min-w-0 ${HEADER_SCROLL_MARGIN_CLASS}`}>
         <HeaterSteamProductDetail
           product={selectedProduct}
           variantProducts={variantProducts}

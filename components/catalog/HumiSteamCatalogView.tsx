@@ -8,7 +8,8 @@ import CatalogPerformanceGrid from '@/components/catalog/CatalogPerformanceGrid'
 import CatalogImageSlider from '@/components/catalog/CatalogImageSlider'
 import CatalogProductRow from '@/components/catalog/CatalogProductRow'
 import { humisteamToCartItem } from '@/lib/cartFromProduct'
-import { scrollToPageTop } from '@/lib/scrollToPageTop'
+import { HEADER_SCROLL_MARGIN_CLASS } from '@/lib/constants'
+import { scrollToElement } from '@/lib/scrollToPageTop'
 import HumiSteamProductDetail from '@/components/catalog/HumiSteamProductDetail'
 import {
   catalogIdToModelId,
@@ -39,6 +40,7 @@ export default function HumiSteamCatalogView({
   onCatalogSelect,
 }: HumiSteamCatalogViewProps) {
   const listRef = useRef<HTMLDivElement>(null)
+  const productDetailRef = useRef<HTMLElement>(null)
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -121,7 +123,7 @@ export default function HumiSteamCatalogView({
     if (!selectedProduct) {
       return
     }
-    scrollToPageTop()
+    scrollToElement(productDetailRef.current)
   }, [selectedProduct?.id])
 
   useEffect(() => {
@@ -171,7 +173,7 @@ export default function HumiSteamCatalogView({
     const modelProducts = getProductsForModel(products, selectedProduct.modelId)
 
     return (
-      <article className="min-w-0">
+      <article ref={productDetailRef} className={`min-w-0 ${HEADER_SCROLL_MARGIN_CLASS}`}>
         <HumiSteamProductDetail
           product={selectedProduct}
           modelProducts={modelProducts}

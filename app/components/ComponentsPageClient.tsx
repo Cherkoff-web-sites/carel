@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import CatalogSidebar from '@/components/catalog/CatalogSidebar'
 import ComponentProductDetail from '@/components/components-catalog/ComponentProductDetail'
@@ -18,7 +18,8 @@ import {
   COMPONENTS_CATALOG_TREE,
   COMPONENTS_DEFAULT_SECTION_ID,
 } from '@/lib/componentsCatalogTree'
-import { scrollToPageTop } from '@/lib/scrollToPageTop'
+import { HEADER_SCROLL_MARGIN_CLASS } from '@/lib/constants'
+import { scrollToElement } from '@/lib/scrollToPageTop'
 import type { PublicPriceFields } from '@/lib/catalogProductMeta'
 
 type ComponentCatalogProduct = ComponentCatalogItem & PublicPriceFields
@@ -31,6 +32,7 @@ export default function ComponentsPageClient() {
 
   const [activeSectionId, setActiveSectionId] = useState(COMPONENTS_DEFAULT_SECTION_ID)
   const [selectedProduct, setSelectedProduct] = useState<ComponentCatalogProduct | null>(null)
+  const productDetailRef = useRef<HTMLElement>(null)
 
   const syncUrl = useCallback(
     (sectionId: string, productId: string | null) => {
@@ -94,7 +96,7 @@ export default function ComponentsPageClient() {
     if (!selectedProduct) {
       return
     }
-    scrollToPageTop()
+    scrollToElement(productDetailRef.current)
   }, [selectedProduct?.id])
 
   const sectionProducts = getComponentsForSection(
@@ -121,12 +123,14 @@ export default function ComponentsPageClient() {
       />
       <div className="min-w-0 flex-1">
         {selectedProduct ? (
-          <ComponentProductDetail
-            product={selectedProduct}
-            sectionProducts={sectionProducts}
-            onBack={closeProduct}
-            onSelectProduct={openProduct}
-          />
+          <article ref={productDetailRef} className={`min-w-0 ${HEADER_SCROLL_MARGIN_CLASS}`}>
+            <ComponentProductDetail
+              product={selectedProduct}
+              sectionProducts={sectionProducts}
+              onBack={closeProduct}
+              onSelectProduct={openProduct}
+            />
+          </article>
         ) : (
           <ComponentsCatalogPanel
             sectionId={activeSectionId}
